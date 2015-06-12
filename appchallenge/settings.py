@@ -27,6 +27,8 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+PRODUCTION = os.environ.get('PRODUCTION')
+
 
 # Application definition
 
@@ -37,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'challenge',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -85,17 +88,17 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+if PRODUCTION:
+    # Parse database configuration from $DATABASE_URL
+    DATABASES['default'] = dj_database_url.config()
 
-# Parse database configuration from $DATABASE_URL
-DATABASES['default'] = dj_database_url.config()
-
-# Enable Connection Pooling (if desired)
-DATABASES['default']['ENGINE'] = 'django_postgrespool'
+    # Enable Connection Pooling (if desired)
+    DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
