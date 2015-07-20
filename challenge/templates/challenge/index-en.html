@@ -1,221 +1,109 @@
-<!DOCTYPE html><!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]--><!--[if gt IE 8]><!-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 {% load staticfiles %}
-<html class="no-js" lang="en" dir="ltr">
-<!--<![endif]-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="utf-8">
-<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
-wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-<title>Government of Canada - App Challenge 2015
-</title>
-<meta content="width=device-width,initial-scale=1" name="viewport">
-<!-- Meta data -->
-<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
-<meta name="dcterms.title" content="Government of Canada Intranet theme - Web Experience Toolkit">
-<meta name="dcterms.creator" content="French name of the content author / Nom en français de l'auteur du contenu">
-<meta name="dcterms.issued" title="W3CDTF" content="Date published (YYYY-MM-DD) / Date de publication (AAAA-MM-JJ)">
-<meta name="dcterms.modified" title="W3CDTF" content="Date modified (YYYY-MM-DD) / Date de modification (AAAA-MM-JJ)">
-<meta name="dcterms.subject" title="scheme" content="French subject terms / Termes de sujet en français">
-<meta name="dcterms.language" title="ISO639-2" content="eng">
-<!-- Meta data-->
-<!--[if gte IE 9 | !IE ]><!-->
-<link href="{% static 'assets/favicon.ico' %}" rel="icon" type="image/x-icon">
-<link rel="stylesheet" href="{% static 'css/wet-boew.min.css' %}">
-<!--<![endif]-->
-<link rel="stylesheet" href="{% static 'css/theme.min.css' %}">
-<!--[if lt IE 9]>
-<link href="./assets/favicon.ico" rel="shortcut icon" />
-<link rel="stylesheet" href="./css/ie8-wet-boew.min.css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="./js/ie8-wet-boew.min.js"></script>
-<![endif]-->
-<noscript><link rel="stylesheet" href="{% static 'challenge/css/noscript.min.css" /></noscript>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>SymiSun* - Free CSS Template 01</title>
+<meta name="Description" content="FCT01 by SymiSun* is an open source XHTML 1.0 and CSS valid template, released under the creative commons license." />
+<meta name="Keywords" content="symisun, symisun*, free css template, valid xhtml template, open source template, free xhtml template, ftc01, symisun 01" />
+<link rel="stylesheet" media="screen" href="{% static 'css/style.css' %}" />
+<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /><!-- custom favicon -->
+<meta name="Author" content="SymiSun* - symisun.com" />
+<meta name="Robots" content="index,follow" />
+<meta http-equiv="imagetoolbar" content="no" /><!-- disable IE's image toolbar -->
 </head>
-<body vocab="http://schema.org/" typeof="WebPage">
-<ul id="wb-tphp">
-<li class="wb-slc">
-<a class="wb-sl" href="#wb-cont">Skip to main content</a>
-</li>
-<li class="wb-slc visible-sm visible-md visible-lg">
-<a class="wb-sl" href="#wb-info">Skip to "About this site"</a>
-</li>
-</ul>
-<header role="banner">
-<div id="wb-bnr">
-<div id="wb-bar">
-<div class="container">
-<div class="row">
-<object id="gcwu-sig" type="image/svg+xml" tabindex="-1" role="img" data="./assets/sig-blk-en.svg" aria-label="Government of Canada"></object>
-<section id="wb-lng"><h2>Language selection</h2>
-<ul class="list-inline">
-<li><a lang="fr" href="index-fr.html">Français</a></li>
-</ul>
-</section>
-<section class="wb-mb-links col-xs-12 visible-sm visible-xs" id="wb-glb-mn">
-<h2>Search and menus</h2>
-<ul class="pnl-btn list-inline text-right">
-<li><a href="#mb-pnl" title="Search and menus" aria-controls="mb-pnl" class="overlay-lnk btn btn-sm btn-default" role="button"><span class="glyphicon glyphicon-search"><span class="glyphicon glyphicon-th-list"><span class="wb-inv">Search and menus</span></span></span></a></li>
-</ul>
-<div id="mb-pnl"></div>
-</section>
-</div>
-</div>
-</div>
-<div class="container">
-<div class="row">
-<div id="wb-sttl" class="col-md-12">
-<a href="http://wet-boew.github.io/v4.0-ci/index-en.html">
-<span>AppChallenge 2015</span>
-</a>
-<object id="wmms" type="image/svg+xml" tabindex="-1" role="img" data="././assets/wmms-intra.svg" aria-label="Symbol of the Government of Canada"></object>
-</div>
-<section id="wb-srch" class="visible-md visible-lg">
-<h2>Search</h2>
-<form action="https://google.ca/search" method="get" role="search" class="form-inline">
-<div class="form-group">
-<label for="wb-srch-q">Search website</label>
-<input id="wb-srch-q" class="form-control" name="q" type="search" value="" size="27" maxlength="150">
-<input type="hidden" name="q" value="site:appchallenge2015.herokuapp.com/ OR site:github.com/wet-boew/">
-</div>
-<button type="submit" id="wb-srch-sub" class="btn btn-default">Search</button>
-</form>
-</section>
-</div>
-</div>
-</div>
-<nav role="navigation" id="wb-sm" data-ajax-replace="./ajax/sitemenu-en.html" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
-<div class="container nvbar">
-<h2>Topics menu</h2>
-<div class="row">
-<ul class="list-inline menu">
-<li><a href="{% static 'challenge/index-en.html' %}">WET project</a></li>
-<li><a href="{% static 'challenge/docs/start-en.html#implement' %}">Implement WET</a></li>
-<li><a href="{% static 'challenge/docs/start-en.html' %}">Contribute to WET</a></li>
-</ul>
-</div>
-</div>
-</nav>
-<nav role="navigation" id="wb-bc" property="breadcrumb">
-<h2>You are here:</h2>
-<div class="container">
-<div class="row">
-<ol class="breadcrumb">
-<li>
-<a href="http://wet-boew.github.io/v4.0-ci/index-en.html">Home</a>
-</li>
-<li>
-<a href="http://wet-boew.github.io/v4.0-ci/demos/index-en.html">Working examples</a>
-</li>
-<li>Meet the Challenge!</li>
-</ol>
-</div>
-</div>
-</nav>
-</header>
-<main role="main" property="mainContentOfPage" class="container">
-<h1 id="wb-cont" property="name">2015 GC App Challenge</h1>
-<p>
-<a class="btn btn-primary" href="docs/ref/theme-gc-intranet/theme-gc-intranet-en.html">Documentation</a>
-<a class="btn btn-primary" href="https://github.com/wet-boew/theme-gc-intranet/issues/new?title=Government%20of%20Canada%20Intranet%20theme:%20">Questions or comments?</a>
-<a class="btn btn-primary" href="https://github.com/wet-boew/theme-gc-intranet/issues/new?title=Government%20of%20Canada%20Intranet%20theme:%20">Add an App!</a>
-</p>
-<section>
-<h2>Table of contents</h2>
-<p>This where we'll put all the awesome, short splash information about the challenge.</p>
-<ul>
 
-<li><a href="#en">English</a></li>
-
-<li><a href="#fr">French</a></li>
-
-</ul>
-</section>
-<section>
-
-<h2 id="en">English</h2>
-<ul>
-<li><a href="content-en.html">Content page</a></li>
-<li><a href="content-secmenu-en.html">Content page - Secondary menu</a></li>
-<li><a href="content-subsite-en.html">Content page - Sub-site</a></li>
-<li><a href="content-nosearchlang-en.html">Content page - No search or language selection link</a></li>
-<li><a href="content-nositemenubc-en.html">Content page - No site menu or breadcrumb trail</a></li>
-<li><a href="content-nosearchlangsitemenubc-en.html">Content page - No search, language selection link, site menu or breadcrumb trail</a></li>
-<li><a href="splashpage-en.html">Splash page</a></li>
-<li><a href="404-en.html">404 error page</a></li>
-<li><a href="404-en-fr.html">404 error page (English/French)</a></li>
-<li><a href="servermessage-en-fr.html">Server message page (English/French)</a></li>
-<li><a href="servermessage-en.html">Server message page</a></li>
-</ul>
-</section>
-
-<h2 id="fr">French</h2>
-<ul>
-<li><a href="content-fr.html">Content page</a></li>
-<li><a href="content-secmenu-fr.html">Content page - Secondary menu</a></li>
-<li><a href="content-subsite-fr.html">Content page - Sub-site</a></li>
-<li><a href="content-nosearchlang-fr.html">Content page - No search or language selection link</a></li>
-<li><a href="content-nositemenubc-fr.html">Content page - No site menu or breadcrumb trail</a></li>
-<li><a href="content-nosearchlangsitemenubc-fr.html">Content page - No search, language selection link, site menu or breadcrumb trail</a></li>
-<li><a href="splashpage-fr.html">Splash page</a></li>
-<li><a href="404-fr.html">404 error page</a></li>
-<li><a href="404-fr-en.html">404 error page (French/English)</a></li>
-<li><a href="servermessage-fr-en.html">Server message page (French/English)</a></li>
-<li><a href="servermessage-fr.html">Server message page</a></li>
-</ul>
-</section>
-
-<dl id="wb-dtmd">
-<dt>Date modified:&#32;</dt>
-<dd><time property="dateModified">2014-08-19</time></dd>
-</dl>
-</main>
-<footer role="contentinfo" id="wb-info" class="visible-sm visible-md visible-lg wb-navcurr">
-<div class="container">
-<nav role="navigation">
-<h2>About this site</h2>
-<div class="row">
-<section class="col-sm-3">
-<h3>Contact us</h3>
-<ul class="list-unstyled">
-<li><a href="https://github.com/wet-boew/wet-boew/issues/new">Questions or comments?</a></li>
-</ul>
-</section>
-<section class="col-sm-3">
-<h3>About</h3>
-<ul class="list-unstyled">
-<li><a href="http://wet-boew.github.io/v4.0-ci/index-en.html#about">About the Web Experience Toolkit</a></li>
-<li><a href="http://www.tbs-sct.gc.ca/ws-nw/index-eng.asp">About the Web Standards</a></li>
-</ul>
-</section>
-<section class="col-sm-3">
-<h3>News</h3>
-<ul class="list-unstyled">
-<li><a href="https://github.com/wet-boew/wet-boew/pulse">Recent project activity</a></li>
-<li><a href="https://github.com/wet-boew/wet-boew/graphs">Project statistics</a></li>
-</ul>
-</section>
-<section class="col-sm-3">
-<h3>Stay connected</h3>
-<ul class="list-unstyled">
-<li><a href="https://twitter.com/WebExpToolkit">Twitter</a></li>
-</ul>
-</section>
-</div>
-<ul id="gc-tctr" class="list-inline">
-<li><a rel="license" href="http://wet-boew.github.io/wet-boew/License-en.html">Terms and conditions</a></li>
-<li><a href="http://www.tbs-sct.gc.ca/tbs-sct/common/trans-eng.asp">Transparency</a></li>
-</ul>
-</nav>
-</div>
-</footer>
-<!--[if gte IE 9 | !IE ]><!-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
-<script src="{% static 'js/wet-boew.min.js' %}"></script>
-<!--<![endif]-->
-<!--[if lt IE 9]>
-<script src="./js/ie8-wet-boew2.min.js"></script>
-
-<![endif]-->
-<script src="{% static 'js/theme.min.js' %}"></script>
+<body>
+<div id="daddy">
+	<div id="header">
+		<div id="logo"><a href="./"><img src="images/logo.gif" alt="Your Company Logo" width="318" height="85" /></a><span id="logo-text"><a href="./">Your Company</a></span></div><!-- logo -->
+		<div id="menu">
+			<ul>
+				<li><a href="./" id="active">Home</a></li>
+				<li><a href="./">Articles</a></li>
+				<li><a href="./">Forums</a></li>
+				<li><a href="./">Gallery</a></li>
+				<li><a href="./">Links</a></li>
+				<li><a href="./">Contact</a></li>
+			</ul>
+		</div><!-- menu -->
+		<div id="ticker">
+			Visit <a href="http://www.symisun.com/templates/">templates area</a> on our site to get the latest version of this template and more free templates.
+		</div><!-- ticker -->
+		<div id="headerimage">
+			<div id="download"><span id="download-text"><a href="http://www.symisun.com/index.php?dl_id=1">download this amazing<br />CSS template for FREE!</a></span></div><!-- download -->
+			<div id="icons">
+				<a href="./" ><img src="images/icon_home.gif" alt="Home" width="13" height="13" id="home" /></a>
+				<a href="./"><img src="images/icon_sitemap.gif" alt="Sitemap" width="13" height="13" id="sitemap" /></a>
+				<a href="./"><img src="images/icon_contact.gif" alt="Contact" width="13" height="13" id="contact" /></a>			</div><!-- icons -->
+			<div id="slogan">your slogan could go here</div>
+		</div>
+		<!-- headerimage -->
+	</div>
+	<!-- header -->
+	<div id="content">
+		<div id="cA">
+			<div class="Ctopleft"></div>
+			<h3>SEARCH</h3>
+			<div id="search">
+				<input type="text" class="search" /><input type="submit" class="submit" value="Submit" />
+			</div><!-- search -->
+			<p>&nbsp;</p>
+			<h3>TESTIMONIALS</h3>
+			<p class="testimonial"><img src="images/testi_skuola.jpg" alt="Skuola Screenshot Piece" width="87" height="100" class="leflo" />They are not just graphic artists, they are artists. They brought my ideas to reality making my portal's graphics simple, lightweight and intuitive. I especially appreciated their helpful attitude in looking together for the best solution. Impressive!<br /><strong>Marco from Skuola.net</strong></p>
+			<p class="testimonial"><img src="images/testi_tmm.jpg" alt="The Music Magazine Screenshot Piece" width="87" height="100" class="leflo" />Their knowledge of web design has been invaluable in creating a website fit for public use. I received a range of affordable packages, and they were happy to spend as much time as we needed to make sure everything was perfect for my launch date. Full marks!<br /><strong>Scott from TheMusicMagazine.co.uk</strong></p>
+		</div><!-- cA -->
+		<div id="cB">
+			<div class="Ctopright"></div>
+			<div id="cB1">
+				<h3>ABOUT SYMISUN* &amp; TERMS OF USE</h3>
+				<div class="news">
+					<p>SymiSun* is a newly formed company offering various internet solutions. To celebrate the launch of our website, we decided to give away this commercial CSS template, normally worth over $300, for FREE. </p>
+				</div>
+				<div class="news">
+					<p>We aim to show our appreciation to the web community with this move and at the same time spread the word of our existence. </p>
+				</div>
+				<div class="news">
+					<p>You may use this template freely either for personal or commercial projects, but we require that you keep the 3 words with the link at the bottom of the template saying Designed by SymiSun*. </p>
+				</div>
+				<div class="news">
+					<p>Feel free to modify the template to suit your needs, and even sell it to 3rd parties, but remember that you have to keep our copyright. Fair enough, OK? </p>
+				</div>
+				<div class="news">
+					<p>Should you be interested in acquiring the PSD of this template, contact us. </p>
+				</div>
+			</div><!-- cB1 -->
+			<div id="cB2">
+				<h3>TEMPLATE FEATURES</h3>
+				<div class="about">
+					<ul>
+						<li>100% height, no matter how long the content goes</li>
+						<li>Compatible with screen resolution of 1024x768 and higher</li>
+						<li>A simple yet impressive and totally brandable template</li>
+						<li>Tested to work faultlessly in IE 6, IE 7, FireFox 2 and Opera 9.1</li>
+						<li>Lightweight code of under 14KB and images under 48KB, a total of under 62KB</li>
+						<li>Unique icons that we have designed especially for this template</li>
+						<li>A free sample logo for anyone to use and edit according to needs</li>
+						<li>A PSD available for sale with all graphics in layers for even easier editing</li>
+					</ul>
+				</div>
+				<div id="newsletter"><span id="newsletter-title"><a href="http://www.symisun.com/newsletter/en">Newsletter</a></span> <p id="newsletter-text"><a href="http://www.symisun.com/newsletter/en">Click here to register for SymiSun's monthly newsletter</a></p></div><!-- newsletter -->
+			</div><!-- cB2 -->
+		</div><!-- cB -->
+		<div class="Cpad">
+			<br class="clear" /><div class="Cbottomleft"></div><div class="Cbottom"></div><div class="Cbottomright"></div>
+		</div><!-- Cpad -->
+	</div><!-- content -->
+	<div id="properspace"></div><!-- properspace -->
+</div><!-- daddy -->
+<div id="footer">
+	<div id="foot">
+		<div id="foot1"><a href="./">Privacy Policy</a> - <a href="./">Terms Of Use</a></div><!-- foot1 -->
+		<div id="foot2">
+			<span class="valid">Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> + <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a></span>Copyright 2007, Your Company. Designed by <a href="http://www.symisun.com/" title="We digitalize your ambitions">SymiSun<span class="star">*</span></a>
+		</div><!-- foot1 -->
+	</div><!-- foot -->
+</div><!-- footer -->
 </body>
 </html>
