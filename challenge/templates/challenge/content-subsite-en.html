@@ -1,17 +1,16 @@
 <!DOCTYPE html><!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]--><!--[if gt IE 8]><!-->
-{% load staticfiles %}
 <html class="no-js" lang="en" dir="ltr">
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">
 <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
 wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-<title>Government of Canada - App Challenge 2015
+<title>Content page - Sub-site - Government of Canada Intranet theme - Working examples - Web Experience Toolkit
 </title>
 <meta content="width=device-width,initial-scale=1" name="viewport">
 <!-- Meta data -->
 <meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
-<meta name="dcterms.title" content="Government of Canada Intranet theme - Web Experience Toolkit">
+<meta name="dcterms.title" content="Content page - Sub-site - Web Experience Toolkit">
 <meta name="dcterms.creator" content="French name of the content author / Nom en français de l'auteur du contenu">
 <meta name="dcterms.issued" title="W3CDTF" content="Date published (YYYY-MM-DD) / Date de publication (AAAA-MM-JJ)">
 <meta name="dcterms.modified" title="W3CDTF" content="Date modified (YYYY-MM-DD) / Date de modification (AAAA-MM-JJ)">
@@ -19,17 +18,17 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <meta name="dcterms.language" title="ISO639-2" content="eng">
 <!-- Meta data-->
 <!--[if gte IE 9 | !IE ]><!-->
-<link href="{% static 'assets/favicon.ico' %}" rel="icon" type="image/x-icon">
-<link rel="stylesheet" href="{% static 'css/wet-boew.min.css' %}">
+<link href="./assets/favicon.ico" rel="icon" type="image/x-icon">
+<link rel="stylesheet" href="./css/wet-boew.min.css">
 <!--<![endif]-->
-<link rel="stylesheet" href="{% static 'css/theme.min.css' %}">
+<link rel="stylesheet" href="./css/theme.min.css">
 <!--[if lt IE 9]>
 <link href="./assets/favicon.ico" rel="shortcut icon" />
 <link rel="stylesheet" href="./css/ie8-wet-boew.min.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="./js/ie8-wet-boew.min.js"></script>
 <![endif]-->
-<noscript><link rel="stylesheet" href="{% static 'challenge/css/noscript.min.css" /></noscript>
+<noscript><link rel="stylesheet" href="./css/noscript.min.css" /></noscript>
 </head>
 <body vocab="http://schema.org/" typeof="WebPage">
 <ul id="wb-tphp">
@@ -48,7 +47,7 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <object id="gcwu-sig" type="image/svg+xml" tabindex="-1" role="img" data="./assets/sig-blk-en.svg" aria-label="Government of Canada"></object>
 <section id="wb-lng"><h2>Language selection</h2>
 <ul class="list-inline">
-<li><a lang="fr" href="index-fr.html">Français</a></li>
+<li><a lang="fr" href="content-fr.html">Français</a></li>
 </ul>
 </section>
 <section class="wb-mb-links col-xs-12 visible-sm visible-xs" id="wb-glb-mn">
@@ -65,7 +64,7 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <div class="row">
 <div id="wb-sttl" class="col-md-12">
 <a href="http://wet-boew.github.io/v4.0-ci/index-en.html">
-<span>AppChallenge 2015</span>
+<span>Web Experience Toolkit</span>
 </a>
 <object id="wmms" type="image/svg+xml" tabindex="-1" role="img" data="././assets/wmms-intra.svg" aria-label="Symbol of the Government of Canada"></object>
 </div>
@@ -75,11 +74,22 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <div class="form-group">
 <label for="wb-srch-q">Search website</label>
 <input id="wb-srch-q" class="form-control" name="q" type="search" value="" size="27" maxlength="150">
-<input type="hidden" name="q" value="site:appchallenge2015.herokuapp.com/ OR site:github.com/wet-boew/">
+<input type="hidden" name="q" value="site:wet-boew.github.io OR site:github.com/wet-boew/">
 </div>
 <button type="submit" id="wb-srch-sub" class="btn btn-default">Search</button>
 </form>
 </section>
+</div>
+</div>
+</div>
+<div id="wb-bnr-ss">
+<div class="container">
+<div class="row col-md-12">
+<div id="wb-ss">
+<a href="#">
+Sub-site name
+</a>
+</div>
 </div>
 </div>
 </div>
@@ -88,9 +98,9 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <h2>Topics menu</h2>
 <div class="row">
 <ul class="list-inline menu">
-<li><a href="{% static 'challenge/index-en.html' %}">WET project</a></li>
-<li><a href="{% static 'challenge/docs/start-en.html#implement' %}">Implement WET</a></li>
-<li><a href="{% static 'challenge/docs/start-en.html' %}">Contribute to WET</a></li>
+<li><a href="./index-en.html">WET project</a></li>
+<li><a href="./docs/start-en.html#implement">Implement WET</a></li>
+<li><a href="./docs/start-en.html">Contribute to WET</a></li>
 </ul>
 </div>
 </div>
@@ -106,67 +116,126 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <li>
 <a href="http://wet-boew.github.io/v4.0-ci/demos/index-en.html">Working examples</a>
 </li>
-<li>Meet the Challenge!</li>
+<li>
+<a href="index-en.html">Government of Canada Intranet theme</a>
+</li>
+<li>Content page - Sub-site</li>
 </ol>
 </div>
 </div>
 </nav>
 </header>
 <main role="main" property="mainContentOfPage" class="container">
-<h1 id="wb-cont" property="name">2015 GC App Challenge</h1>
-<p>
-<a class="btn btn-primary" href="docs/ref/theme-gc-intranet/theme-gc-intranet-en.html">Documentation</a>
-<a class="btn btn-primary" href="https://github.com/wet-boew/theme-gc-intranet/issues/new?title=Government%20of%20Canada%20Intranet%20theme:%20">Questions or comments?</a>
-<a class="btn btn-primary" href="https://github.com/wet-boew/theme-gc-intranet/issues/new?title=Government%20of%20Canada%20Intranet%20theme:%20">Add an App!</a>
-</p>
+<h1 id="wb-cont" property="name">Content page - Sub-site</h1>
 <section>
-<h2>Table of contents</h2>
-<p>This where we'll put all the awesome, short splash information about the challenge.</p>
-<ul>
-
-<li><a href="#en">English</a></li>
-
-<li><a href="#fr">French</a></li>
-
-</ul>
-</section>
+<h2>Heading&#32;2&#32;(<code>h2</code>)</h2>
 <section>
-
-<h2 id="en">English</h2>
-<ul>
-<li><a href="content-en.html">Content page</a></li>
-<li><a href="content-secmenu-en.html">Content page - Secondary menu</a></li>
-<li><a href="content-subsite-en.html">Content page - Sub-site</a></li>
-<li><a href="content-nosearchlang-en.html">Content page - No search or language selection link</a></li>
-<li><a href="content-nositemenubc-en.html">Content page - No site menu or breadcrumb trail</a></li>
-<li><a href="content-nosearchlangsitemenubc-en.html">Content page - No search, language selection link, site menu or breadcrumb trail</a></li>
-<li><a href="splashpage-en.html">Splash page</a></li>
-<li><a href="404-en.html">404 error page</a></li>
-<li><a href="404-en-fr.html">404 error page (English/French)</a></li>
-<li><a href="servermessage-en-fr.html">Server message page (English/French)</a></li>
-<li><a href="servermessage-en.html">Server message page</a></li>
-</ul>
+<h3>Heading&#32;3&#32;(<code>h3</code>)</h3>
+<section>
+<h4>Heading&#32;4&#32;(<code>h4</code>)</h4>
+<section>
+<h5>Heading&#32;5&#32;(<code>h5</code>)</h5>
+<section>
+<h6>Heading&#32;6&#32;(<code>h6</code>)</h6>
+<p>Paragraph - default appearance</p>
 </section>
-
-<h2 id="fr">French</h2>
-<ul>
-<li><a href="content-fr.html">Content page</a></li>
-<li><a href="content-secmenu-fr.html">Content page - Secondary menu</a></li>
-<li><a href="content-subsite-fr.html">Content page - Sub-site</a></li>
-<li><a href="content-nosearchlang-fr.html">Content page - No search or language selection link</a></li>
-<li><a href="content-nositemenubc-fr.html">Content page - No site menu or breadcrumb trail</a></li>
-<li><a href="content-nosearchlangsitemenubc-fr.html">Content page - No search, language selection link, site menu or breadcrumb trail</a></li>
-<li><a href="splashpage-fr.html">Splash page</a></li>
-<li><a href="404-fr.html">404 error page</a></li>
-<li><a href="404-fr-en.html">404 error page (French/English)</a></li>
-<li><a href="servermessage-fr-en.html">Server message page (French/English)</a></li>
-<li><a href="servermessage-fr.html">Server message page</a></li>
-</ul>
 </section>
-
+</section>
+</section>
+</section>
+<p><a href="#">Link</a></p>
+<ul>
+<li>unordered list&#32;(<code>ul</code>) - level&#32;1
+<ul>
+<li>unordered list&#32;(<code>ul</code>) - level&#32;2
+<ul>
+<li>unordered list&#32;(<code>ul</code>) - level&#32;3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>ordered list&#32;(<code>ol</code>) - level&#32;1</li>
+<li>ordered list&#32;(<code>ol</code>) - level&#32;1
+<ol>
+<li>ordered list&#32;(<code>ol</code>) - level&#32;2</li>
+<li>ordered list&#32;(<code>ol</code>) - level&#32;2
+<ol>
+<li>ordered list&#32;(<code>ol</code>) - level&#32;3</li>
+<li>ordered list&#32;(<code>ol</code>) - level&#32;3</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<table class="table table-striped">
+<caption>Table caption</caption>
+<thead>
+<tr>
+<th scope="col">Table header&#32;(<code>th</code>)</th>
+<th scope="col">Table header&#32;(<code>th</code>)</th>
+<th scope="col">Table header&#32;(<code>th</code>)</th>
+<th scope="col">Table header&#32;(<code>th</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Table data&#32;(<code>td</code>)</td>
+<td>Table data&#32;(<code>td</code>)</td>
+<td>Table data&#32;(<code>td</code>)</td>
+<td>Table data&#32;(<code>td</code>)</td>
+</tr>
+<tr>
+<td>Table data&#32;(<code>td</code>)</td>
+<td>Table data&#32;(<code>td</code>)</td>
+<td>Table data&#32;(<code>td</code>)</td>
+<td>Table data&#32;(<code>td</code>)</td>
+</tr>
+<tr>
+<td>Table data&#32;(<code>td</code>)</td>
+<td>Table data&#32;(<code>td</code>)</td>
+<td>Table data&#32;(<code>td</code>)</td>
+<td>Table data&#32;(<code>td</code>)</td>
+</tr>
+</tbody>
+</table>
+<form method="post" action="#" class="form-horizontal">
+<div class="form-group">
+<label for="data1" class="col-sm-3 control-label">Form&#32;<code>input</code></label>
+<div class="col-sm-9">
+<input type="text" id="data1" name="data1" class="form-control">
+</div>
+</div>
+<div class="form-group">
+<label for="data2" class="col-sm-3 control-label">Form&#32;<code>textarea</code></label>
+<div class="col-sm-9">
+<textarea id="data2" rows="3" cols="15" name="data2" class="form-control"></textarea>
+</div>
+</div>
+<div class="form-group">
+<label for="data4" class="col-sm-3 control-label">Form&#32;<code>select</code></label>
+<div class="col-sm-9">
+<select name="data4" id="data4" class="form-control">
+<option value="1">Option&#32;1</option>
+<option value="2">Option&#32;2</option>
+<option value="3">Option&#32;3</option>
+<option value="4">Option&#32;4</option>
+</select>
+</div>
+</div>
+<div class="form-group">
+<div class="col-sm-offset-3 col-sm-9">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</div>
+</form>
+<blockquote>
+<p>"<code>blockquote</code>"</p>
+</blockquote>
 <dl id="wb-dtmd">
 <dt>Date modified:&#32;</dt>
-<dd><time property="dateModified">2014-08-19</time></dd>
+<dd><time property="dateModified">2014-02-19</time></dd>
 </dl>
 </main>
 <footer role="contentinfo" id="wb-info" class="visible-sm visible-md visible-lg wb-navcurr">
@@ -210,12 +279,12 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 </footer>
 <!--[if gte IE 9 | !IE ]><!-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
-<script src="{% static 'js/wet-boew.min.js' %}"></script>
+<script src="./js/wet-boew.min.js"></script>
 <!--<![endif]-->
 <!--[if lt IE 9]>
 <script src="./js/ie8-wet-boew2.min.js"></script>
 
 <![endif]-->
-<script src="{% static 'js/theme.min.js' %}"></script>
+<script src="./js/theme.min.js"></script>
 </body>
 </html>
