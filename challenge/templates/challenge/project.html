@@ -1,0 +1,37 @@
+{% extends "challenge/base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block main %}
+
+<div>
+    <h3>Project Details</h3>
+
+    {% thumbnail project.image "80x80" crop="center" as im %}
+                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+    {% endthumbnail %}
+    <ul>
+    <h4>Name:</h4> <p>{{project.name}}</p>
+    <h4>Departments:</h4> {{project.sponsoring_departments}}
+    <h4>Summary:</h4> {{project.short_text}}
+    <h4>Description:</h4> {{project.detail_text}}
+    <h4>Submitted:</h4> {{project.submitted_date}}
+    <h4>Start Date:</h4> {{project.start_date}}
+    <h4>End Date:</h4> {{project.end_date}}
+    <h4>Team:</h4> 
+        <ul>
+            {% for member in team %}
+                <li> {{ member.name }} </li>
+            {% endfor %}
+        </ul>
+    <h4>Tags:</h4>
+        <ul>
+            {% for tag in tags %}
+                <li> {{ tag.name }} </li>
+            {% endfor %}
+        </ul>
+    <ul>
+
+</div>
+
+{% endblock %}
