@@ -134,7 +134,7 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 </section>
 <section>
 
-<h2 id="en">English</h2>
+<h2 id="en">Projects</h2>
 
     <ul>
     {% for project in projects %}
@@ -142,22 +142,32 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
     {% endfor %}
     </ul>
 
+<h2 id="en">Departments</h2>
+
+    <ul>
+    {% for department in departments %}
+        <li><a href="{% url 'department' department_slug=department.slug %}"> {{department.name}}</a></li>
+    {% endfor %}
+    </ul>
+
+<h2 id="en">Members</h2>
+
+    <ul>
+    {% for member in members %}
+        <li><a href="{% url 'member' member_slug=member.slug %}"> {{member.name}}</a></li>
+    {% endfor %}
+    </ul>
+
+<h2 id="en">Tags</h2>
+
+    <ul>
+    {% for tag in tags %}
+        <li><a href="{% url 'tag' tag_slug=tag.slug %}"> {{tag.name}}</a></li>
+    {% endfor %}
+    </ul>
+    
 </section>
 
-<h2 id="fr">French</h2>
-<ul>
-<li><a href="content-fr.html">Content page</a></li>
-<li><a href="content-secmenu-fr.html">Content page - Secondary menu</a></li>
-<li><a href="content-subsite-fr.html">Content page - Sub-site</a></li>
-<li><a href="content-nosearchlang-fr.html">Content page - No search or language selection link</a></li>
-<li><a href="content-nositemenubc-fr.html">Content page - No site menu or breadcrumb trail</a></li>
-<li><a href="content-nosearchlangsitemenubc-fr.html">Content page - No search, language selection link, site menu or breadcrumb trail</a></li>
-<li><a href="splashpage-fr.html">Splash page</a></li>
-<li><a href="404-fr.html">404 error page</a></li>
-<li><a href="404-fr-en.html">404 error page (French/English)</a></li>
-<li><a href="servermessage-fr-en.html">Server message page (French/English)</a></li>
-<li><a href="servermessage-fr.html">Server message page</a></li>
-</ul>
 </section>
 
 <dl id="wb-dtmd">

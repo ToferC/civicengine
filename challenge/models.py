@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.db.models import F
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+import random
 
 # Create your models here.
 
@@ -15,7 +16,7 @@ class Project(models.Model):
     sponsoring_departments = models.ManyToManyField('Department')
     submitted_date = models.DateTimeField(default=timezone.now)
     published = models.BooleanField(default=True)
-    image = models.ImageField(upload_to='project_images/%Y/%m/%d')
+    image = models.ImageField(upload_to='images/project_images/%Y/%m/%d')
     team = models.ManyToManyField('Member',
         verbose_name="List of members")
     tags = models.ManyToManyField('Tag')
@@ -64,7 +65,7 @@ class Member(models.Model):
     email = models.EmailField(max_length=128) # validate email
     phone = models.CharField(max_length=10) # validate numbers only
     profile = models.URLField(max_length=128) # validate GCconnex profile
-    image = models.ImageField(upload_to='user_images/%Y/%m/%d')
+    image = models.ImageField(upload_to='images/user_images/%Y/%m/%d')
     geo_x = models.FloatField()
     geo_y = models.FloatField()
     salary = models.IntegerField()
@@ -122,9 +123,15 @@ class Resource(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField(null=True, blank=True)
+    slug = models.SlugField(unique=True, max_length=255)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Tag, self).save(*args, **kwargs)
+
 
 class Department(models.Model):
     name = models.CharField(max_length=128)
@@ -132,7 +139,7 @@ class Department(models.Model):
     acronym = models.CharField(max_length=128)
     acronym_fr = models.CharField(max_length=128)
     website = models.URLField(max_length=128)
-    image = models.ImageField(upload_to='department_images/%Y/%m/%d')
+    image = models.ImageField(upload_to='images/department_images/%Y/%m/%d')
     tags = models.ManyToManyField("Tag")
     slug = models.SlugField(unique=True, max_length=255)
 

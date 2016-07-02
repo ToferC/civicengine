@@ -2,17 +2,32 @@
 {% load staticfiles %}
 {% load thumbnail %}
 
+
 {% block main %}
 
+<main role="main" property="mainContentOfPage" class="container">
+<h1 id="wb-cont" property="name">Projects</h1>
+<p>
+<a class="btn btn-primary" href="docs/ref/theme-gc-intranet/theme-gc-intranet-en.html">Documentation</a>
+<a class="btn btn-primary" href="https://github.com/wet-boew/theme-gc-intranet/issues/new?title=Government%20of%20Canada%20Intranet%20theme:%20">Questions or comments?</a>
+<a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
+</p>
+<section>
+<h2>{{ project.name }}</h2>
+
 <div>
-    <h3>Project Details</h3>
+    <h3>Details</h3>
 
     {% thumbnail project.image "80x80" crop="center" as im %}
-                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                    <img src="{{ im.url }}"" width="{{ im.width }}" height="{{ im.height }}">
     {% endthumbnail %}
     <ul>
-    <h4>Name:</h4> <p>{{project.name}}</p>
-    <h4>Departments:</h4> {{project.sponsoring_departments}}
+    <h4>Departments:</h4> 
+        <ul>
+            {% for department in sponsoring_departments %}
+                <li><a href="{% url 'department' department_slug=department.slug %}">{{ department.name }}</a></li>
+            {% endfor %}
+        </ul>
     <h4>Summary:</h4> {{project.short_text}}
     <h4>Description:</h4> {{project.detail_text}}
     <h4>Submitted:</h4> {{project.submitted_date}}
@@ -21,17 +36,26 @@
     <h4>Team:</h4> 
         <ul>
             {% for member in team %}
-                <li> {{ member.name }} </li>
+                <li><a href="{% url 'member' member_slug=member.slug %}">{{ member.name }}</a></li>
             {% endfor %}
         </ul>
     <h4>Tags:</h4>
         <ul>
             {% for tag in tags %}
-                <li> {{ tag.name }} </li>
+                <li><a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a></li>
             {% endfor %}
         </ul>
-    <ul>
+    </ul>
 
 </div>
+
+</section>
+</section>
+
+<dl id="wb-dtmd">
+<dt>Date modified:&#32;</dt>
+<dd><time property="dateModified">2014-08-19</time></dd>
+</dl>
+</main>
 
 {% endblock %}

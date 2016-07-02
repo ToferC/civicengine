@@ -20,6 +20,7 @@ class DepartmentAdmin(admin.ModelAdmin):
 
 class TagAdmin(admin.ModelAdmin):
     list_display = ('name',)
+    prepopulated_fields = {'slug': ('name',)}
 
 
 class MemberAdmin(admin.ModelAdmin):

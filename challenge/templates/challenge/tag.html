@@ -6,41 +6,30 @@
 {% block main %}
 
 <main role="main" property="mainContentOfPage" class="container">
-<h1 id="wb-cont" property="name">Members</h1>
+<h1 id="wb-cont" property="name">Tags</h1>
 <p>
 <a class="btn btn-primary" href="docs/ref/theme-gc-intranet/theme-gc-intranet-en.html">Documentation</a>
 <a class="btn btn-primary" href="https://github.com/wet-boew/theme-gc-intranet/issues/new?title=Government%20of%20Canada%20Intranet%20theme:%20">Questions or comments?</a>
-<a class="btn btn-primary" href="{% url 'add_member' %}">Add a Member!</a>
+<a class="btn btn-primary" href="{% url 'add_tag' %}">Add a Tag!</a>
 </p>
 <section>
-
-
-
-<h2>{{ member.name }}</h2>
+<h2>{{ tag.name }}</h2>
 
 <div>
-
-    {% thumbnail member.image "80x80" crop="center" as im %}
-                    <img src="{% static '{{ im.url }}' %}" width="{{ im.width }}" height="{{ im.height }}">
-    {% endthumbnail %}
-
     <h3>Details</h3>
-    <h4>Department:</h4> 
-        <a href="{% url 'department' department_slug=member.department.slug %}">{{ member.department.name }}, {{member.branch}}</a>
-    <h4>Email:</h4> <a href="mailto:{{member.email}}">{{ member.email }}</a>
-    <h4>Phone:</h4> {{member.phone}}
-    <h4>Profile:</h4> <a href="{{member.profile}}">{{ member.name }} on GCconnex</a>
-
-    <h4>Tags:</h4>
-    {% if tags %}
+    <h4>Description:</h4> 
+    <p>{{tag.description}}</p>
+    
+    <h4>Departments:</h4>
+    {% if departments %}
         <ul>
-            {% for tag in tags %}
-                <li><a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a></li>
+            {% for department in departments %}
+                <li><a href="{% url 'department' department_slug=department.slug %}">{{ department.name }}</a></li>
             {% endfor %}
         </ul>
     </ul>
      {% else %}
-        <p>No tags.</p>
+        <p>No departments.</p>
      {% endif %}
 
      <h4>Projects:</h4>
@@ -55,7 +44,7 @@
         <p>No projects.</p>
      {% endif %}
 
-     <h4>Team Members:</h4>
+     <h4>Members:</h4>
     {% if members %}
         <ul>
             {% for member in members %}
@@ -64,9 +53,8 @@
         </ul>
     </ul>
      {% else %}
-        <p>No teammates.</p>
+        <p>No team members.</p>
      {% endif %}
-
 
 </div>
 
