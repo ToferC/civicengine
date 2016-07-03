@@ -1,5 +1,7 @@
 <!DOCTYPE html><!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]--><!--[if gt IE 8]><!-->
 {% load staticfiles %}
+{% load thumbnail %}
+{% load leaflet_tags %}
 <html class="no-js" lang="en" dir="ltr">
 <!--<![endif]-->
 <head>
@@ -30,6 +32,15 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <script src="./js/ie8-wet-boew.min.js"></script>
 <![endif]-->
 <noscript><link rel="stylesheet" href="{% static 'challenge/css/noscript.min.css" /></noscript>
+
+<link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+
+<script src="https://code.jquery.com/jquery-3.0.0.min.js">
+
+<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity="sha384-XXXXXXXX" crossorigin="anonymous">
+<script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js" integrity="sha384-XXXXXXXX" crossorigin="anonymous"></script>
+<script type='text/javascript' src='http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2'></script>
+
 </head>
 <body vocab="http://schema.org/" typeof="WebPage">
 <ul id="wb-tphp">
@@ -113,9 +124,8 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 </nav>
 </header>
 
-
 <main role="main" property="mainContentOfPage" class="container">
-<h1 id="wb-cont" property="name">Projects</h1>
+<h1 id="wb-cont" property="name">Contribute</h1>
 <p>
 <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
 <a class="btn btn-primary" href="{% url 'add_member' %}">Register as a Member!</a>
@@ -124,25 +134,37 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <a class="btn btn-primary" href="{% url 'visualize' %}">Visualize Data!</a>
 </p>
 <section>
-<h2>Table of contents</h2>
-<p>This where we'll put all the awesome, short splash information about the challenge.</p>
-<ul>
 
-<li><a href="#en">English</a></li>
+<div class="img-responsive">
+    <div id="map" style="width: 90%; height: 500px"></div>
+</div>
 
-<li><a href="#fr">French</a></li>
-
-</ul>
 </section>
 <section>
+<h2 id="en">Content</h2>
 
-<h2 id="en">Projects</h2>
+<a href="{% url 'all_projects' %}" class="btn btn-primary">See All Projects</a>
 
-    <ul>
-    {% for project in projects %}
-        <li><a href="{% url 'project' project_slug=project.slug %}"> {{project.name}}</a></li>
-    {% endfor %}
-    </ul>
+<a href="{% url 'all_departments' %}" class="btn btn-primary">See All Departments</a>
+
+<a href="{% url 'all_members' %}" class="btn btn-primary">See All Members</a>
+
+<a href="{% url 'all_tags' %}" class="btn btn-primary">See All Tags</a>
+<!--
+{% for project in projects %}
+    <div class="card">
+        {% thumbnail project.image "400" crop="center" as im %}
+            <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
+        {% endthumbnail %}
+        <div class="card-block">
+            <h4 class="card-title">{{project.name}} </h4>
+            <p class="card-text">{{ project.short_text }}</p>
+            <p>{{project.geo_x}} {{project.geo_y}}</p>
+            <a href="{% url 'project' project_slug=project.slug %}" class="btn btn-primary">See Project</a>
+        </div>           
+    </div>
+{% endfor %}
+</div>
 
 <h2 id="en">Departments</h2>
 
@@ -167,6 +189,7 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
         <li><a href="{% url 'tag' tag_slug=tag.slug %}"> {{tag.name}}</a></li>
     {% endfor %}
     </ul>
+-->
 
 </section>
 
@@ -227,5 +250,24 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 
 <![endif]-->
 <script src="{% static 'js/theme.min.js' %}"></script>
+<script type="text/javascript">
+        var map = L.map('map').setView([54.16045, -92.01873], 4);
+
+        L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 18,
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            id: 'examples.map-i875mjb7'
+        }).addTo(map);
+
+        {% for project in projects %}
+        L.marker([{{ project.geo_x|floatformat:6 }}, {{ project.geo_y|floatformat:6 }}], 4).addTo(map)
+        .bindPopup( "{{project.name}}" ).openPopup();
+        {% endfor %}
+
+        var popup = L.popup();
+
+        </script>
 </body>
 </html>

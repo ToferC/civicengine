@@ -14,6 +14,11 @@ urlpatterns = [
     url(r'^tag/(?P<tag_slug>[\w\-]+)/$', views.tag,
         name='tag'),
 
+    url(r'^all_projects/$', views.all_projects, name='all_projects'),
+    url(r'^all_departments/$', views.all_departments, name='all_departments'),
+    url(r'^all_members/$', views.all_members, name='all_members'),
+    url(r'^all_tags/$', views.all_tags, name='all_tags'),
+
     url(r'^add_member/$', views.add_member, name='add_member'),
     url(r'^add_project/$', views.add_project, name='add_project'),
     url(r'^add_department/$', views.add_department, name='add_department'),

@@ -64,6 +64,7 @@ class Member(models.Model):
     phone = models.CharField(max_length=10) # validate numbers only
     profile = models.URLField(max_length=128) # validate GCconnex profile
     image = models.ImageField(upload_to='images/user_images/%Y/%m/%d')
+    bio = models.TextField(blank=True, null=True)
     geo_x = models.FloatField()
     geo_y = models.FloatField()
     salary = models.IntegerField()
@@ -131,6 +132,9 @@ class Resource(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField(null=True, blank=True)
+    image = models.ImageField(upload_to='images/tag_images/%Y/%m/%d',
+        null=True, blank=True)
+
     slug = models.SlugField(unique=True, max_length=255)
 
     def __str__(self):
@@ -146,6 +150,7 @@ class Department(models.Model):
     name_fr = models.CharField(max_length=128)
     acronym = models.CharField(max_length=128)
     acronym_fr = models.CharField(max_length=128)
+    info = models.TextField(blank=True, null=True)
     website = models.URLField(max_length=128)
     image = models.ImageField(upload_to='images/department_images/%Y/%m/%d')
     tags = models.ManyToManyField("Tag")

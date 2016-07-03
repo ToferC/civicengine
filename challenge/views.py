@@ -29,12 +29,52 @@ def visualize(request):
 
     context_dict = {}
 
-    with open('flare.py') as data_file:    
+    with open('flare.py') as data_file:
         data = json.load(data_file)
 
     context_dict['data'] = data
 
     return render(request, 'challenge/visualize.html', context_dict)
+
+
+def all_projects(request):
+    context_dict = {}
+
+    projects = Project.objects.all()
+
+    context_dict['projects'] = projects
+
+    return render(request, 'challenge/all_projects.html', context_dict)
+
+
+def all_departments(request):
+    context_dict = {}
+
+    departments = Department.objects.all()
+
+    context_dict['departments'] = departments
+
+    return render(request, 'challenge/all_departments.html', context_dict)
+
+
+def all_members(request):
+    context_dict = {}
+
+    members = Member.objects.all()
+
+    context_dict['members'] = members
+
+    return render(request, 'challenge/all_members.html', context_dict)
+
+
+def all_tags(request):
+    context_dict = {}
+
+    tags = Tag.objects.all()
+
+    context_dict['tags'] = tags
+
+    return render(request, 'challenge/all_tags.html', context_dict)
 
 
 def project(request, project_slug):

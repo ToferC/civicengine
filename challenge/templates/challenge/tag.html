@@ -17,6 +17,9 @@
 
 <div>
     <h3>Details</h3>
+    {% thumbnail tag.image "120" crop="center" as im %}
+        <img class="img-responsive" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
+    {% endthumbnail %}
     <h4>Description:</h4> 
     <p>{{tag.description}}</p>
     

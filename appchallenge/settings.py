@@ -63,6 +63,7 @@ INSTALLED_APPS = (
     'crispy_forms',
     'sorl.thumbnail',
     'storages',
+    'leaflet',
 )
 
 MIDDLEWARE_CLASSES = (
