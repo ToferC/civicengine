@@ -17,10 +17,10 @@
 
 <div>
     <h3>Details</h3>
-    {% thumbnail image "120" crop="center" as im %}
+    {% thumbnail image "300x300" crop="center" as im %}
         <img class="img-responsive" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
     {% endthumbnail %}
-
+    <h4>Info:</h4> {{department.info}}
     <h4>Website:</h4> 
     <a href="{{ department.website }}">{{department.website}}</a>
     
