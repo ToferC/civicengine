@@ -268,3 +268,83 @@ def add_role(request):
 
     return render(request, 'challenge/add_role.html',
         {'role_form': role_form})
+
+
+# Admin Views
+
+def register(request):
+    registered = False
+
+    if request.method == 'POST':
+        user_form = UserForm(data=request.POST)
+        #profile_form = UserProfileForm(request.POST, request.FILES)
+
+        if user_form.is_valid():
+            user = user_form.save()
+
+            user.set_password(user.password)
+            user.save()
+
+            profile = UserProfile(user=user)
+            profile.save()
+            #profile = profile_form.save(commit=False)
+            #profile.user = request.user
+
+            #if 'image' in request.FILES:
+            #    profile.image = request.FILES['image']
+
+            #profile.save()
+
+            registered = True
+
+            send_mail("Personas: Account Activated",
+                '''Welcome to Personas.\n\n
+                Your account has been activated as: {}\n\n
+                http:story-chronicles.herokuapp.com/personas/'''.format(
+                    user.username),
+                "personas.story@gmail.com",
+                [user.email, "personas.story@gmail.com"])
+
+            return index(request)
+
+        else:
+            print(user_form.errors)
+
+    else:
+        user_form = UserForm()
+        #profile_form = UserProfileForm()
+
+    return render(request, 'challenge/register.html',
+        {'user_form': user_form, 'registered': registered})
+
+
+def user_login(request):
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+
+                login(request, user)
+                return HttpResponseRedirect('/')
+            else:
+                return HttpResponse("Your account is disabled.")
+
+        else:
+            print("Invalid login details: {}, {}".format(username, password))
+            return HttpResponse("Invalid login details supplied.")
+
+    else:
+        return render(request, 'challenge/login.html', {})
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+
+    return HttpResponseRedirect('/')
+
