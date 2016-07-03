@@ -252,7 +252,7 @@ def add_member(request):
         if member_form.is_valid():
             slug = slugify(member_form.cleaned_data['name'])
 
-            member_form.save(commit=True)
+            member_form.save(user=user, commit=True)
 
             return HttpResponseRedirect("/member/{}".format(slug))
 
@@ -330,8 +330,6 @@ def register(request):
             user.set_password(user.password)
             user.save()
 
-            profile = UserProfile(user=user)
-            profile.save()
             #profile = profile_form.save(commit=False)
             #profile.user = request.user
 
@@ -341,14 +339,6 @@ def register(request):
             #profile.save()
 
             registered = True
-
-            send_mail("Personas: Account Activated",
-                '''Welcome to Personas.\n\n
-                Your account has been activated as: {}\n\n
-                http:story-chronicles.herokuapp.com/personas/'''.format(
-                    user.username),
-                "personas.story@gmail.com",
-                [user.email, "personas.story@gmail.com"])
 
             return index(request)
 

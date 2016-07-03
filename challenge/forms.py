@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from challenge.models import Project, Department, Member, Tag, Role
 
+from captcha.fields import CaptchaField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions, InlineField
@@ -71,7 +72,7 @@ class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = "__all__"
-        exclude = ['slug', ]
+        exclude = ['user', 'slug', ]
         widgets = {'tags': CheckboxSelectMultiple()}
 
     def __init__(self, *args, **kwargs):
@@ -134,4 +135,23 @@ class RoleForm(forms.ModelForm):
                         href="/project/{{ project.slug }}">Cancel</a>"""),
                 Submit('save', 'Submit'),))
 
+
+class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+    captcha = CaptchaField()
+    helper = FormHelper()
+    helper.form_tag = False
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password', 'captcha')
+
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.layout.append(
+            FormActions(
+                HTML("""<br><a role="button" class="btn btn-default"
+                        href="/personas/">Cancel</a>"""),
+                Submit('save', 'Submit'),))
 

@@ -102,14 +102,6 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <button type="submit" id="wb-srch-sub" class="btn btn-default">Search</button>
 </form>
 </section>
-<div class="nav navbar-right">
-    {% if user.is_authenticated %}
-            <a class="btn btn-inverse" style="font-size:70%; margin-top:12px; background-color:darkslategray" href="/challenge/logout" role="button">Logged in as {{ user.username }}</a>
-        {% else %}
-            <a class="btn btn-inverse" style="font-size:70%; margin-top:12px; background-color:darkslategray" href="/challenge/register" role="button">Register</a>
-            <a class="btn btn-inverse" style="font-size:70%; margin-top:12px; background-color:darkslategray" href="/challenge/login" role="button">Log In</a>
-        {% endif %}
-    </div>
 </div>
 </div>
 </div>
@@ -122,14 +114,17 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <h2>You are here:</h2>
 <div class="container">
 <div class="row">
-<ol class="breadcrumb">
-<li>
-<a href="/">Home</a>
-</li>
-</ol>
+{% if user.is_authenticated %}
+<a class="btn btn-primary" href="{% url 'logout' %}" role="button">Logged in as {{ user.username }}</a>
+{% else %}
+    <a class="btn btn-info" href="{% url 'register' %}" role="button">Register</a>
+    <a class="btn btn-primary" href="{% url 'login' %}" role="button">Log In</a>
+{% endif %}
 </div>
 </div>
 </nav>
+<section>
+</section>
 </header>
 {% endblock %}
 

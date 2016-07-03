@@ -64,6 +64,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'storages',
     'leaflet',
+    'captcha',
 )
 
 MIDDLEWARE_CLASSES = (
