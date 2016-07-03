@@ -117,8 +117,10 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <main role="main" property="mainContentOfPage" class="container">
 <h1 id="wb-cont" property="name">Projects</h1>
 <p>
-<a class="btn btn-primary" href="docs/ref/theme-gc-intranet/theme-gc-intranet-en.html">Documentation</a>
-<a class="btn btn-primary" href="https://github.com/wet-boew/theme-gc-intranet/issues/new?title=Government%20of%20Canada%20Intranet%20theme:%20">Questions or comments?</a>
+<a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
+<a class="btn btn-primary" href="{% url 'add_member' %}">Register as a Member!</a>
+<a class="btn btn-primary" href="{% url 'add_department' %}">Add a Department!</a>
+<a class="btn btn-primary" href="{% url 'add_tag' %}">Add a Tag!</a>
 <a class="btn btn-primary" href="{% url 'visualize' %}">Visualize Data!</a>
 </p>
 <section>
