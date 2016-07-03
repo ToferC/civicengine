@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.contrib.auth import logout, login, authenticate
-
+from django.contrib import messages
 from challenge.models import *
 from challenge.forms import *
 import json
@@ -322,7 +322,6 @@ def register(request):
 
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
-        #profile_form = UserProfileForm(request.POST, request.FILES)
 
         if user_form.is_valid():
             user = user_form.save()
@@ -330,24 +329,29 @@ def register(request):
             user.set_password(user.password)
             user.save()
 
-            #profile = profile_form.save(commit=False)
-            #profile.user = request.user
-
-            #if 'image' in request.FILES:
-            #    profile.image = request.FILES['image']
-
-            #profile.save()
-
             registered = True
+            messages.info(request, "Thanks for registering. You are now logged in.")
 
-            return index(request)
+
+            if user.is_active:
+
+                user = authenticate(
+                    username=user_form.cleaned_data['username'],
+                    password=user_form.cleaned_data['password'],
+                                    )
+                login(request, user)
+
+                return HttpResponseRedirect('/add_member/')
+
+            else:
+                print("Invalid login details: {}, {}".format(username, password))
+                return HttpResponse("Invalid login details supplied.")
 
         else:
             print(user_form.errors)
 
     else:
         user_form = UserForm()
-        #profile_form = UserProfileForm()
 
     return render(request, 'challenge/register.html',
         {'user_form': user_form, 'registered': registered})
