@@ -75,7 +75,7 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <div class="container">
 <div class="row">
 <div id="wb-sttl" class="col-md-12">
-<a href="http://wet-boew.github.io/v4.0-ci/index-en.html">
+<a href="/">
 <span>Innovation Map</span>
 </a>
 <object id="wmms" type="image/svg+xml" tabindex="-1" role="img" data="././assets/wmms-intra.svg" aria-label="Symbol of the Government of Canada"></object>
@@ -112,14 +112,17 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <div class="row">
 <ol class="breadcrumb">
 <li>
-<a href="http://wet-boew.github.io/v4.0-ci/index-en.html">Home</a>
-</li>
-<li>
-<a href="http://wet-boew.github.io/v4.0-ci/demos/index-en.html">Working examples</a>
+<a href="/">Home</a>
 </li>
 <li>Meet the Challenge!</li>
 </ol>
 </div>
+<div class="nav navbar-right">
+    {% if user.is_authenticated %}
+            <a class="btn btn-primary" href="{% url 'logout' %}" role="button">Logged in as {{ user.username }}</a>
+    
+    {% endif %}
+    </div>
 </div>
 </nav>
 </header>
@@ -127,11 +130,15 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <main role="main" property="mainContentOfPage" class="container">
 <h1 id="wb-cont" property="name">Contribute</h1>
 <p>
+{% if user.is_authenticated %}
 <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
 <a class="btn btn-primary" href="{% url 'add_member' %}">Register as a Member!</a>
 <a class="btn btn-primary" href="{% url 'add_department' %}">Add a Department!</a>
 <a class="btn btn-primary" href="{% url 'add_tag' %}">Add a Tag!</a>
-<a class="btn btn-primary" href="{% url 'visualize' %}">Visualize Data!</a>
+{% else %}
+    <a class="btn btn-info" href="{% url 'register' %}" role="button">Register</a>
+    <a class="btn btn-primary" href="{% url 'login' %}" role="button">Log In</a>
+{% endif %}
 </p>
 <section>
 
@@ -150,6 +157,7 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <a href="{% url 'all_members' %}" class="btn btn-primary">See All Members</a>
 
 <a href="{% url 'all_tags' %}" class="btn btn-primary">See All Tags</a>
+<a class="btn btn-primary" href="{% url 'visualize' %}">Visualize Data!</a>
 <!--
 {% for project in projects %}
     <div class="card">

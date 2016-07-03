@@ -25,6 +25,10 @@ urlpatterns = [
     url(r'^add_tag/$', views.add_tag, name='add_tag'),
     url(r'^add_role/$', views.add_role, name='add_role'),
 
+    url(r'^register/$', views.register, name='register'),
+    url(r'^login/$', views.user_login, name='login'),
+    url(r'^logout/$', views.user_logout, name='logout'),
+
     #url(r'^sprint/(?P<project_slug>[\w\-]+/$)', views.sprint, name='sprint'),
     #url(r'^work/(?P<project_slug>[\w\-]+/$)', views.work, name='work'),
     url(r'^admin/', admin.site.urls),

@@ -1,0 +1,32 @@
+{% extends 'challenge/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<header>
+    <h1>Register with the Innovation Map</h1>
+</header>
+{% endblock %}
+
+{% block main %}
+
+<main role="main" property="mainContentOfPage" class="container">
+<section>
+    {% if registered %}
+    <strong>Thank you for registering!</strong>
+    <a href="/">Return to the Homepage</a>
+    {% else %}
+
+<!--
+    <a class="btn btn-inverse" style="background-color:darkslategray " href="/accounts/google/login/?process=login">Google Connect</a>
+    <br><br>
+    OR
+-->
+    <br><br>
+    <strong>Register Here!</strong>
+
+    {% crispy user_form %}
+
+</section>
+</main>
+{% endif %}
+{% endblock %}

@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
+from django.contrib.auth import logout, login, authenticate
+
 from challenge.models import *
 from challenge.forms import *
 import json
@@ -192,7 +195,7 @@ def work(request, work_slug):
 
 
 # Add content views
-
+@login_required
 def add_project(request):
 
     if request.method == 'POST':
@@ -215,7 +218,7 @@ def add_project(request):
     return render(request, 'challenge/add_project.html',
         {'project_form': project_form})
 
-
+@login_required
 def add_department(request):
 
     if request.method == 'POST':
@@ -238,8 +241,10 @@ def add_department(request):
     return render(request, 'challenge/add_department.html',
         {'department_form': department_form})
 
-
+@login_required
 def add_member(request):
+
+    user = request.user
 
     if request.method == 'POST':
         member_form = MemberForm(request.POST, request.FILES)
@@ -261,7 +266,7 @@ def add_member(request):
     return render(request, 'challenge/add_member.html',
         {'member_form': member_form})
 
-
+@login_required
 def add_tag(request):
 
     if request.method == 'POST':
@@ -284,7 +289,7 @@ def add_tag(request):
     return render(request, 'challenge/add_tag.html',
         {'tag_form': tag_form})
 
-
+@login_required
 def add_role(request):
 
     if request.method == 'POST':
@@ -381,9 +386,8 @@ def user_login(request):
     else:
         return render(request, 'challenge/login.html', {})
 
-
+@login_required
 def user_logout(request):
     logout(request)
 
     return HttpResponseRedirect('/')
-

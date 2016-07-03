@@ -1,0 +1,34 @@
+{% extends "challenge/base.html" %}
+
+{% block title %}
+    <h1>Login to the Innovation Map</h1>
+{% endblock %}
+
+{% block main %}
+
+<main role="main" property="mainContentOfPage" class="container">
+<section>
+
+    <fieldset>
+        <h3 style="color:white">Email Login</h3>
+    <form id="login_form" method="POST" action="/login/" style="color:black">
+            {% csrf_token %}
+            <label>Username: </label>  <input type="text" name="username" value="" size="50" />
+            <br />
+            <label>Password: </label>   <input type="password" name="password" value="" size="50" />
+            <br />
+
+            <input class="btn btn-primary" type="submit" value="login"/>
+    </form>
+    </fieldset>
+    <br>
+
+</section>
+</main>
+<!--
+    <div class="col-md-6 col-sm-6 col-lg-6" id="col1">
+        <a href="/accounts/google/login/?process=login">
+        Sign Up / Login with Google</a>
+    </div>
+-->
+{% endblock %}

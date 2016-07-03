@@ -31,7 +31,7 @@ class ProjectForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
-                HTML("""<a role="button" class="btn btn-default" enctype="multipart/form-data"
+                HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/project/{{ project.slug }}">Cancel</a>"""),
                 Submit('save', 'Submit'),))
 
@@ -56,7 +56,7 @@ class DepartmentForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
-                HTML("""<a role="button" class="btn btn-default" enctype="multipart/form-data"
+                HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/department/{{ department.slug }}">Cancel</a>"""),
                 Submit('save', 'Submit'),))
 
@@ -81,7 +81,7 @@ class MemberForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
-                HTML("""<a role="button" class="btn btn-default" enctype="multipart/form-data"
+                HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/member/{{ member.slug }}">Cancel</a>"""),
                 Submit('save', 'Submit'),))
 
@@ -105,7 +105,7 @@ class TagForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
-                HTML("""<a role="button" class="btn btn-default" enctype="multipart/form-data"
+                HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/project/{{ project.slug }}">Cancel</a>"""),
                 Submit('save', 'Submit'),))
 

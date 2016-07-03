@@ -58,6 +58,7 @@ class Work(models.Model):
 
 class Member(models.Model):
     name = models.CharField(max_length=128)
+    user = models.OneToOneField(User)
     department = models.ForeignKey("Department", null=True, blank=True) # Turn this into a radial menu
     branch = models.CharField(max_length=128)
     email = models.EmailField(max_length=128) # validate email

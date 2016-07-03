@@ -17,8 +17,8 @@
 <div class="card-columns">
 
 {% for project in projects %}
-    <div class="card">
-        {% thumbnail project.image "400" crop="center" as im %}
+    <div class="card" width="300">
+        {% thumbnail project.image "300" crop="center" as im %}
             <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
         {% endthumbnail %}
         <div class="card-block">
@@ -29,6 +29,7 @@
             
     </div>
 {% endfor %}
+
 </div>
 <br><br>
 
