@@ -99,18 +99,24 @@ WSGI_APPLICATION = 'appchallenge.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+if ON_PAAS:
+    # determine if we are on MySQL or POSTGRESQL
+    import dj_database_url
+    DATABASES = {}
+    DATABASES['default'] = dj_database_url.config()
 
+else:
 
-DATABASES = {
-    'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'challenge',
-    'USER': '',
-    'PASSWORD': '',
-    'HOST': 'localhost',
-    'PORT': '',
+    DATABASES = {
+        'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'challenge',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
+        }
     }
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
