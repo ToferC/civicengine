@@ -121,6 +121,7 @@ class RoleForm(forms.ModelForm):
     class Meta:
         model = Role
         fields = "__all__"
+        exclude = ['person',]
         widgets = {'start_date': SelectDateWidget(),
         'end_date': SelectDateWidget(),}
 
@@ -134,6 +135,12 @@ class RoleForm(forms.ModelForm):
                 HTML("""<br><a role="button" class="btn btn-default"
                         href="/project/{{ project.slug }}">Cancel</a>"""),
                 Submit('save', 'Submit'),))
+
+    def save(self, person=None, commit=True):
+        instance = super(RoleForm, self).save(commit=False)
+        instance.person=person
+        instance.save()
+        return instance
 
 
 class UserForm(forms.ModelForm):

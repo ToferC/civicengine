@@ -8,25 +8,25 @@
 <main role="main" property="mainContentOfPage" class="container">
 <h1 id="wb-cont" property="name">Members</h1>
 <p>
-<a class="btn btn-primary" href="docs/ref/theme-gc-intranet/theme-gc-intranet-en.html">Documentation</a>
-<a class="btn btn-primary" href="https://github.com/wet-boew/theme-gc-intranet/issues/new?title=Government%20of%20Canada%20Intranet%20theme:%20">Questions or comments?</a>
+{% if user.is_authenticated %}
 <a class="btn btn-primary" href="{% url 'add_member' %}">Add a Member!</a>
+{% endif %}
 </p>
 
 <div class="card-columns">
 
 {% for member in members %}
     <div class="card">
-        {% thumbnail member.image "400" crop="center" as im %}
+        {% thumbnail member.image "300x300" crop="center" as im %}
             <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
         {% endthumbnail %}
         <div class="card-block">
             <h4 class="card-title">{{member.name}} </h4>
             <p class="card-text">{{ member.bio }}</p>
             <a href="{% url 'member' member_slug=member.slug %}" class="btn btn-primary">See Member</a>
-        </div>
-            
+        </div> 
     </div>
+    <br>
 {% endfor %}
 </div>
 <br><br>

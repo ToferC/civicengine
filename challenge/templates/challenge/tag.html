@@ -8,16 +8,16 @@
 <main role="main" property="mainContentOfPage" class="container">
 <h1 id="wb-cont" property="name">Tags</h1>
 <p>
-<a class="btn btn-primary" href="docs/ref/theme-gc-intranet/theme-gc-intranet-en.html">Documentation</a>
-<a class="btn btn-primary" href="https://github.com/wet-boew/theme-gc-intranet/issues/new?title=Government%20of%20Canada%20Intranet%20theme:%20">Questions or comments?</a>
+{% if user.is_authenticated %}
 <a class="btn btn-primary" href="{% url 'add_tag' %}">Add a Tag!</a>
+{% endif %}
 </p>
 <section>
 <h2>{{ tag.name }}</h2>
 
 <div>
     <h3>Details</h3>
-    {% thumbnail tag.image "120" crop="center" as im %}
+    {% thumbnail tag.image "300x300" crop="center" as im %}
         <img class="img-responsive" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
     {% endthumbnail %}
     <h4>Description:</h4> 

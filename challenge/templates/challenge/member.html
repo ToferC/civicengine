@@ -8,19 +8,17 @@
 <main role="main" property="mainContentOfPage" class="container">
 <h1 id="wb-cont" property="name">Members</h1>
 <p>
-<a class="btn btn-primary" href="docs/ref/theme-gc-intranet/theme-gc-intranet-en.html">Documentation</a>
-<a class="btn btn-primary" href="https://github.com/wet-boew/theme-gc-intranet/issues/new?title=Government%20of%20Canada%20Intranet%20theme:%20">Questions or comments?</a>
+{% if user.is_authenticated %}
 <a class="btn btn-primary" href="{% url 'add_member' %}">Add a Member!</a>
+{% endif %}
 </p>
 <section>
-
-
 
 <h2>{{ member.name }}</h2>
 
 <div>
 
-    {% thumbnail member.image "80x80" crop="center" as im %}
+    {% thumbnail member.image "300x300" crop="center" as im %}
                     <img src="{% static '{{ im.url }}' %}" width="{{ im.width }}" height="{{ im.height }}">
     {% endthumbnail %}
 
@@ -30,6 +28,7 @@
     <h4>Email:</h4> <a href="mailto:{{member.email}}">{{ member.email }}</a>
     <h4>Phone:</h4> {{member.phone}}
     <h4>Profile:</h4> <a href="{{member.profile}}">{{ member.name }} on GCconnex</a>
+    <h4>Bio:</h4> {{member.bio}}
 
     <h4>Tags:</h4>
     {% if tags %}

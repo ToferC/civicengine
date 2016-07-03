@@ -292,14 +292,15 @@ def add_tag(request):
 @login_required
 def add_role(request):
 
+    user = request.user
+    member = Member.objects.get(user=user)
+
     if request.method == 'POST':
         role_form = RoleForm(request.POST, request.FILES)
 
         if role_form.is_valid():
-            slug = slugify("{}-{}".format(role_form.cleaned_data['project'],
-                role_form.cleaned_data['person']))
 
-            role_form.save(commit=True)
+            role_form.save(person=member, commit=True)
 
             return HttpResponseRedirect("/project/{}".format(slugify(
                 role_form.cleaned_data['project'])))
