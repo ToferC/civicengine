@@ -17,8 +17,6 @@ class Project(models.Model):
     submitted_date = models.DateTimeField(default=timezone.now)
     published = models.BooleanField(default=True)
     image = models.ImageField(upload_to='images/project_images/%Y/%m/%d')
-    team = models.ManyToManyField('Member',
-        verbose_name="List of members")
     tags = models.ManyToManyField('Tag')
     geo_x = models.FloatField()
     geo_y = models.FloatField()
@@ -82,16 +80,26 @@ class Member(models.Model):
 
 class Role(models.Model):
 
+    PM = "Project Manager"
+    DS = "Designer"
+    DV = "Developer"
+    AN = "Analyst"
+    CM = "Communications"
+    PL = "Project Lead"
+    CH = "Champion"
+    SP = "Project Support"
+    ST = "Project Strategy"
+
     ROLES = (
-        ('PM', "Project Manager"),
-        ('DS', "Designer"),
-        ('DV', "Developer"),
-        ('AN', "Analyst"),
-        ('CM', "Communications"),
-        ('PL', "Project Lead"),
-        ('CH', "Champion"),
-        ('SP', "Project Support"),
-        ('ST', "Project Strategy"),
+        (PM, "Project Manager"),
+        (DS, "Designer"),
+        (DV, "Developer"),
+        (AN, "Analyst"),
+        (CM, "Communications"),
+        (PL, "Project Lead"),
+        (CH, "Champion"),
+        (SP, "Project Support"),
+        (ST, "Project Strategy"),
         )
 
     person = models.ForeignKey(Member, on_delete=models.CASCADE)
@@ -102,7 +110,7 @@ class Role(models.Model):
     end_date = models.DateField()
 
     def __str__(self):
-        return "{} - {} - {}".format(self.person, self.project)
+        return "{} - {} - {}".format(self.person, self.role, self.project)
 
 
 class Resource(models.Model):

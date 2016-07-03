@@ -11,6 +11,7 @@
 <a class="btn btn-primary" href="docs/ref/theme-gc-intranet/theme-gc-intranet-en.html">Documentation</a>
 <a class="btn btn-primary" href="https://github.com/wet-boew/theme-gc-intranet/issues/new?title=Government%20of%20Canada%20Intranet%20theme:%20">Questions or comments?</a>
 <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
+<a class="btn btn-primary" href="{% url 'add_role' %}">Join a Project!</a>
 </p>
 <section>
 <h2>{{ project.name }}</h2>
@@ -35,8 +36,8 @@
     <h4>End Date:</h4> {{project.end_date}}
     <h4>Team:</h4> 
         <ul>
-            {% for member in team %}
-                <li><a href="{% url 'member' member_slug=member.slug %}">{{ member.name }}</a></li>
+            {% for role in team %}
+                <li><a href="{% url 'member' member_slug=role.person.slug %}">{{ role.role }} - {{ role.person.name }}</a></li>
             {% endfor %}
         </ul>
     <h4>Tags:</h4>

@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import widgets
 from django.forms.extras.widgets import SelectDateWidget
+from django.forms.widgets import CheckboxSelectMultiple
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
@@ -19,7 +20,9 @@ class ProjectForm(forms.ModelForm):
         fields = "__all__"
         exclude = ['slug', ]
         widgets = {'start_date': SelectDateWidget(),
-        'end_date': SelectDateWidget()}
+        'end_date': SelectDateWidget(),
+        'sponsoring_departments': CheckboxSelectMultiple(),
+        'tags': CheckboxSelectMultiple()}
 
     def __init__(self, *args, **kwargs):
 
@@ -44,6 +47,7 @@ class DepartmentForm(forms.ModelForm):
         model = Department
         fields = "__all__"
         exclude = ['slug', ]
+        widgets = {'tags': CheckboxSelectMultiple()}
 
     def __init__(self, *args, **kwargs):
 
@@ -68,6 +72,7 @@ class MemberForm(forms.ModelForm):
         model = Member
         fields = "__all__"
         exclude = ['slug', ]
+        widgets = {'tags': CheckboxSelectMultiple()}
 
     def __init__(self, *args, **kwargs):
 
@@ -115,6 +120,8 @@ class RoleForm(forms.ModelForm):
     class Meta:
         model = Role
         fields = "__all__"
+        widgets = {'start_date': SelectDateWidget(),
+        'end_date': SelectDateWidget(),}
 
     def __init__(self, *args, **kwargs):
 
@@ -123,7 +130,7 @@ class RoleForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
-                HTML("""<a role="button" class="btn btn-default"
+                HTML("""<br><a role="button" class="btn btn-default"
                         href="/project/{{ project.slug }}">Cancel</a>"""),
                 Submit('save', 'Submit'),))
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from challenge.models import *
 from challenge.forms import *
+import json
 
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
@@ -24,6 +25,18 @@ def index(request):
     return render(request, 'challenge/index-en.html', context_dict)
 
 
+def visualize(request):
+
+    context_dict = {}
+
+    with open('flare.py') as data_file:    
+        data = json.load(data_file)
+
+    context_dict['data'] = data
+
+    return render(request, 'challenge/visualize.html', context_dict)
+
+
 def project(request, project_slug):
 
     context_dict = {}
@@ -33,10 +46,12 @@ def project(request, project_slug):
         context_dict['sponsoring_departments'] = Department.objects.filter(
             project=project)
         context_dict['project'] = project
-        context_dict['team'] = Member.objects.filter(
-            project=project)
         context_dict['tags'] = Tag.objects.filter(
             project=project)
+
+        team = Role.objects.filter(project=project)
+
+        context_dict['team'] = team
 
     except Project.DoesNotExist:
         context_dict['project'] = {"name": "Bernardo"}
@@ -76,8 +91,8 @@ def member(request, member_slug):
         context_dict['member'] = member
         context_dict['tags'] = Tag.objects.filter(
             member=member)
-        context_dict['projects'] = Project.objects.filter(
-            team=member)
+        context_dict['projects'] = Role.objects.filter(
+            person=member)
 
     except Member.DoesNotExist:
         pass
@@ -236,7 +251,8 @@ def add_role(request):
         role_form = RoleForm(request.POST, request.FILES)
 
         if role_form.is_valid():
-            slug = slugify(role_form.cleaned_data['name'])
+            slug = slugify("{}-{}".format(role_form.cleaned_data['project'],
+                role_form.cleaned_data['person']))
 
             role_form.save(commit=True)
 

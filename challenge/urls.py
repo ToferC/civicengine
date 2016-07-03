@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^visualize', views.visualize, name='visualize'),
     url(r'^project/(?P<project_slug>[\w\-]+)/$', views.project,
         name='project'),
     url(r'^department/(?P<department_slug>[\w\-]+)/$', views.department,

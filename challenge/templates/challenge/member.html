@@ -46,8 +46,8 @@
      <h4>Projects:</h4>
     {% if projects %}
         <ul>
-            {% for project in projects %}
-                <li><a href="{% url 'project' project_slug=project.slug %}">{{ project.name }}</a></li>
+            {% for role in projects %}
+                <li><a href="{% url 'project' project_slug=role.project.slug %}">{{role.role}} - {{ role.project.name }}</a></li>
             {% endfor %}
         </ul>
     </ul>
