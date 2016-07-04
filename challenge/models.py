@@ -64,7 +64,7 @@ class Member(models.Model):
     email = models.EmailField(max_length=128) # validate email
     phone = models.CharField(max_length=10) # validate numbers only
     profile = models.URLField(max_length=128) # validate GCconnex profile
-    image = models.ImageField(upload_to='images/user_images/%Y/%m/%d')
+    image = models.ImageField(upload_to='images/user_images/%Y/%m/%d/%H_%M_%S')
     bio = models.TextField(blank=True, null=True)
     geo_x = models.FloatField()
     geo_y = models.FloatField()
