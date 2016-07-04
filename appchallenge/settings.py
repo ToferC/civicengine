@@ -42,11 +42,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = '/'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = True
-
-PRODUCTION = os.environ.get('PRODUCTION')
 
 
 # Application definition
@@ -131,12 +126,6 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-if PRODUCTION:
-    # Parse database configuration from $DATABASE_URL
-    DATABASES['default'] = dj_database_url.config()
-
-    # Enable Connection Pooling (if desired)
-    DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
