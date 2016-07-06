@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Heroku Django Starter Template
 
 An utterly fantastic project starter template for Django 1.8.
@@ -41,3 +42,7 @@ You can replace ``helloworld`` with your desired project name.
 - [WhiteNoise](https://warehouse.python.org/project/whitenoise/)
 - [django-postgrespool](https://warehouse.python.org/project/django-postgrespool/)
 - [dj-database-url](https://warehouse.python.org/project/dj-database-url/)
+=======
+# innovationmap
+Django site for tracking and associating organizational innovation projects
+>>>>>>> d358c08b8730be8162703533f8522f666422cb9e
