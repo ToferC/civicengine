@@ -86,9 +86,10 @@ class MemberForm(forms.ModelForm):
                         href="/member/{{ member.slug }}">Cancel</a>"""),
                 Submit('save', 'Submit'),))
 
-    def save(self, commit=True):
+    def save(self, user, commit=True):
         instance = super(MemberForm, self).save(commit=False)
         instance.slug = slugify(instance.name)
+        instance.user = user
         instance.save()
         return instance
 

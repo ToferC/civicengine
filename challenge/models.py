@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.db.models import F
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-import random
+import random 
 
 # Create your models here.
 
