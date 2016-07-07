@@ -20,7 +20,8 @@
 <div>
 
     {% thumbnail member.image "300x300" crop="center" as im %}
-                    <img src="{% static '{{ im.url }}' %}" width="{{ im.width }}" height="{{ im.height }}">
+                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                    {% empty %}
     {% endthumbnail %}
 
     <h3>Details</h3>
