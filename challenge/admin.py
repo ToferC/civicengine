@@ -1,5 +1,5 @@
 from django.contrib import admin
-from challenge.models import Resource, Role, Member, Department, Project, Sprint, Work, Tag
+from challenge.models import Resource, Role, Member, Department, Project, Sprint, Work, Tag, Lab
 
 
 class ProjectAdmin(admin.ModelAdmin):
@@ -14,6 +14,11 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 class DepartmentAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+    list_display = ('name',)
+
+
+class LabAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     list_display = ('name',)
 
@@ -48,6 +53,7 @@ class WorkAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Department, DepartmentAdmin)
+admin.site.register(Lab, LabAdmin)
 admin.site.register(Member, MemberAdmin)
 admin.site.register(Sprint, SprintAdmin)
 admin.site.register(Work, WorkAdmin)

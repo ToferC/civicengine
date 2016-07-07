@@ -134,6 +134,7 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
 <a class="btn btn-primary" href="{% url 'add_member' %}">Register as a Member!</a>
 <a class="btn btn-primary" href="{% url 'add_department' %}">Add a Department!</a>
+<a class="btn btn-primary" href="{% url 'add_lab' %}">Add a Lab!</a>
 <a class="btn btn-primary" href="{% url 'add_tag' %}">Add a Tag!</a>
 {% else %}
     <a class="btn btn-info" href="{% url 'register' %}" role="button">Register</a>
@@ -151,6 +152,8 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 <a href="{% url 'all_projects' %}" class="btn btn-primary">See All Projects</a>
 
 <a href="{% url 'all_departments' %}" class="btn btn-primary">See All Departments</a>
+
+<a href="{% url 'all_labs' %}" class="btn btn-primary">See All Labs</a>
 
 <a href="{% url 'all_members' %}" class="btn btn-primary">See All Members</a>
 

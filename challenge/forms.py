@@ -5,7 +5,7 @@ from django.forms.widgets import CheckboxSelectMultiple
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
-from challenge.models import Project, Department, Member, Tag, Role
+from challenge.models import Project, Department, Member, Tag, Role, Lab
 
 from captcha.fields import CaptchaField
 from crispy_forms.helper import FormHelper
@@ -19,7 +19,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = "__all__"
-        exclude = ['slug', ]
+        exclude = ['slug', 'creator',]
         widgets = {'start_date': SelectDateWidget(),
         'end_date': SelectDateWidget(),
         'sponsoring_departments': CheckboxSelectMultiple(),
@@ -34,11 +34,12 @@ class ProjectForm(forms.ModelForm):
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/project/{{ project.slug }}">Cancel</a>"""),
-                Submit('save', 'Submit'),))
+                Submit('save', 'Create Project'),))
 
-    def save(self, commit=True):
+    def save(self, creator, commit=True):
         instance = super(ProjectForm, self).save(commit=False)
         instance.slug = slugify(instance.name)
+        instance.creator = creator
         instance.save()
         return instance
 
@@ -47,7 +48,7 @@ class DepartmentForm(forms.ModelForm):
     class Meta:
         model = Department
         fields = "__all__"
-        exclude = ['slug', ]
+        exclude = ['slug', 'creator',]
         widgets = {'tags': CheckboxSelectMultiple()}
 
     def __init__(self, *args, **kwargs):
@@ -59,11 +60,38 @@ class DepartmentForm(forms.ModelForm):
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/department/{{ department.slug }}">Cancel</a>"""),
-                Submit('save', 'Submit'),))
+                Submit('save', 'Create Department'),))
 
-    def save(self, commit=True):
+    def save(self, creator, commit=True):
         instance = super(DepartmentForm, self).save(commit=False)
         instance.slug = slugify(instance.name)
+        instance.creator = creator
+        instance.save()
+        return instance
+
+
+class LabForm(forms.ModelForm):
+    class Meta:
+        model = Lab
+        fields = "__all__"
+        exclude = ['slug', 'creator',]
+        widgets = {'tags': CheckboxSelectMultiple()}
+
+    def __init__(self, *args, **kwargs):
+
+        super(LabForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.layout.append(
+            FormActions(
+                HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
+                        href="/department/{{ lab.slug }}">Cancel</a>"""),
+                Submit('save', 'Create Lab'),))
+
+    def save(self, creator, commit=True):
+        instance = super(LabForm, self).save(commit=False)
+        instance.slug = slugify(instance.name)
+        instance.creator = creator
         instance.save()
         return instance
 
@@ -84,7 +112,7 @@ class MemberForm(forms.ModelForm):
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/member/{{ member.slug }}">Cancel</a>"""),
-                Submit('save', 'Submit'),))
+                Submit('save', 'Save Profile'),))
 
     def save(self, user, commit=True):
         instance = super(MemberForm, self).save(commit=False)
@@ -98,7 +126,7 @@ class TagForm(forms.ModelForm):
     class Meta:
         model = Tag
         fields = "__all__"
-        exclude = ['slug', ]
+        exclude = ['slug', 'creator',]
 
     def __init__(self, *args, **kwargs):
 
@@ -109,11 +137,12 @@ class TagForm(forms.ModelForm):
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/project/{{ project.slug }}">Cancel</a>"""),
-                Submit('save', 'Submit'),))
+                Submit('save', 'Create Tag'),))
 
-    def save(self, commit=True):
+    def save(self, creator, commit=True):
         instance = super(TagForm, self).save(commit=False)
         instance.slug = slugify(instance.name)
+        instance.creator = creator
         instance.save()
         return instance
 
@@ -135,7 +164,7 @@ class RoleForm(forms.ModelForm):
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default"
                         href="/project/{{ project.slug }}">Cancel</a>"""),
-                Submit('save', 'Submit'),))
+                Submit('save', 'Join Project'),))
 
     def save(self, person=None, commit=True):
         instance = super(RoleForm, self).save(commit=False)

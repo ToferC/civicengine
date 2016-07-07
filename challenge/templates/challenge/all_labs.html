@@ -1,0 +1,35 @@
+{% extends "challenge/base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+
+{% block main %}
+
+<main role="main" property="mainContentOfPage" class="container">
+<h1 id="wb-cont" property="name">Labs</h1>
+<a href="/"> >>>Return to Innovation Map</a><br>
+<p>
+{% if user.is_authenticated %}
+<a class="btn btn-primary" href="{% url 'add_lab' %}">Add a Lab!</a>
+{% endif %}
+</p>
+
+<div class="card-columns">
+
+{% for lab in labs %}
+    <div class="card">
+        {% thumbnail lab.image "300x300" crop="center" as im %}
+            <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
+        {% endthumbnail %}
+        <div class="card-block">
+            <h4 class="card-title">{{lab.name}} </h4>
+            <p class="card-text">{{ lab.info }}</p>
+            <a href="{% url 'lab' lab_slug=lab.slug %}" class="btn btn-primary">See Lab</a>
+        </div>
+    </div>
+    <br>
+{% endfor %}
+</div>
+<br><br>
+
+{% endblock %}

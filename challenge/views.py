@@ -19,11 +19,13 @@ def index(request):
     departments = Department.objects.all()
     members = Member.objects.all()
     tags = Tag.objects.all()
+    labs = Lab.objects.all()
 
     context_dict['projects'] = projects
     context_dict['departments'] = departments
     context_dict['members'] = members
     context_dict['tags'] = tags
+    context_dict['labs'] = labs
 
     return render(request, 'challenge/index-en.html', context_dict)
 
@@ -60,6 +62,16 @@ def all_departments(request):
     return render(request, 'challenge/all_departments.html', context_dict)
 
 
+def all_labs(request):
+    context_dict = {}
+
+    labs = Lab.objects.all()
+
+    context_dict['labs'] = labs
+
+    return render(request, 'challenge/all_labs.html', context_dict)
+
+
 def all_members(request):
     context_dict = {}
 
@@ -87,6 +99,8 @@ def project(request, project_slug):
     try:
         project = Project.objects.get(slug=project_slug)
         context_dict['sponsoring_departments'] = Department.objects.filter(
+            project=project)
+        context_dict['labs'] = Lab.objects.filter(
             project=project)
         context_dict['project'] = project
         context_dict['tags'] = Tag.objects.filter(
@@ -122,6 +136,28 @@ def department(request, department_slug):
         pass
 
     return render(request, 'challenge/department.html', context_dict)
+
+
+def lab(request, lab_slug):
+
+    context_dict = {}
+
+    try:
+        lab = Lab.objects.get(slug=lab_slug)
+
+        context_dict['lab'] = lab
+        context_dict['tags'] = Tag.objects.filter(
+            lab=lab)
+        context_dict['projects'] = Project.objects.filter(
+            labs=lab)
+        context_dict['members'] = Member.objects.filter(
+            lab=lab)
+        context_dict['image'] = lab.image
+
+    except Lab.DoesNotExist:
+        pass
+
+    return render(request, 'challenge/lab.html', context_dict)
 
 
 def member(request, member_slug):
@@ -198,13 +234,15 @@ def work(request, work_slug):
 @login_required
 def add_project(request):
 
+    user = request.user
+
     if request.method == 'POST':
         project_form = ProjectForm(request.POST, request.FILES)
 
         if project_form.is_valid():
             slug = slugify(project_form.cleaned_data['name'])
 
-            project_form.save(commit=True)
+            project_form.save(creator=user, commit=True)
 
             return HttpResponseRedirect("/project/{}".format(slug))
 
@@ -218,8 +256,11 @@ def add_project(request):
     return render(request, 'challenge/add_project.html',
         {'project_form': project_form})
 
+
 @login_required
 def add_department(request):
+
+    user = request.user
 
     if request.method == 'POST':
         department_form = DepartmentForm(request.POST, request.FILES)
@@ -227,7 +268,7 @@ def add_department(request):
         if department_form.is_valid():
             slug = slugify(department_form.cleaned_data['name'])
 
-            department_form.save(commit=True)
+            department_form.save(creator=user, commit=True)
 
             return HttpResponseRedirect("/department/{}".format(slug))
 
@@ -240,6 +281,33 @@ def add_department(request):
 
     return render(request, 'challenge/add_department.html',
         {'department_form': department_form})
+
+
+@login_required
+def add_lab(request):
+
+    user = request.user
+
+    if request.method == 'POST':
+        lab_form = LabForm(request.POST, request.FILES)
+
+        if lab_form.is_valid():
+            slug = slugify(lab_form.cleaned_data['name'])
+
+            lab_form.save(creator=user, commit=True)
+
+            return HttpResponseRedirect("/lab/{}".format(slug))
+
+        else:
+            print (lab_form.errors)
+
+    else:
+
+        lab_form = LabForm()
+
+    return render(request, 'challenge/add_lab.html',
+        {'lab_form': lab_form})
+
 
 @login_required
 def add_member(request):
@@ -266,8 +334,11 @@ def add_member(request):
     return render(request, 'challenge/add_member.html',
         {'member_form': member_form})
 
+
 @login_required
 def add_tag(request):
+
+    user = request.user
 
     if request.method == 'POST':
         tag_form = TagForm(request.POST, request.FILES)
@@ -275,7 +346,7 @@ def add_tag(request):
         if tag_form.is_valid():
             slug = slugify(tag_form.cleaned_data['name'])
 
-            tag_form.save(commit=True)
+            tag_form.save(creator=user, commit=True)
 
             return HttpResponseRedirect("/tag/{}".format(slug))
 
@@ -288,6 +359,7 @@ def add_tag(request):
 
     return render(request, 'challenge/add_tag.html',
         {'tag_form': tag_form})
+
 
 @login_required
 def add_role(request):

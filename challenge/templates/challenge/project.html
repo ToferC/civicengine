@@ -7,7 +7,7 @@
 
 <main role="main" property="mainContentOfPage" class="container">
 <h1 id="wb-cont" property="name">Projects</h1>
-<a href="{% url 'all_projects' %}">Return to all projects</a>
+<a href="{% url 'all_projects' %}"> >>>Return to all projects</a><br>
 <p>
 {% if user.is_authenticated %}
 <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
@@ -28,6 +28,12 @@
         <ul>
             {% for department in sponsoring_departments %}
                 <li><a href="{% url 'department' department_slug=department.slug %}">{{ department.name }}</a></li>
+            {% endfor %}
+        </ul>
+    <h4>Labs:</h4> 
+        <ul>
+            {% for lab in labs %}
+                <li><a href="{% url 'lab' lab_slug=lab.slug %}">{{ lab.name }}</a></li>
             {% endfor %}
         </ul>
     <h4>Summary:</h4> {{project.short_text}}
