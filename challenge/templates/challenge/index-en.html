@@ -6,9 +6,9 @@
 
 {% block main %}
 <main>
-<div class="col-md-2"">
+<div class="col-md-2 col-sm-0">
 </div>
-<div class="col-md-8"">
+<div class="col-md-8 col-sm-12">
 {% if user.is_authenticated %}
 <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
 <a class="btn btn-primary" href="{% url 'add_member' %}">Register as a Member!</a>
@@ -34,7 +34,7 @@
 <a href="{% url 'all_tags' %}" class="btn btn-primary">See All Tags</a>
 <a class="btn btn-primary" href="{% url 'visualize' %}">Visualize Data!</a>
 </div>
-<div class="col-md-2"">
+<div class="col-md-2 col-sm-0">
 </div>
 
 </main>
