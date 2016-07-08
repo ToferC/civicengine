@@ -1,0 +1,100 @@
+<!DOCTYPE html><!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]--><!--[if gt IE 8]><!-->
+{% load staticfiles %}
+{% load thumbnail %}
+{% load leaflet_tags %}
+
+<head>
+<!-- Load JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css" />
+<script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
+
+</head>
+
+<body>
+<span>Innovation Map</span>
+
+<a href="/">Home</a>
+<li>Meet the Challenge!</li>
+</div>
+<div class="nav navbar-right">
+    {% if user.is_authenticated %}
+            <a class="btn btn-primary" href="{% url 'logout' %}" role="button">Logged in as {{ user.username }}</a>
+    
+    {% endif %}
+</div>
+<main>
+<h1 id="wb-cont" property="name">Contribute</h1>
+<p>
+{% if user.is_authenticated %}
+<a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
+<a class="btn btn-primary" href="{% url 'add_member' %}">Register as a Member!</a>
+<a class="btn btn-primary" href="{% url 'add_department' %}">Add a Department!</a>
+<a class="btn btn-primary" href="{% url 'add_lab' %}">Add a Lab!</a>
+<a class="btn btn-primary" href="{% url 'add_tag' %}">Add a Tag!</a>
+{% else %}
+    <a class="btn btn-info" href="{% url 'register' %}" role="button">Register</a>
+    <a class="btn btn-primary" href="{% url 'login' %}" role="button">Log In</a>
+{% endif %}
+</p>
+
+<div class="img-responsive">
+    <div id="map" style="width: 90%; height: 500px"></div>
+</div>
+
+<a href="{% url 'all_projects' %}" class="btn btn-primary">See All Projects</a>
+
+<a href="{% url 'all_departments' %}" class="btn btn-primary">See All Departments</a>
+
+<a href="{% url 'all_labs' %}" class="btn btn-primary">See All Labs</a>
+
+<a href="{% url 'all_members' %}" class="btn btn-primary">See All Members</a>
+
+<a href="{% url 'all_tags' %}" class="btn btn-primary">See All Tags</a>
+<a class="btn btn-primary" href="{% url 'visualize' %}">Visualize Data!</a>
+<h2 id="en">Content</h2>
+
+</main>
+
+
+<footer>
+<div class="container">
+<nav role="navigation">
+
+</nav>
+</div>
+</footer>
+
+<script src="{% static 'js/theme.min.js' %}"></script>
+
+<script type="text/javascript">
+        var map = L.map('map').setView([54.16045, -92.01873], 4);
+
+        L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 18,
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            id: 'examples.map-i875mjb7'
+        }).addTo(map);
+
+        {% for project in projects %}
+        L.marker([{{ project.geo_x|floatformat:6 }}, {{ project.geo_y|floatformat:6 }}], 4).addTo(map)
+        .bindPopup( "{{project.name}}" ).openPopup();
+        {% endfor %}
+
+        var popup = L.popup();
+
+        </script>
+</body>
+</html>

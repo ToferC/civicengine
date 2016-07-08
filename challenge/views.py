@@ -193,6 +193,8 @@ def tag(request, tag_slug):
             tags=tag)
         context_dict['projects'] = Project.objects.filter(
             tags=tag)
+        context_dict['labs'] = Lab.objects.filter(
+            tags=tag)
 
     except Member.DoesNotExist:
         pass

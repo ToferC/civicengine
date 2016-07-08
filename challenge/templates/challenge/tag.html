@@ -36,6 +36,17 @@
         <p>No departments.</p>
      {% endif %}
 
+     <h4>Labs:</h4>
+     {% if labs %}
+        <ul>
+            {% for lab in labs %}
+                <li><a href="{% url 'lab' lab_slug=lab.slug %}">{{ lab.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+    <p>No labs.</p>
+    {% endif %}
+
      <h4>Projects:</h4>
     {% if projects %}
         <ul>

@@ -1,131 +1,100 @@
-<!DOCTYPE html><!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]--><!--[if gt IE 8]><!-->
-
 {% load staticfiles %}
+{% load leaflet_tags %}
+{% block header %}
 
-<html class="no-js" lang="en" dir="ltr">
-<!--<![endif]-->
-
-{% block head %}
-<html class="no-js" lang="en" dir="ltr">
-<!--<![endif]-->
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="utf-8">
-<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
-wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-<title>Government of Canada - App Challenge 2015
-</title>
-<meta content="width=device-width,initial-scale=1" name="viewport">
-<!-- Meta data -->
-<meta name="description" content="Web application to aggregate innovation initiatives from across the Government of Canada">
-<meta name="dcterms.title" content="Government of Canada Intranet theme - Web Experience Toolkit">
-<meta name="dcterms.creator" content="French name of the content author / Nom en français de l'auteur du contenu">
-<meta name="dcterms.issued" title="W3CDTF" content="Date published (YYYY-MM-DD) / Date de publication (AAAA-MM-JJ)">
-<meta name="dcterms.modified" title="W3CDTF" content="Date modified (YYYY-MM-DD) / Date de modification (AAAA-MM-JJ)">
-<meta name="dcterms.subject" title="scheme" content="French subject terms / Termes de sujet en français">
-<meta name="dcterms.language" title="ISO639-2" content="eng">
-<!-- Meta data-->
-<!--[if gte IE 9 | !IE ]><!-->
-<link href="{% static 'assets/favicon.ico' %}" rel="icon" type="image/x-icon">
-<link rel="stylesheet" href="{% static 'css/wet-boew.min.css' %}">
-<!--<![endif]-->
-<link rel="stylesheet" href="{% static 'css/theme.min.css' %}">
-<!--[if lt IE 9]>
-<link href="./assets/favicon.ico" rel="shortcut icon" />
-<link rel="stylesheet" href="./css/ie8-wet-boew.min.css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="./js/ie8-wet-boew.min.js"></script>
-<![endif]-->
-<noscript><link rel="stylesheet" href="{% static 'challenge/css/noscript.min.css" /></noscript>
+    <title>Innovation Map</title>
 
-<script src="https://code.jquery.com/jquery-3.0.0.min.js">
+<!-- Load JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
-<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity="sha384-XXXXXXXX" crossorigin="anonymous">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-<script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js" integrity="sha384-XXXXXXXX" crossorigin="anonymous"></script>
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
 
 <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2'></script>
 
 </head>
-</head>
 
 {% endblock %}
 
+<body>
+
 {% block nav %}
-<body vocab="http://schema.org/" typeof="WebPage">
-<ul id="wb-tphp">
-<li class="wb-slc">
-<a class="wb-sl" href="#wb-cont">Skip to main content</a>
-</li>
-<li class="wb-slc visible-sm visible-md visible-lg">
-<a class="wb-sl" href="#wb-info">Skip to "About this site"</a>
-</li>
-</ul>
-<header role="banner">
-<div id="wb-bnr">
-<div id="wb-bar">
-<div class="container">
-<div class="row">
-<object id="gcwu-sig" type="image/svg+xml" tabindex="-1" role="img" data="{% static 'assets/sig-blk-en.svg' %}" aria-label="Government of Canada"></object>
-<section id="wb-lng"><h2>Language selection</h2>
-<ul class="list-inline">
-<li><a lang="fr" href="index-fr.html">Français</a></li>
-</ul>
-</section>
-<section class="wb-mb-links col-xs-12 visible-sm visible-xs" id="wb-glb-mn">
-<h2>Search and menus</h2>
-<ul class="pnl-btn list-inline text-right">
-<li><a href="#mb-pnl" title="Search and menus" aria-controls="mb-pnl" class="overlay-lnk btn btn-sm btn-default" role="button"><span class="glyphicon glyphicon-search"><span class="glyphicon glyphicon-th-list"><span class="wb-inv">Search and menus</span></span></span></a></li>
-</ul>
-<div id="mb-pnl"></div>
-</section>
-</div>
-</div>
-</div>
-<div class="container">
-<div class="row">
-<div id="wb-sttl" class="col-md-12">
-<a href="/">
-<span>Innovation Map</span>
-</a>
-<object id="wmms" type="image/svg+xml" tabindex="-1" role="img" data="{% static 'assets/wmms-intra.svg' %}" aria-label="Symbol of the Government of Canada"></object>
-</div>
-<section id="wb-srch" class="visible-md visible-lg">
-<h2>Search</h2>
-<form action="https://google.ca/search" method="get" role="search" class="form-inline">
-<div class="form-group">
-<label for="wb-srch-q">Search website</label>
-<input id="wb-srch-q" class="form-control" name="q" type="search" value="" size="27" maxlength="150">
-<input type="hidden" name="q" value="site:appchallenge2015.herokuapp.com/ OR site:github.com/wet-boew/">
-</div>
-<button type="submit" id="wb-srch-sub" class="btn btn-default">Search</button>
-</form>
-</section>
-</div>
-</div>
-</div>
-<nav role="navigation" id="wb-sm" data-ajax-replace="{% static 'ajax/sitemenu-en.html' %}" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
-<div class="container nvbar">
-<h2>Topics menu</h2>
-</div>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Innovation Map</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+        {% if user.is_authenticated %}
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add Content <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'add_project' %}">Add a Project!</a></li>
+            <li><a href="{% url 'add_department' %}">Add a Department!</a></li>
+            <li><a href="{% url 'add_lab' %}">Add a Lab!</a></li>
+            <li><a href="{% url 'add_tag' %}">Add a Tag!</a></li>
+            <li class="divider"></li>
+            <li><a href="{% url 'add_member' %}">Register as a Member!</a></li>
+        {% else %}
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contribute <span class="caret"></span></a>
+                <li><a class="btn btn-info" href="{% url 'register' %}" role="button">Register</a></li>
+                <li><a class="btn btn-primary" href="{% url 'login' %}" role="button">Log In</a></li>
+            {% endif %}
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Logged in as {{ user.username }}</a></li>
+            {% else %}
+                <li><a href="{% url 'register' %}">Register</a></li>
+                <li><a href="{% url 'login' %}">Log In</a></li>
+            {% endif %}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
-<nav role="navigation" id="wb-bc" property="breadcrumb">
-<a href="/"><h2>Home</h2></a>
-<div class="container">
-<div class="row">
-{% if user.is_authenticated %}
-<a class="btn btn-primary" href="{% url 'logout' %}" role="button">Logged in as {{ user.username }}</a>
-{% else %}
-    <a class="btn btn-info" href="{% url 'register' %}" role="button">Register</a>
-    <a class="btn btn-primary" href="{% url 'login' %}" role="button">Log In</a>
-{% endif %}
-</div>
-</div>
-</nav>
-<section>
-</section>
-</header>
+
 {% endblock %}
 
 {% block main %}
@@ -133,56 +102,12 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
 {% endblock %}
 
 {% block footer %}
-<footer role="contentinfo" id="wb-info" class="visible-sm visible-md visible-lg wb-navcurr">
-<div class="container">
-<nav role="navigation">
-<h2>About this site</h2>
-<div class="row">
-<section class="col-sm-3">
-<h3>Contact us</h3>
-<ul class="list-unstyled">
-<li><a href="https://github.com/wet-boew/wet-boew/issues/new">Questions or comments?</a></li>
-</ul>
-</section>
-<section class="col-sm-3">
-<h3>About</h3>
-<ul class="list-unstyled">
-<li><a href="http://wet-boew.github.io/v4.0-ci/index-en.html#about">About the Web Experience Toolkit</a></li>
-<li><a href="http://www.tbs-sct.gc.ca/ws-nw/index-eng.asp">About the Web Standards</a></li>
-</ul>
-</section>
-<section class="col-sm-3">
-<h3>News</h3>
-<ul class="list-unstyled">
-<li><a href="https://github.com/wet-boew/wet-boew/pulse">Recent project activity</a></li>
-<li><a href="https://github.com/wet-boew/wet-boew/graphs">Project statistics</a></li>
-</ul>
-</section>
-<section class="col-sm-3">
-<h3>Stay connected</h3>
-<ul class="list-unstyled">
-<li><a href="https://twitter.com/WebExpToolkit">Twitter</a></li>
-</ul>
-</section>
-</div>
-<ul id="gc-tctr" class="list-inline">
-<li><a rel="license" href="http://wet-boew.github.io/wet-boew/License-en.html">Terms and conditions</a></li>
-<li><a href="http://www.tbs-sct.gc.ca/tbs-sct/common/trans-eng.asp">Transparency</a></li>
-</ul>
-</nav>
-</div>
+<footer class="footer">
+    <div class="container">
+<p class="text-muted">FOOTER</p>
+    </div>
 </footer>
-
 {% endblock %}
-<!--[if gte IE 9 | !IE ]><!-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
-<script src="{% static 'js/wet-boew.min.js' %}"></script>
-<!--<![endif]-->
-<!--[if lt IE 9]>
-<script src="./js/ie8-wet-boew2.min.js"></script>
-
-<![endif]-->
-<script src="{% static 'js/theme.min.js' %}"></script>
 
 </body>
 </html>
