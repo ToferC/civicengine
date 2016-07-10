@@ -5,23 +5,20 @@
 
 {% block main %}
 
-<main role="main" property="mainContentOfPage" class="container">
-<h1 id="wb-cont" property="name">Labs</h1>
-<a href="{% url 'all_labs' %}"> >>>Return to all labs</a><br>
-<p>
-{% if user.is_authenticated %}
-<a class="btn btn-primary" href="{% url 'add_lab' %}">Add a Lab!</a>
-{% endif %}
-</p>
-<section>
+<div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
+
+<div class="breadcrumbs"><a href="{% url 'all_labs' %}"> Labs></a></div>
+<hr>
+
 <h2>{{ lab.name }} ({{ lab.acronym }})</h2>
 
 <div>
-    <h3>Details</h3>
     {% thumbnail image "300x300" crop="center" as im %}
         <img class="img-responsive" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
     {% endthumbnail %}
+    <hr>
     <h4>Info:</h4> {{lab.info}}
+    <hr>
     <h4>Website:</h4> 
     <a href="{{ lab.website }}">{{lab.website}}</a>
     
@@ -32,7 +29,6 @@
                 <li><a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a></li>
             {% endfor %}
         </ul>
-    </ul>
      {% else %}
         <p>No tags.</p>
      {% endif %}
@@ -44,7 +40,6 @@
                 <li><a href="{% url 'project' project_slug=project.slug %}">{{ project.name }}</a></li>
             {% endfor %}
         </ul>
-    </ul>
      {% else %}
         <p>No projects.</p>
      {% endif %}
@@ -56,20 +51,11 @@
                 <li><a href="{% url 'member' member_slug=member.slug %}">{{ member.name }}</a></li>
             {% endfor %}
         </ul>
-    </ul>
      {% else %}
         <p>No team members.</p>
      {% endif %}
 
 </div>
-
-</section>
-</section>
-
-<dl id="wb-dtmd">
-<dt>Date modified:&#32;</dt>
-<dd><time property="dateModified">2014-08-19</time></dd>
-</dl>
-</main>
+</div>
 
 {% endblock %}

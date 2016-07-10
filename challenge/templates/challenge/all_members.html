@@ -5,16 +5,20 @@
 
 {% block main %}
 
-<main role="main" property="mainContentOfPage" class="container">
-<h1 id="wb-cont" property="name">Members</h1>
-<a href="/"> >>>Return to Innovation Map</a><br>
-<p>
-{% if user.is_authenticated %}
-<a class="btn btn-primary" href="{% url 'add_member' %}">Add a Member!</a>
-{% endif %}
-</p>
+<div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
 
-<div class="card-columns"><h4>
+<div class="breadcrumbs"><span>Breadcrumbs</span></div><hr>
+
+{% if user.is_authenticated %}
+<div class="text-xs-center">
+    <div class="btn-group"> 
+    <a class="btn btn-primary" href="{% url 'add_member' %}">Add a Member!</a>
+    </div>
+</div>
+<hr>
+{% endif %}
+
+<div class="card-columns">
 
 {% for member in members %}
     <div class="card">
@@ -27,9 +31,9 @@
             <a href="{% url 'member' member_slug=member.slug %}" class="btn btn-primary">See Member</a>
         </div> 
     </div>
-    <br>
 {% endfor %}
+
 </div>
-<br><br>
+</div>
 
 {% endblock %}

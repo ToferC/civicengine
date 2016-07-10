@@ -5,25 +5,25 @@
 
 {% block main %}
 
-<main role="main" property="mainContentOfPage" class="container">
-<h1 id="wb-cont" property="name">Departments</h1>
-<a href="{% url 'all_departments' %}"> >>>Return to all departments</a>
-<p>
-{% if user.is_authenticated %}
-<a class="btn btn-primary" href="{% url 'add_department' %}">Add a Department!</a>
-{% endif %}
-</p>
-<section>
+<div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
+
+<div class="breadcrumbs"><a href="{% url 'all_departments' %}"> Departments ></a> {{department.name}}</div>
+<hr>
+
 <h2>{{ department.name }} ({{ department.acronym }})</h2>
 
-<div>
-    <h3>Details</h3>
     {% thumbnail image "300x300" crop="center" as im %}
         <img class="img-responsive" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
     {% endthumbnail %}
+    <hr>
     <h4>Info:</h4> {{department.info}}
-    <h4>Website:</h4> 
-    <a href="{{ department.website }}">{{department.website}}</a>
+    <hr>
+    <h4>Website:</h4>
+    <ul>
+        <li>
+            <a href="{{ department.website }}">{{department.website}}</a>
+        </li>
+    </ul>
     
     <h4>Tags:</h4>
     {% if tags %}
@@ -32,7 +32,6 @@
                 <li><a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a></li>
             {% endfor %}
         </ul>
-    </ul>
      {% else %}
         <p>No tags.</p>
      {% endif %}
@@ -44,7 +43,6 @@
                 <li><a href="{% url 'project' project_slug=project.slug %}">{{ project.name }}</a></li>
             {% endfor %}
         </ul>
-    </ul>
      {% else %}
         <p>No projects.</p>
      {% endif %}
@@ -56,20 +54,10 @@
                 <li><a href="{% url 'member' member_slug=member.slug %}">{{ member.name }}</a></li>
             {% endfor %}
         </ul>
-    </ul>
      {% else %}
         <p>No team members.</p>
      {% endif %}
 
 </div>
-
-</section>
-</section>
-
-<dl id="wb-dtmd">
-<dt>Date modified:&#32;</dt>
-<dd><time property="dateModified">2014-08-19</time></dd>
-</dl>
-</main>
 
 {% endblock %}

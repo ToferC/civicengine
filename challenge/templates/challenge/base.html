@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load leaflet_tags %}
+{% load thumbnail %}
 {% block header %}
 
 <!DOCTYPE html>
@@ -29,25 +30,36 @@
 
 {% block nav %}
 
+<div class="container-fluid">
+
 <nav class="navbar navbar-dark bg-inverse">
+
+  <!-- Toggle Button -->
+<button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#nav-content"><span>Menu</span></button>
+
+<!-- Nav Content -->
+<div class="collapse navbar-toggleable-xs" id="nav-content">
+      <a class="navbar-brand" href="/">
+      
+        <img class="img-responsive" src="https://s3.amazonaws.com/innovationmap/media/images/canada_flag.jpg" width="50px" height="30px"></a>
       <a class="navbar-brand" href="/">Innovation Map</a>
-      <ul class="nav navbar-nav pull-lg-left">
-        <li class="dropdown">
-        {% if user.is_authenticated %}
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add Content <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'add_project' %}">Add a Project!</a></li>
-            <li><a href="{% url 'add_department' %}">Add a Department!</a></li>
-            <li><a href="{% url 'add_lab' %}">Add a Lab!</a></li>
-            <li><a href="{% url 'add_tag' %}">Add a Tag!</a></li>
-            <li class="divider"></li>
-            <li><a href="{% url 'add_member' %}">Register as a Member!</a></li>
-        {% else %}
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contribute <span class="caret"></span></a>
-                <li><a href="{% url 'register' %}">Register</a></li>
-                <li><a href="{% url 'login' %}" >Log In</a></li>
-            {% endif %}
-          </ul>
+      <ul class="nav navbar-nav">
+        <li class="nav-item dropdown">
+          {% if user.is_authenticated %}
+          <a class="brn btn-md" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">Add Content </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><a href="{% url 'add_project' %}">Add a Project!</a></li>
+              <li class="dropdown-item"><a href="{% url 'add_department' %}">Add a Department!</a></li>
+              <li class="dropdown-item"><a href="{% url 'add_lab' %}">Add a Lab!</a></li>
+              <li class="dropdown-item"><a href="{% url 'add_tag' %}">Add a Tag!</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-item"><a href="{% url 'add_member' %}">Register as a Member!</a></li>
+          {% else %}
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contribute <span class="caret"></span></a>
+                  <li><a href="{% url 'register' %}">Register</a></li>
+                  <li><a href="{% url 'login' %}" >Log In</a></li>
+              {% endif %}
+            </ul>
         </li>
     </ul>
       <!--
@@ -58,7 +70,7 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       -->
-      <ul class="nav navbar-nav pull-lg-right">
+      <ul class="nav navbar-nav pull-sm-right">
         {% if user.is_authenticated %}
             <li><a href="{% url 'logout' %}">Logged in as {{ user.username }}</a></li>
             {% else %}
@@ -66,18 +78,35 @@
                 <li><a href="{% url 'login' %}">Log In</a></li>
             {% endif %}
       </ul>
+  </div>
 </nav>
+</div>
 
 {% endblock %}
 
-{% block main %}
+{% block page %}
+
+  {% block col1 %}
+  <div class="col-xl-2 col-lg-2 col-md-1 col-sm-0"></div>
+  {% endblock col1 %}
+
+  {% block main %}
+
+  {% endblock main %}
+
+  {% block col2 %}
+  <div class="col-xl-2 col-lg-2 col-md-1 col-sm-0"></div>
+  {% endblock col2 %}
 
 {% endblock %}
 
 {% block footer %}
 <footer class="footer">
     <div class="container">
-<p class="text-muted">Footer Here</p>
+    <div class="text-xs-center">
+    <br><br>
+      <span class="text-muted">Developed by ToferC for DMCPI</span>
+    </div>
     </div>
 </footer>
 {% endblock %}
