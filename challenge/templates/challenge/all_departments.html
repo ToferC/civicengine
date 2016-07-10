@@ -22,7 +22,7 @@
 
 {% for department in departments %}
     <div class="card">
-        {% thumbnail department.image "400x300" crop="center" as im %}
+        {% thumbnail department.image "300x300" crop="center" as im %}
             <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
         {% endthumbnail %}
         <div class="card-block">

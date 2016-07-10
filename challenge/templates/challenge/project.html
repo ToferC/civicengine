@@ -57,6 +57,10 @@
             {% endfor %}
         </ul>
 
+{% if project.creator == user %}
+<a class="btn btn-info" href="{% url 'project-update' pk=project.pk %}">Edit</a>
+{% endif %}
+
 </div>
 </div>
 
