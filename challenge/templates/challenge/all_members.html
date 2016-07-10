@@ -22,7 +22,7 @@
 
 {% for member in members %}
     <div class="card">
-        {% thumbnail member.image "300" crop="center" as im %}
+        {% thumbnail member.image "400x300" crop="center" as im %}
             <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
         {% endthumbnail %}
         <div class="card-block">

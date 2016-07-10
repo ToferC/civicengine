@@ -7,7 +7,7 @@
 
 <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
 
-<div class="breadcrumbs"><span>Breadcrumbs</span></div><hr>
+<div class="breadcrumbs"><a href="/">Map > </a> Labs</div><hr>
 
 {% if user.is_authenticated %}
 <div class="text-xs-center">
@@ -22,7 +22,7 @@
 
 {% for lab in labs %}
     <div class="card">
-        {% thumbnail lab.image "300x300" crop="center" as im %}
+        {% thumbnail lab.image "400x300" crop="center" as im %}
             <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
         {% endthumbnail %}
         <div class="card-block">

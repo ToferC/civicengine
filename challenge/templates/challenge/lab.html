@@ -7,13 +7,13 @@
 
 <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
 
-<div class="breadcrumbs"><a href="/">Map > </a><a href="{% url 'all_labs' %}"> Labs ></a></div>
+<div class="breadcrumbs"><a href="/">Map > </a><a href="{% url 'all_labs' %}"> Labs ></a> {{ lab.name }}</div>
 <hr>
 
 <h2>{{ lab.name }} ({{ lab.acronym }})</h2>
 
 <div>
-    {% thumbnail image "300x300" crop="center" as im %}
+    {% thumbnail image "400x300" crop="center" as im %}
         <img class="img-responsive" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
     {% endthumbnail %}
     <hr>
