@@ -26,7 +26,7 @@ urlpatterns = [
 
     url(r'^add_member/$', views.add_member, name='add_member'),
     url(r'^add_project/$', views.add_project, name='add_project'),
-    url(r'^update_project_form/(?P<pk>[0-9]+)/$', ProjectUpdate.as_view(), name='project-update'),
+    url(r'^project_form/(?P<pk>[0-9]+)/$', ProjectUpdate.as_view(), name='project-update'),
 
 
     url(r'^add_department/$', views.add_department, name='add_department'),
