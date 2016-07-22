@@ -5,65 +5,63 @@
 
 {% block main %}
 
-<main role="main" property="mainContentOfPage" class="container">
-<h1 id="wb-cont" property="name">Projects</h1>
-<a href="{% url 'all_projects' %}"> >>>Return to all projects</a><br>
-<p>
-{% if user.is_authenticated %}
-<a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
-<a class="btn btn-primary" href="{% url 'add_role' %}">Join a Project!</a>
-{% endif %}
-</p>
-<section>
+<div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
+
+<div class="breadcrumbs"><a href="/">Map > </a><a href="{% url 'all_projects' %}"> Projects ></a> {{project.name}}</div>
+<hr>
+
 <h2>{{ project.name }}</h2>
 
 <div>
-    <h3>Details</h3>
 
     {% thumbnail project.image "300x300" crop="center" as im %}
                     <img src="{{ im.url }}"" width="{{ im.width }}" height="{{ im.height }}">
     {% endthumbnail %}
+    <hr>
+    <h4>Summary:</h4> {{project.short_text}}
+    <hr>
+    <h4>Description:</h4> {{project.detail_text}}
+    <hr>
+    <h4>Project Details:</h4>
     <ul>
+        <li>Submitted: {{project.submitted_date}}</li>
+        <li>Start Date: {{project.start_date}}</li>
+        <li>End Date: {{project.end_date}}</li>
+    </ul>
+    <hr>
     <h4>Departments:</h4> 
         <ul>
             {% for department in sponsoring_departments %}
                 <li><a href="{% url 'department' department_slug=department.slug %}">{{ department.name }}</a></li>
             {% endfor %}
         </ul>
+    <hr>
     <h4>Labs:</h4> 
         <ul>
             {% for lab in labs %}
                 <li><a href="{% url 'lab' lab_slug=lab.slug %}">{{ lab.name }}</a></li>
             {% endfor %}
         </ul>
-    <h4>Summary:</h4> {{project.short_text}}
-    <h4>Description:</h4> {{project.detail_text}}
-    <h4>Submitted:</h4> {{project.submitted_date}}
-    <h4>Start Date:</h4> {{project.start_date}}
-    <h4>End Date:</h4> {{project.end_date}}
+    <hr>
     <h4>Team:</h4> 
         <ul>
             {% for role in team %}
                 <li><a href="{% url 'member' member_slug=role.person.slug %}">{{ role.role }} - {{ role.person.name }}</a></li>
             {% endfor %}
         </ul>
+    <hr>
     <h4>Tags:</h4>
         <ul>
             {% for tag in tags %}
                 <li><a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a></li>
             {% endfor %}
         </ul>
-    </ul>
+
+{% if project.creator == user %}
+<a class="btn btn-info" href="{% url 'project-update' pk=project.pk %}">Edit</a>
+{% endif %}
 
 </div>
-
-</section>
-</section>
-
-<dl id="wb-dtmd">
-<dt>Date modified:&#32;</dt>
-<dd><time property="dateModified">2014-08-19</time></dd>
-</dl>
-</main>
+</div>
 
 {% endblock %}

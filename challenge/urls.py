@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from challenge.views import ProjectUpdate, ProjectDelete
 from . import views
 
 urlpatterns = [
@@ -25,6 +26,9 @@ urlpatterns = [
 
     url(r'^add_member/$', views.add_member, name='add_member'),
     url(r'^add_project/$', views.add_project, name='add_project'),
+    url(r'^project_form/(?P<pk>[0-9]+)/$', ProjectUpdate.as_view(), name='project-update'),
+
+
     url(r'^add_department/$', views.add_department, name='add_department'),
     url(r'^add_lab/$', views.add_lab, name='add_lab'),
     url(r'^add_tag/$', views.add_tag, name='add_tag'),

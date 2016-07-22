@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth import logout, login, authenticate
 from django.contrib import messages
+from django.views.generic.edit import UpdateView, DeleteView
 from challenge.models import *
 from challenge.forms import *
 import json
@@ -10,7 +12,8 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 
 
-# Create your views here.
+# Basic Views
+
 def index(request):
 
     context_dict = {}
@@ -388,6 +391,28 @@ def add_role(request):
 
     return render(request, 'challenge/add_role.html',
         {'role_form': role_form})
+
+
+# Update & Delete Views
+
+class ProjectUpdate(UpdateView):
+    model = Project
+    fields = "__all__"
+    exclude = ['slug', 'creator',]
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+
+        return super(ProjectUpdate, self).form_valid(form)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ProjectUpdate,
+            self).dispatch(*args, **kwargs)
+
+
+class ProjectDelete(DeleteView):
+    model = Project
 
 
 # Admin Views
