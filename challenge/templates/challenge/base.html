@@ -42,15 +42,15 @@
             <li><a href="{% url 'add_tag' %}">Add a Tag!</a></li>
             <li class="divider"></li>
             <li><a href="{% url 'add_member' %}">Register as a Member!</a></li>
+          </ul>
         {% else %}
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contribute <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="{% url 'register' %}">Register</a></li>
                 <li><a href="{% url 'login' %}" >Log In</a></li>
+            </ul>
             {% endif %}
-          </ul>
-        </li>
-    </ul>
+      </ul>
       <!--
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
