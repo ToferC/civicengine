@@ -1,48 +1,29 @@
-<<<<<<< HEAD
-# Heroku Django Starter Template
 
-An utterly fantastic project starter template for Django 1.8.
+# Innovation Map Project - 
 
-## Features
+A proof of concept Django site for tracking and associating organizational innovation projects. Based on the excellent Heroku Django Starter Template.
 
-- Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
-- Enhancements to Django's static file serving functionality via WhiteNoise
-- Enhancements to Django's database functionality via django-postgrespool and dj-database-url
+Objectives:
 
-## How to Use
+* Map innovative practices
+* Allow easy access to information about labs, organizations and individuals in the civic innovation space
+* Provide contacts for people and groups interested in participating
 
-To use this project, follow these steps:
+Hosted on Heroku with static files on AWS.
 
-1. Create your working environment.
-2. Install Django (`$ pip install django`)
-3. Create a new project using this template
+This app is currently in garage-band beta.  Current work at about 25 hours.
 
-## Creating Your Project
+Features:
+* Geo-coded ability to add projects, members, labs, organizations and tags
+* Integrated relationships and the ability to hop between objects based on the relationships
+* Placeholder for data visualization based on D3js
+* Simple account registration (management currently through Django admin)
+* Boostrap 3 UI
+* Mobile accessible
 
-Using this template to create a new Django app is easy::
+Future development:
 
-    $ django-admin.py startproject --template=https://github.com/heroku/heroku-django-template/archive/master.zip --name=Procfile helloworld
-
-You can replace ``helloworld`` with your desired project name.
-
-## Deployment to Heroku
-
-    $ git init
-    $ git add -A
-    $ git commit -m "Initial commit"
-
-    $ heroku create
-    $ git push heroku master
-
-    $ heroku run python manage.py migrate
-
-## Further Reading
-
-- [Gunicorn](https://warehouse.python.org/project/gunicorn/)
-- [WhiteNoise](https://warehouse.python.org/project/whitenoise/)
-- [django-postgrespool](https://warehouse.python.org/project/django-postgrespool/)
-- [dj-database-url](https://warehouse.python.org/project/dj-database-url/)
-=======
-# innovationmap
-Django site for tracking and associating organizational innovation projects
->>>>>>> d358c08b8730be8162703533f8522f666422cb9e
+* Add issues as object (connect to projects)
+* Robust user accounts and 3rd party authorization
+* Improved mapping and filters by tags
+* Social interactions based on projects, issues and organizations.
