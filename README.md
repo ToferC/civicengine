@@ -3,7 +3,7 @@
 
 A proof of concept Django site for tracking and associating organizational innovation projects. Based on the excellent Heroku Django Starter Template.
 
-[Live application:](http://innovationmap.herokuapp.com)
+[Live application](http://innovationmap.herokuapp.com)
 
 Objectives:
 
