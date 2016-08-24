@@ -55,6 +55,10 @@
         <p>No team members.</p>
      {% endif %}
 
+{% if lab.creator == user %}
+<a class="btn btn-info" href="{% url 'lab-update' pk=lab.pk %}">Edit</a>
+{% endif %}
+
 </div>
 </div>
 

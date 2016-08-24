@@ -39,7 +39,7 @@
 {% if user.is_authenticated %}
 <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
 <a class="btn btn-primary" href="{% url 'add_member' %}">Register as a Member!</a>
-<a class="btn btn-primary" href="{% url 'add_department' %}">Add a Department!</a>
+<a class="btn btn-primary" href="{% url 'add_organization' %}">Add a organization!</a>
 <a class="btn btn-primary" href="{% url 'add_lab' %}">Add a Lab!</a>
 <a class="btn btn-primary" href="{% url 'add_tag' %}">Add a Tag!</a>
 {% else %}
@@ -54,7 +54,7 @@
 
 <a href="{% url 'all_projects' %}" class="btn btn-primary">See All Projects</a>
 
-<a href="{% url 'all_departments' %}" class="btn btn-primary">See All Departments</a>
+<a href="{% url 'all_organizations' %}" class="btn btn-primary">See All organizations</a>
 
 <a href="{% url 'all_labs' %}" class="btn btn-primary">See All Labs</a>
 

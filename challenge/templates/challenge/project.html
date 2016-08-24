@@ -15,7 +15,7 @@
 <div>
 
     {% thumbnail project.image "300x300" crop="center" as im %}
-                    <img src="{{ im.url }}"" width="{{ im.width }}" height="{{ im.height }}">
+                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
     {% endthumbnail %}
     <hr>
     <h4>Summary:</h4> {{project.short_text}}
@@ -29,10 +29,10 @@
         <li>End Date: {{project.end_date}}</li>
     </ul>
     <hr>
-    <h4>Departments:</h4> 
+    <h4>Organizations:</h4> 
         <ul>
-            {% for department in sponsoring_departments %}
-                <li><a href="{% url 'department' department_slug=department.slug %}">{{ department.name }}</a></li>
+            {% for organization in sponsoring_organizations %}
+                <li><a href="{% url 'organization' organization_slug=organization.slug %}">{{ organization.name }}</a></li>
             {% endfor %}
         </ul>
     <hr>
@@ -46,7 +46,13 @@
     <h4>Team:</h4> 
         <ul>
             {% for role in team %}
-                <li><a href="{% url 'member' member_slug=role.person.slug %}">{{ role.role }} - {{ role.person.name }}</a></li>
+                <li><a href="{% url 'member' member_slug=role.person.slug %}">{{ role.role }} - {{ role.person.name }}</a>
+
+                {% if role.person.user == user %}
+                <a class="btn btn-info" href="{% url 'role-update' pk=role.pk %}">Edit</a>
+                {% endif %}
+
+                </li>
             {% endfor %}
         </ul>
     <hr>

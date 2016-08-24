@@ -7,12 +7,12 @@
 
 <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
 
-<div class="breadcrumbs"><a href="/">Map > </a> Departments</div><hr>
+<div class="breadcrumbs"><a href="/">Map > </a> organizations</div><hr>
 
 {% if user.is_authenticated %}
 <div class="text-xs-center">
     <div class="btn-group"> 
-    <a class="btn btn-primary" href="{% url 'add_department' %}">Add a Department!</a>
+    <a class="btn btn-primary" href="{% url 'add_organization' %}">Add an Organization!</a>
     </div>
 </div>
 <hr>
@@ -20,15 +20,15 @@
 
 <div class="card-columns">
 
-{% for department in departments %}
+{% for organization in organizations %}
     <div class="card">
-        {% thumbnail department.image "300x300" crop="center" as im %}
+        {% thumbnail organization.image "300x300" crop="center" as im %}
             <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
         {% endthumbnail %}
         <div class="card-block">
-            <h4 class="card-title">{{department.name}} </h4>
-            <p class="card-text">{{ department.info }}</p>
-            <a href="{% url 'department' department_slug=department.slug %}" class="btn btn-primary">See Department</a>
+            <h4 class="card-title">{{organization.name}} </h4>
+            <p class="card-text">{{ organization.info }}</p>
+            <a href="{% url 'organization' organization_slug=organization.slug %}" class="btn btn-primary">See organization</a>
         </div>
     </div>
 {% endfor %}

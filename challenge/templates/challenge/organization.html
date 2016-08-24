@@ -7,21 +7,21 @@
 
 <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
 
-<div class="breadcrumbs"><a href="/">Map > </a><a href="{% url 'all_departments' %}"> Departments ></a> {{department.name}}</div>
+<div class="breadcrumbs"><a href="/">Map > </a><a href="{% url 'all_organizations' %}"> organizations ></a> {{organization.name}}</div>
 <hr>
 
-<h2>{{ department.name }} ({{ department.acronym }})</h2>
+<h2>{{ organization.name }} ({{ organization.acronym }})</h2>
 
     {% thumbnail image "300x300" crop="center" as im %}
         <img class="img-responsive" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
     {% endthumbnail %}
     <hr>
-    <h4>Info:</h4> {{department.info}}
+    <h4>Info:</h4> {{organization.info}}
     <hr>
     <h4>Website:</h4>
     <ul>
         <li>
-            <a href="{{ department.website }}">{{department.website}}</a>
+            <a href="{{ organization.website }}">{{organization.website}}</a>
         </li>
     </ul>
     
@@ -58,6 +58,10 @@
         <p>No team members.</p>
      {% endif %}
 
+<hr>
+{% if organization.creator == user %}
+<a class="btn btn-info" href="{% url 'organization-update' pk=organization.pk %}">Edit</a>
+{% endif %}
 </div>
 
 {% endblock %}

@@ -1,0 +1,575 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"active",
+				"active_screen"
+			],
+			[
+				"COLO",
+				"COLOR_BLACK	instance"
+			],
+			[
+				"COLOR",
+				"COLOR_GREEN	instance"
+			],
+			[
+				"COL",
+				"COLOR_RED	instance"
+			],
+			[
+				"init",
+				"init_pair	function"
+			],
+			[
+				"BUTTON1",
+				"BUTTON1_DOUBLE_CLICKED	instance"
+			],
+			[
+				"mou",
+				"mousemask	function"
+			],
+			[
+				"scr",
+				"scrwidth	statement"
+			],
+			[
+				"l",
+				"length	statement"
+			],
+			[
+				"game",
+				"game_map	statement"
+			],
+			[
+				"ob",
+				"object_grid	statement"
+			],
+			[
+				"upda",
+				"update_game_objects	function"
+			],
+			[
+				"EN",
+				"ENEMY_MECH"
+			],
+			[
+				"PL",
+				"PLAYER_MECH"
+			],
+			[
+				"obj",
+				"object_column	forstmt"
+			],
+			[
+				"obje",
+				"object_row	forstmt"
+			],
+			[
+				"PLA",
+				"PLAYER_MECH	statement"
+			],
+			[
+				"game_object",
+				"game_objects	statement"
+			],
+			[
+				"terrain",
+				"terrain_list	param"
+			],
+			[
+				"as",
+				"asarray	function"
+			],
+			[
+				"firs",
+				"firstmech	statement"
+			],
+			[
+				"disp",
+				"display	function"
+			],
+			[
+				"first",
+				"firstpilot	statement"
+			],
+			[
+				"pilo",
+				"piloting	statement"
+			],
+			[
+				"pil",
+				"pilot_skill"
+			],
+			[
+				"max",
+				"max_length"
+			],
+			[
+				"For",
+				"ForeignKey"
+			],
+			[
+				"Lab",
+				"LabDelete	class"
+			],
+			[
+				"Role",
+				"RoleDelete	class"
+			],
+			[
+				"Dep",
+				"DepartmentDelete	class"
+			],
+			[
+				"Tag",
+				"TagDelete	class"
+			],
+			[
+				"Member",
+				"MemberDelete"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "challenge/schema_models.py",
+			"settings":
+			{
+				"buffer_size": 6840,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "challenge/urls.py",
+			"settings":
+			{
+				"buffer_size": 3190,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "revamp_models.py",
+			"settings":
+			{
+				"buffer_size": 361,
+				"line_ending": "Unix",
+				"name": "class Issue(models.Model):"
+			}
+		},
+		{
+			"contents": "import random\nimport numpy as np\nimport curses\nfrom curses.textpad import rectangle\n\n\n# Define tiles [\"image\", movement cost, elevation, cover, heat_modifier]\n\nPLAIN = [\".\", 1, 0, 0, 0]\nHILL = [\"^\", 2, 2, 2, 0]\nWOODS = [\"#\", 2, 0, 1, 0]\nWATER = [\"W\", 2, 0, 1, -3]\nCURSOR = ['+']\nPLAYER_MECH = [\"@\"]\nENEMY_MECH = ['&']\n\n# Set Colours\n\nWHITE = 0\nRED = 1\nGREEN = 2\nBLUE = 3\nYELLOW = 4\n\ndirkeys = {\n	curses.KEY_LEFT: 'a', curses.KEY_RIGHT: 'd',\n	curses.KEY_UP: 'w', curses.KEY_DOWN: 's'}\n}\n\nOBJECT_SYMBOL = {2: CURSOR, 1: PLAYER_MECH, 3: ENEMY_MECH}\n\ngame_objects = []\n\nclass GameObject(object):\n\n	def __init__(self, name, objecttype=CURSOR, x=0, y=0, z=0):\n		self.name = name\n		self.objecttype = objecttype\n		self.x = x\n		self.y = y\n		self.z = z\n\n		game_objects.append(self)\n\nclass Mech(object):\n\n	def __init__(self, name, move, maneuverability, armour,\n		shortrange, mediumrange, longrange, sensors, silhouette, heat_sinks):\n		self.name = name\n		self.move = move\n		self.maneuverability = maneuverability\n		self.armour = armour\n		self.shortrange = shortrange\n		self.mediumrange = mediumrange\n		self.longrange = longrange\n		self.sensors = sensors\n		self.silhouette = silhouette\n		self.heat_sinks = heat_sinks\n\n	def display(self):\n		print(\"Mech Name: {}\".format(self.name))\n		print(\"Move: {}\".format(self.move))\n		print(\"Maneuverability: {}\".format(self.maneuverability))\n		print(\"Armour: {}\".format(self.armour))\n		print(\"Short: {}\".format(self.shortrange))\n		print(\"Medium: {}\".format(self.mediumrange))\n		print(\"Long: {}\".format(self.longrange))\n		print(\"Sensors: {}\".format(self.sensors))\n		print(\"Silhouette: {}\".format(self.silhouette))\n		print(\"Heat Sinks: {}\".format(self.heat_sinks))\n\n\nclass Pilot(object):\n\n	def __init__(self, name, pilot_skill, gunnery_skill):\n		self.name = name\n		self.pilot_skill = pilot_skill\n		self.gunnery_skill = gunnery_skill\n\n	def display(self):\n		print(\"Pilot Name: {}\".format(self.name))\n		print(\"Piloting Skill: {}\".format(self.pilot_skill))\n		print(\"Gunnery Skill: {}\".format(self.gunnery_skill))\n\n\nclass Unit(GameObject):\n\n	def __init__(self, name, mech, pilot):\n		GameObject.__init__(self, name, objecttype=PLAYER_MECH, x=0, y=0, z=0)\n		self.mech = mech\n		self.pilot = pilot\n		self.piloting = mech.maneuverability + pilot.pilot_skill\n		self.targetting = mech.sensors + pilot.gunnery_skill\n\n	def display(self):\n		print(\"Name: {}\".format(self.name))\n		print(\"Pilot: {}\".format(self.pilot.name))\n		print(\"Mech: {}\".format(self.mech.name))\n		print(\"Piloting: {}\".format(self.piloting))\n		print(\"Targetting: {}\".format(self.targetting))\n\n\nclass Map(object):\n\n	def __init__(self):\n		self.terrain_grid = []\n		self.object_grid = []\n		self.length = 8\n		self.width = 8\n\n	def generate_terrain(self, terrain_list=[PLAIN]):\n\n		for i in range(self.length):\n			newlist = []\n			for t in range(self.width):\n				newlist.append([i,t, random.choice(terrain_list)[0]])\n			self.terrain_grid.append(newlist)\n\n		self.terrain_grid = np.asarray(self.terrain_grid)\n\n	def plot_game_objects(self):\n\n		self.object_grid = []\n\n		for i in range(self.length):\n			newlist = []\n			for t in range(self.width):\n				newlist.append([0])\n			self.object_grid.append(newlist)\n\n		self.object_grid = np.asarray(self.object_grid)\n\n		for game_object in game_objects:\n			if game_object.objecttype == PLAYER_MECH:\n				self.object_grid[game_object.x, game_object.y] = 1\n			elif game_object.objecttype == CURSOR:\n				self.object_grid[game_object.x, game_object.y] = 2\n			else:\n				self.object_grid[game_object.x, game_object.y] = 3\n\n	def display(self):\n		self.view = \"\"\n		for terrain_row, object_row in zip(self.terrain_grid, self.object_grid):\n			row_string = \"\"\n			for terrain_column, object_column in zip(terrain_row, object_row):\n				if object_column:\n					row_string += str(OBJECT_SYMBOL[object_column[0]][0])\n				else:\n					row_string += terrain_column[2][0]\n			self.view += row_string + \"\\n\"\n\n		print(self.view)\n		\n\nclass Game(object):\n\n	def __init__(self, stdscr, enemies=1, terrain=\"plains\"):\n		self.stdscr = stdscr\n		self.target_mode = False\n		self.look_mode = False\n		self.terrain = terrain\n		self.enemies = enemies\n		self.game_state = True\n		self.target_squares = []\n\n	def render(self):\n		self.render_status()\n		self.stdscr.clear()\n\n		self.stdscr\n\ndef run_in_curses(stdscr):\n\n	scrheight, scrwidth = stdscr.getmaxyx()\n\n	if (scrheight < 24 or scrwidth < 80):\n		raise RuntimeError(\"80x24 or larger terminal required\")\n\n	curses.mousemask(\n		curses.BUTTON1_CLICKED | curses.BUTTON1_DOUBLE_CLICKED)\n	stdscr.leaveok(0)\n\n	if curses.has_colors():\n		curses.init_pair(\n			RED, curses.COLOR_RED, curses.COLOR_BLACK)\n		curses.init_pair(\n			GREEN, curses.COLOR_GREEN, curses.COLOR_BLACK)\n		curses.init_pair(\n			BLUE, curses.COLOR_BLUE, curses.COLOR_BLACK)\n		curses.init_pair(\n			YELLOW, curses.COLOR_YELLOW, curses.COLOR_BLACK)\n\n	while not finished:\n		active_screen.render()\n	key = stdscr.getch()\n	active_screen.handle_key(key)\n\ndef next_coords(x, y, direction):\n	if direction == 'n':\n		return x, y - 1\n	elif direction == 's':\n		return x, y + 1\n	elif direction == 'e':\n		return x + 1, y\n	elif direction ==  'w':\n		return x - 1, y\n	else:\n		raise ValueError(\"Invalid compass direction \" + str(direction))\n\n\n\nif __name__ == \"__main__\":\n\n	cursor = GameObject(name=\"cursor\",x=3,y=3)\n\n	firstmech = Mech(\"Battlemaster\", 3, 0, 24, 5, 7, 5, 3, 2)\n	firstmech.display()\n\n	print(\"\")\n\n	firstpilot = Pilot(\"Carter\", 3, 4)\n	firstpilot.display()\n\n	print(\"\")\n\n	unit1 = Unit(\"Banshee\", firstmech, firstpilot)\n	unit1.display()\n\n	print(\"\")\n\n	game_map = Map()\n	game_map.generate_terrain()\n\n	active_game = Game()\n\n	while active_game.game_state:\n		game_map.plot_game_objects()\n		game_map.display()\n		user_input = input(\"Enter a command (W, A, S, D or Q to quit: \")\n\n		if user_input ==\"w\":\n			unit1.x -= 1\n		elif user_input ==\"a\":\n			unit1.y -= 1\n		elif user_input ==\"s\":\n			unit1.x += 1\n		elif user_input ==\"d\":\n			unit1.y += 1\n		elif user_input ==\"q\":\n			active_game.game_state = False\n			print(\"Game Over\")\n		else:\n			pass\n\n		if unit1.x < 0:\n			unit1.x = 0\n		if unit1.y < 0:\n			unit1.y = 0\n		if unit1.x > game_map.length:\n			unit1.x = game_map.length\n		if unit1.y > game_map.width:\n			unit1.y = game_map.width\n",
+			"file": "/home/chris/GitHub/btech/core_curses.py",
+			"file_size": 6045,
+			"file_write_time": 131162400626395691,
+			"settings":
+			{
+				"buffer_size": 6173,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/chris/GitHub/caveofthesnake/cave_of_snake.py",
+			"settings":
+			{
+				"buffer_size": 56614,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Anaconda Python Builder",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "pack",
+		"selected_items":
+		[
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 416.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/chris/GitHub/innovationmap",
+		"/home/chris/GitHub/innovationmap/challenge",
+		"/home/chris/GitHub/innovationmap/challenge/templates"
+	],
+	"file_history":
+	[
+		"/home/chris/GitHub/starter_weppy/Dockerfile",
+		"/home/chris/GitHub/innovationmap/challenge/views.py",
+		"/home/chris/GitHub/innovationmap/old_index.html",
+		"/home/chris/GitHub/innovationmap/challenge/urls.py",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/member.html",
+		"/home/chris/GitHub/innovationmap/challenge/admin.py",
+		"/home/chris/GitHub/innovationmap/challenge/forms.py",
+		"/home/chris/GitHub/innovationmap/challenge/migrations/0001_initial.py",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/tag.html",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/lab.html",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/index.html",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/index-en.html",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/organization.html",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/project.html",
+		"/home/chris/GitHub/innovationmap/challenge/migrations/0011_auto_20160707_1524.py",
+		"/home/chris/GitHub/innovationmap/challenge/migrations/0009_auto_20160703_1017.py",
+		"/home/chris/GitHub/innovationmap/challenge/migrations/0005_auto_20160702_1419.py",
+		"/home/chris/GitHub/innovationmap/challenge/migrations/0004_auto_20160702_1339.py",
+		"/home/chris/GitHub/innovationmap/challenge/migrations/0003_auto_20160702_1025.py",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/base.html",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/all_organizations.html",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/add_organization.html",
+		"/home/chris/GitHub/innovationmap/challenge/models.py",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/member_form.html",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/role_form.html",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/lab_form.html",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/department_form.html",
+		"/home/chris/GitHub/innovationmap/challenge/templates/challenge/tag_form.html",
+		"/home/chris/Julia/test.jl"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"/home/chris/GitHub/innovationmap"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"grid",
+			"Lab",
+			"lab",
+			"organization",
+			"department"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"terrain_grid",
+			"Team",
+			"team",
+			"organization"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "challenge/schema_models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6840,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6150,
+								6150
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2565.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "challenge/urls.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3190,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								264,
+								264
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "revamp_models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 361,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								361,
+								361
+							]
+						],
+						"settings":
+						{
+							"auto_name": "class Issue(models.Model):",
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/chris/GitHub/btech/core_curses.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6173,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4164,
+								4164
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2268.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"file": "/home/chris/GitHub/caveofthesnake/cave_of_snake.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 56614,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								25444,
+								25444
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 21780.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "innovationmap.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 1,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
