@@ -13,13 +13,13 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='project',
-            name='sponsoring_departments',
-            field=models.ManyToManyField(to='challenge.Department'),
+            name='sponsoring_organizations',
+            field=models.ManyToManyField(to='challenge.organization'),
         ),
         migrations.AlterField(
-            model_name='department',
+            model_name='Organization',
             name='image',
-            field=models.ImageField(upload_to='staticfiles/images/department_images/%Y/%m/%d'),
+            field=models.ImageField(upload_to='staticfiles/images/organization_images/%Y/%m/%d'),
         ),
         migrations.AlterField(
             model_name='project',

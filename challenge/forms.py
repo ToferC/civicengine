@@ -5,7 +5,7 @@ from django.forms.widgets import CheckboxSelectMultiple
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
-from challenge.models import Project, Department, Member, Tag, Role, Lab
+from challenge.models import Project, Organization, Member, Tag, Role, Lab
 
 from captcha.fields import CaptchaField
 from crispy_forms.helper import FormHelper
@@ -22,7 +22,7 @@ class ProjectForm(forms.ModelForm):
         exclude = ['slug', 'creator',]
         widgets = {'start_date': SelectDateWidget(),
         'end_date': SelectDateWidget(),
-        'sponsoring_departments': CheckboxSelectMultiple(),
+        'sponsoring_organizations': CheckboxSelectMultiple(),
         'tags': CheckboxSelectMultiple()}
 
     def __init__(self, *args, **kwargs):
@@ -44,26 +44,26 @@ class ProjectForm(forms.ModelForm):
         return instance
 
 
-class DepartmentForm(forms.ModelForm):
+class OrganizationForm(forms.ModelForm):
     class Meta:
-        model = Department
+        model = Organization
         fields = "__all__"
         exclude = ['slug', 'creator',]
         widgets = {'tags': CheckboxSelectMultiple()}
 
     def __init__(self, *args, **kwargs):
 
-        super(DepartmentForm, self).__init__(*args, **kwargs)
+        super(OrganizationForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
-                        href="/department/{{ department.slug }}">Cancel</a>"""),
-                Submit('save', 'Create Department'),))
+                        href="/organization/{{ organization.slug }}">Cancel</a>"""),
+                Submit('save', 'Create Organization'),))
 
     def save(self, creator, commit=True):
-        instance = super(DepartmentForm, self).save(commit=False)
+        instance = super(OrganizationForm, self).save(commit=False)
         instance.slug = slugify(instance.name)
         instance.creator = creator
         instance.save()
@@ -85,7 +85,7 @@ class LabForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
-                        href="/department/{{ lab.slug }}">Cancel</a>"""),
+                        href="/lab/{{ lab.slug }}">Cancel</a>"""),
                 Submit('save', 'Create Lab'),))
 
     def save(self, creator, commit=True):
@@ -136,7 +136,7 @@ class TagForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
-                        href="/project/{{ project.slug }}">Cancel</a>"""),
+                        href="/tag/{{ tag.slug }}">Cancel</a>"""),
                 Submit('save', 'Create Tag'),))
 
     def save(self, creator, commit=True):
@@ -189,6 +189,6 @@ class UserForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default"
-                        href="/personas/">Cancel</a>"""),
+                        href="/">Cancel</a>"""),
                 Submit('save', 'Submit'),))
 

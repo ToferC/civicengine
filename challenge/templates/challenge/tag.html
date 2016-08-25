@@ -20,15 +20,15 @@
     <h4>Description:</h4> 
     <p>{{tag.description}}</p>
     <hr>
-    <h4>Departments:</h4>
-    {% if departments %}
+    <h4>Organizations:</h4>
+    {% if organizations %}
         <ul>
-            {% for department in departments %}
-                <li><a href="{% url 'department' department_slug=department.slug %}">{{ department.name }}</a></li>
+            {% for organization in organizations %}
+                <li><a href="{% url 'organization' organization_slug=organization.slug %}">{{ organization.name }}</a></li>
             {% endfor %}
         </ul>
      {% else %}
-        <p>No departments.</p>
+        <p>No organizations.</p>
      {% endif %}
 
      <h4>Labs:</h4>
@@ -63,6 +63,12 @@
      {% else %}
         <p>No team members.</p>
      {% endif %}
+
+<hr>
+
+{% if tag.creator == user %}
+<a class="btn btn-info" href="{% url 'tag-update' pk=tag.pk %}">Edit</a>
+{% endif %}
 
 </div>
 </div>

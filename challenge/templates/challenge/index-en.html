@@ -13,7 +13,7 @@
 <div class="text-xs-center">
     <div class="btn-group" role="group" aria-label="Add Content">
         <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
-        <a class="btn btn-primary" href="{% url 'add_department' %}">Add a Department!</a>
+        <a class="btn btn-primary" href="{% url 'add_organization' %}">Add an Organization!</a>
         <a class="btn btn-primary" href="{% url 'add_lab' %}">Add a Lab!</a>
         <a class="btn btn-primary" href="{% url 'add_tag' %}">Add a Tag!</a>
     </div>
@@ -31,7 +31,7 @@
     <div class="btn-group" role="group" aria-label="See Content">
         <a href="{% url 'all_projects' %}" class="btn btn-primary">Projects</a>
 
-        <a href="{% url 'all_departments' %}" class="btn btn-primary">Departments</a>
+        <a href="{% url 'all_organizations' %}" class="btn btn-primary">Organizations</a>
 
         <a href="{% url 'all_labs' %}" class="btn btn-primary">Labs</a>
 

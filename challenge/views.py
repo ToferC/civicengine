@@ -19,13 +19,13 @@ def index(request):
     context_dict = {}
 
     projects = Project.objects.all()
-    departments = Department.objects.all()
+    organizations = Organization.objects.all()
     members = Member.objects.all()
     tags = Tag.objects.all()
     labs = Lab.objects.all()
 
     context_dict['projects'] = projects
-    context_dict['departments'] = departments
+    context_dict['organizations'] = organizations
     context_dict['members'] = members
     context_dict['tags'] = tags
     context_dict['labs'] = labs
@@ -55,14 +55,14 @@ def all_projects(request):
     return render(request, 'challenge/all_projects.html', context_dict)
 
 
-def all_departments(request):
+def all_organizations(request):
     context_dict = {}
 
-    departments = Department.objects.all()
+    organizations = Organization.objects.all()
 
-    context_dict['departments'] = departments
+    context_dict['organizations'] = organizations
 
-    return render(request, 'challenge/all_departments.html', context_dict)
+    return render(request, 'challenge/all_organizations.html', context_dict)
 
 
 def all_labs(request):
@@ -101,7 +101,7 @@ def project(request, project_slug):
 
     try:
         project = Project.objects.get(slug=project_slug)
-        context_dict['sponsoring_departments'] = Department.objects.filter(
+        context_dict['sponsoring_organizations'] = Organization.objects.filter(
             project=project)
         context_dict['labs'] = Lab.objects.filter(
             project=project)
@@ -119,26 +119,26 @@ def project(request, project_slug):
     return render(request, 'challenge/project.html', context_dict)
 
 
-def department(request, department_slug):
+def organization(request, organization_slug):
 
     context_dict = {}
 
     try:
-        department = Department.objects.get(slug=department_slug)
+        organization = Organization.objects.get(slug=organization_slug)
 
-        context_dict['department'] = department
+        context_dict['organization'] = organization
         context_dict['tags'] = Tag.objects.filter(
-            department=department)
+            organization=organization)
         context_dict['projects'] = Project.objects.filter(
-            sponsoring_departments=department)
+            sponsoring_organizations=organization)
         context_dict['members'] = Member.objects.filter(
-            department=department)
-        context_dict['image'] = department.image
+            organization=organization)
+        context_dict['image'] = organization.image
 
-    except Department.DoesNotExist:
+    except Organization.DoesNotExist:
         pass
 
-    return render(request, 'challenge/department.html', context_dict)
+    return render(request, 'challenge/organization.html', context_dict)
 
 
 def lab(request, lab_slug):
@@ -192,7 +192,7 @@ def tag(request, tag_slug):
         context_dict['tag'] = tag
         context_dict['members'] = Member.objects.filter(
             tags=tag)
-        context_dict['departments'] = Department.objects.filter(
+        context_dict['organizations'] = Organization.objects.filter(
             tags=tag)
         context_dict['projects'] = Project.objects.filter(
             tags=tag)
@@ -263,29 +263,29 @@ def add_project(request):
 
 
 @login_required
-def add_department(request):
+def add_organization(request):
 
     user = request.user
 
     if request.method == 'POST':
-        department_form = DepartmentForm(request.POST, request.FILES)
+        organization_form = OrganizationForm(request.POST, request.FILES)
 
-        if department_form.is_valid():
-            slug = slugify(department_form.cleaned_data['name'])
+        if organization_form.is_valid():
+            slug = slugify(organization_form.cleaned_data['name'])
 
-            department_form.save(creator=user, commit=True)
+            organization_form.save(creator=user, commit=True)
 
-            return HttpResponseRedirect("/department/{}".format(slug))
+            return HttpResponseRedirect("/organization/{}".format(slug))
 
         else:
-            print (department_form.errors)
+            print (organization_form.errors)
 
     else:
 
-        department_form = DepartmentForm()
+        organization_form = OrganizationForm()
 
-    return render(request, 'challenge/add_department.html',
-        {'department_form': department_form})
+    return render(request, 'challenge/add_organization.html',
+        {'organization_form': organization_form})
 
 
 @login_required
@@ -413,6 +413,104 @@ class ProjectUpdate(UpdateView):
 
 class ProjectDelete(DeleteView):
     model = Project
+
+
+class OrganizationUpdate(UpdateView):
+    model = Organization
+    fields = "__all__"
+    exclude = ['slug', 'creator',]
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+
+        return super(OrganizationUpdate, self).form_valid(form)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(OrganizationUpdate,
+            self).dispatch(*args, **kwargs)
+
+
+class OrganizationDelete(DeleteView):
+    model = Organization
+
+
+class MemberUpdate(UpdateView):
+    model = Member
+    fields = "__all__"
+    exclude = ['slLab',]
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+
+        return super(MemberUpdate, self).form_valid(form)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(MemberUpdate,
+            self).dispatch(*args, **kwargs)
+
+
+class MemberDelete(DeleteView):
+    model = Member
+
+
+class LabUpdate(UpdateView):
+    model = Lab
+    fields = "__all__"
+    exclude = ['slug', 'creator',]
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+
+        return super(LabUpdate, self).form_valid(form)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LabUpdate,
+            self).dispatch(*args, **kwargs)
+
+
+class LabDelete(DeleteView):
+    model = Lab
+
+
+class TagUpdate(UpdateView):
+    model = Tag
+    fields = "__all__"
+    exclude = ['slug', 'creator',]
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+
+        return super(TagUpdate, self).form_valid(form)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(TagUpdate,
+            self).dispatch(*args, **kwargs)
+
+
+class TagDelete(DeleteView):
+    model = Tag
+
+
+class RoleUpdate(UpdateView):
+    model = Role
+    fields = "__all__"
+
+    def form_valid(self, form):
+
+        return super(RoleUpdate, self).form_valid(form)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(RoleUpdate,
+            self).dispatch(*args, **kwargs)
+
+
+class RoleDelete(DeleteView):
+    model = Role
 
 
 # Admin Views

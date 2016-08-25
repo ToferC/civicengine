@@ -12,9 +12,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='department',
+            model_name='Organization',
             name='image',
-            field=models.ImageField(upload_to='images/department_images/%Y/%m/%d'),
+            field=models.ImageField(upload_to='images/organization_images/%Y/%m/%d'),
         ),
         migrations.AlterField(
             model_name='member',

@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('acronym_fr', models.CharField(null=True, max_length=128, blank=True)),
                 ('info', models.TextField(null=True, blank=True)),
                 ('website', models.URLField(null=True, max_length=128, blank=True)),
-                ('image', models.ImageField(upload_to='images/department_images/%Y/%m/%d')),
+                ('image', models.ImageField(upload_to='images/organization_images/%Y/%m/%d')),
                 ('geo_x', models.FloatField(null=True, blank=True)),
                 ('geo_y', models.FloatField(null=True, blank=True)),
                 ('slug', models.SlugField(max_length=255, unique=True)),
@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.AddField(
-            model_name='department',
+            model_name='Organization',
             name='creator',
             field=models.ForeignKey(to=settings.AUTH_USER_MODEL, default=1),
             preserve_default=False,
@@ -55,17 +55,17 @@ class Migration(migrations.Migration):
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='department',
+            model_name='Organization',
             name='acronym_fr',
             field=models.CharField(null=True, max_length=128, blank=True),
         ),
         migrations.AlterField(
-            model_name='department',
+            model_name='Organization',
             name='name_fr',
             field=models.CharField(null=True, max_length=128, blank=True),
         ),
         migrations.AlterField(
-            model_name='department',
+            model_name='Organization',
             name='website',
             field=models.URLField(null=True, max_length=128, blank=True),
         ),

@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Department',
+            name='organization',
             fields=[
                 ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
                 ('name', models.CharField(max_length=128)),
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('acronym', models.CharField(max_length=128)),
                 ('acronym_fr', models.CharField(max_length=128)),
                 ('website', models.URLField(max_length=128)),
-                ('image', models.ImageField(upload_to='department_images/%Y/%m/%d')),
+                ('image', models.ImageField(upload_to='organization_images/%Y/%m/%d')),
                 ('slug', models.SlugField(max_length=255, unique=True)),
             ],
         ),
@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('geo_y', models.FloatField()),
                 ('salary', models.IntegerField()),
                 ('slug', models.SlugField(max_length=255, unique=True)),
-                ('department', models.ForeignKey(to='challenge.Department', blank=True, null=True)),
+                ('organization', models.ForeignKey(to='challenge.organization', blank=True, null=True)),
             ],
         ),
         migrations.CreateModel(
@@ -138,7 +138,7 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(to='challenge.Tag'),
         ),
         migrations.AddField(
-            model_name='department',
+            model_name='organization',
             name='tags',
             field=models.ManyToManyField(to='challenge.Tag'),
         ),

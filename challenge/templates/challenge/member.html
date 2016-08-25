@@ -21,8 +21,8 @@
 
     <h4>Details:</h4>
     <ul>
-        <li>Department: 
-        <a href="{% url 'department' department_slug=member.department.slug %}">{{ member.department.name }}</a>, {{member.branch}}</li>
+        <li>Organization: 
+        <a href="{% url 'organization' organization_slug=member.organization.slug %}">{{ member.organization.name }}</a>, {{member.branch}}</li>
 
         <li>Lab: 
         <a href="{% url 'lab' lab_slug=member.lab.slug %}">{{ member.lab.name }}</a></li>
@@ -69,6 +69,10 @@
         <p>No teammates.</p>
      {% endif %}
         <hr>
+
+{% if member.user == user %}
+<a class="btn btn-info" href="{% url 'member-update' pk=member.pk %}">Edit</a>
+{% endif %}
 
 </div>
 </div>
