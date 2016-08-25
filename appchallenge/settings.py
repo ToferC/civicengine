@@ -110,7 +110,7 @@ else:
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'innovationmap',
-        'USER': 'christopherallison',
+        'USER': 'chris',
         'PASSWORD': os.environ['DB_PASSWORD'],
         'HOST': 'localhost',
         'PORT': '',
