@@ -22,10 +22,18 @@
     <h4>Details:</h4>
     <ul>
         <li>Organization: 
-        <a href="{% url 'organization' organization_slug=member.organization.slug %}">{{ member.organization.name }}</a>, {{member.branch}}</li>
+        {% if organization %}
+        <a href="{% url 'organization' organization_slug=member.organization.slug %}">{{ member.organization.name }}</a>, {{member.branch}}
+        {% else %}
+        None
+        {% endif %}</li>
 
-        <li>Lab: 
-        <a href="{% url 'lab' lab_slug=member.lab.slug %}">{{ member.lab.name }}</a></li>
+        <li>Lab:
+        {% if lab %} 
+        <a href="{% url 'lab' lab_slug=member.lab.slug %}">{{ member.lab.name }}</a>
+        {% else %}
+        None
+        {% endif %}</li>
 
     <li>Email: <a href="mailto:{{member.email}}">{{ member.email }}</a></li>
     <li>Phone:</h4> {{member.phone}}</li>

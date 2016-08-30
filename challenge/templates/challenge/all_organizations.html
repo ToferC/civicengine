@@ -7,7 +7,7 @@
 
 <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
 
-<div class="breadcrumbs"><a href="/">Map > </a> organizations</div><hr>
+<div class="breadcrumbs"><a href="/">Map > </a> Organizations</div><hr>
 
 {% if user.is_authenticated %}
 <div class="text-xs-center">
@@ -28,7 +28,7 @@
         <div class="card-block">
             <h4 class="card-title">{{organization.name}} </h4>
             <p class="card-text">{{ organization.info }}</p>
-            <a href="{% url 'organization' organization_slug=organization.slug %}" class="btn btn-primary">See organization</a>
+            <a href="{% url 'organization' organization_slug=organization.slug %}" class="btn btn-primary">See Organization</a>
         </div>
     </div>
 {% endfor %}
