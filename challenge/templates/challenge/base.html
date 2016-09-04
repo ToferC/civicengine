@@ -53,7 +53,7 @@
           <ul class="dropdown-menu">
             <li><a href="{% url 'add_project' %}">Add a Project!</a></li>
             <li><a href="{% url 'add_organization' %}">Add an Organization!</a></li>
-            <li><a href="{% url 'add_lab' %}">Add a Lab!</a></li>
+            <li><a href="{% url 'add_team' %}">Add a Team!</a></li>
             <li><a href="{% url 'add_tag' %}">Add a Tag!</a></li>
             <li class="divider"></li>
             <li><a href="{% url 'add_member' %}">Register as a Member!</a></li>
@@ -106,10 +106,15 @@
 
 {% block footer %}
 <footer class="footer">
-    <div class="container">
+    <div class=col-xl-12" style="
+    color: black;
+    background-color: lightgray;
+    clear: left;
+    text-align: center;">
     <div class="text-xs-center">
-    <br><br>
-      <span class="text-muted">Developed by <a href="twitter.com/toferc">ToferC</a> for DMCPI</span>
+    <br>
+      <span class="text-muted">Currently in development by <a href="twitter.com/toferc">ToferC</a> for DMCPI</span>
+    <br>
     </div>
     </div>
 </footer>

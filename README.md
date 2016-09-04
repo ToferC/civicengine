@@ -8,7 +8,7 @@ A proof of concept Django site for tracking and associating organizational innov
 Objectives:
 
 * Map innovative practices
-* Allow easy access to information about labs, organizations and individuals in the civic innovation space
+* Allow easy access to information about teams, organizations and individuals in the civic innovation space
 * Provide contacts for people and groups interested in participating
 
 Hosted on Heroku with static files on AWS.
@@ -16,7 +16,7 @@ Hosted on Heroku with static files on AWS.
 This app is currently in garage-band beta.  Current work at about 25 hours.
 
 Features:
-* Geo-coded ability to add projects, members, labs, organizations and tags
+* Geo-coded ability to add projects, members, teams, organizations and tags
 * Integrated relationships and the ability to hop between objects based on the relationships
 * Placeholder for data visualization based on D3js
 * Simple account registration (management currently through Django admin)

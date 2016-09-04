@@ -15,7 +15,7 @@ class Project(models.Model):
     short_text = models.TextField()
     detail_text = models.TextField()
     sponsoring_organizations = models.ManyToManyField('Organization')
-    labs = models.ManyToManyField('Lab')
+    teams = models.ManyToManyField('Team')
     submitted_date = models.DateTimeField(default=timezone.now)
     published = models.BooleanField(default=True)
     image = models.ImageField(upload_to='images/project_images/%Y/%m/%d')
@@ -62,7 +62,7 @@ class Member(models.Model):
     name = models.CharField(max_length=128)
     user = models.OneToOneField(User)
     organization = models.ForeignKey("Organization", null=True, blank=True) # Turn this into a radial menu
-    lab = models.ForeignKey("Lab", null=True, blank=True)
+    team = models.ForeignKey("Team", null=True, blank=True)
     email = models.EmailField(max_length=128, blank=True, null=True) # validate email
     phone = models.CharField(max_length=10, blank=True, null=True) # validate numbers only
     profile = models.URLField(max_length=128, blank=True, null=True) # validate GCconnex profile
@@ -170,7 +170,7 @@ class Organization(models.Model):
         super(Organization, self).save(*args, **kwargs)
 
 
-class Lab(models.Model):
+class Team(models.Model):
     name = models.CharField(max_length=128)
     creator = models.ForeignKey(User)
     name_fr = models.CharField(max_length=128, blank=True, null=True)
@@ -189,4 +189,4 @@ class Lab(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        super(Lab, self).save(*args, **kwargs)
+        super(Team, self).save(*args, **kwargs)

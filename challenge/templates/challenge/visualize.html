@@ -24,13 +24,13 @@
   fill: white;
 }
 
-.label {
+.teamel {
   font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-anchor: middle;
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
 }
 
-.label,
+.teamel,
 .node--root,
 .node--leaf {
   pointer-events: none;
@@ -80,7 +80,7 @@ var root = {{ data|safe }}
   var text = svg.selectAll("text")
       .data(nodes)
     .enter().append("text")
-      .attr("class", "label")
+      .attr("class", "teamel")
       .style("fill-opacity", function(d) { return d.parent === root ? 1 : 0; })
       .style("display", function(d) { return d.parent === root ? "inline" : "none"; })
       .text(function(d) { return d.name; });

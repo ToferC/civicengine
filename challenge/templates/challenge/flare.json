@@ -50,7 +50,7 @@
       {"name": "RectangleInterpolator", "size": 2042}
      ]
     },
-    {"name": "ISchedulable", "size": 1041},
+    {"name": "IScheduteamle", "size": 1041},
     {"name": "Parallel", "size": 5176},
     {"name": "Pause", "size": 449},
     {"name": "Scheduler", "size": 5593},
@@ -249,7 +249,7 @@
       {"name": "Axes", "size": 1302},
       {"name": "Axis", "size": 24593},
       {"name": "AxisGridLine", "size": 652},
-      {"name": "AxisLabel", "size": 636},
+      {"name": "AxisTeamel", "size": 636},
       {"name": "CartesianAxes", "size": 6703}
      ]
     },
@@ -339,11 +339,11 @@
       },
       {"name": "IOperator", "size": 1286},
       {
-       "name": "label",
+       "name": "teamel",
        "children": [
-        {"name": "Labeler", "size": 9956},
-        {"name": "RadialLabeler", "size": 3899},
-        {"name": "StackedAreaLabeler", "size": 3202}
+        {"name": "Teameler", "size": 9956},
+        {"name": "RadialTeameler", "size": 3899},
+        {"name": "StackedAreaTeameler", "size": 3202}
        ]
       },
       {

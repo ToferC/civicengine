@@ -31,15 +31,15 @@
         <p>No organizations.</p>
      {% endif %}
 
-     <h4>Labs:</h4>
-     {% if labs %}
+     <h4>Teams:</h4>
+     {% if teams %}
         <ul>
-            {% for lab in labs %}
-                <li><a href="{% url 'lab' lab_slug=lab.slug %}">{{ lab.name }}</a></li>
+            {% for team in teams %}
+                <li><a href="{% url 'team' team_slug=team.slug %}">{{ team.name }}</a></li>
             {% endfor %}
         </ul>
     {% else %}
-    <p>No labs.</p>
+    <p>No teams.</p>
     {% endif %}
 
      <h4>Projects:</h4>

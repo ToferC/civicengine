@@ -7,12 +7,12 @@
 
 <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
 
-<div class="breadcrumbs"><a href="/">Map > </a> Labs</div><hr>
+<div class="breadcrumbs"><a href="/">Map > </a> Teams</div><hr>
 
 {% if user.is_authenticated %}
 <div class="text-xs-center">
     <div class="btn-group"> 
-    <a class="btn btn-primary" href="{% url 'add_lab' %}">Add a Lab!</a>
+    <a class="btn btn-primary" href="{% url 'add_team' %}">Add a Team!</a>
     </div>
 </div>
 <hr>
@@ -20,15 +20,15 @@
 
 <div class="card-columns">
 
-{% for lab in labs %}
+{% for team in teams %}
     <div class="card">
-        {% thumbnail lab.image "300x300" crop="center" as im %}
+        {% thumbnail team.image "300x300" crop="center" as im %}
             <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
         {% endthumbnail %}
         <div class="card-block">
-            <h4 class="card-title">{{lab.name}} </h4>
-            <p class="card-text">{{ lab.info }}</p>
-            <a href="{% url 'lab' lab_slug=lab.slug %}" class="btn btn-primary">See Lab</a>
+            <h4 class="card-title">{{team.name}} </h4>
+            <p class="card-text">{{ team.info }}</p>
+            <a href="{% url 'team' team_slug=team.slug %}" class="btn btn-primary">See Team</a>
         </div>
     </div>
 {% endfor %}

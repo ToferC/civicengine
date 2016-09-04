@@ -40,7 +40,7 @@
 <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
 <a class="btn btn-primary" href="{% url 'add_member' %}">Register as a Member!</a>
 <a class="btn btn-primary" href="{% url 'add_organization' %}">Add a organization!</a>
-<a class="btn btn-primary" href="{% url 'add_lab' %}">Add a Lab!</a>
+<a class="btn btn-primary" href="{% url 'add_team' %}">Add a Team!</a>
 <a class="btn btn-primary" href="{% url 'add_tag' %}">Add a Tag!</a>
 {% else %}
     <a class="btn btn-info" href="{% url 'register' %}" role="button">Register</a>
@@ -56,7 +56,7 @@
 
 <a href="{% url 'all_organizations' %}" class="btn btn-primary">See All organizations</a>
 
-<a href="{% url 'all_labs' %}" class="btn btn-primary">See All Labs</a>
+<a href="{% url 'all_teams' %}" class="btn btn-primary">See All Teams</a>
 
 <a href="{% url 'all_members' %}" class="btn btn-primary">See All Members</a>
 

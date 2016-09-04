@@ -28,9 +28,9 @@
         None
         {% endif %}</li>
 
-        <li>Lab:
-        {% if lab %} 
-        <a href="{% url 'lab' lab_slug=member.lab.slug %}">{{ member.lab.name }}</a>
+        <li>Team:
+        {% if team %} 
+        <a href="{% url 'team' team_slug=member.team.slug %}">{{ member.team.name }}</a>
         {% else %}
         None
         {% endif %}</li>

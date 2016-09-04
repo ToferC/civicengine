@@ -11,10 +11,10 @@
 {% if user.is_authenticated %}
 <hr>
 <div class="text-xs-center">
-    <div class="btn-group" role="group" aria-label="Add Content">
+    <div class="btn-group" role="group" aria-teamel="Add Content">
         <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
         <a class="btn btn-primary" href="{% url 'add_organization' %}">Add an Organization!</a>
-        <a class="btn btn-primary" href="{% url 'add_lab' %}">Add a Lab!</a>
+        <a class="btn btn-primary" href="{% url 'add_team' %}">Add a Team!</a>
         <a class="btn btn-primary" href="{% url 'add_tag' %}">Add a Tag!</a>
     </div>
 </div>
@@ -28,12 +28,12 @@
 <hr>
 <div class="text-xs-center">
     <h4>View Content</h4>
-    <div class="btn-group" role="group" aria-label="See Content">
+    <div class="btn-group" role="group" aria-teamel="See Content">
         <a href="{% url 'all_projects' %}" class="btn btn-primary">Projects</a>
 
         <a href="{% url 'all_organizations' %}" class="btn btn-primary">Organizations</a>
 
-        <a href="{% url 'all_labs' %}" class="btn btn-primary">Labs</a>
+        <a href="{% url 'all_teams' %}" class="btn btn-primary">Teams</a>
 
         <a href="{% url 'all_members' %}" class="btn btn-primary">Members</a>
 
@@ -43,6 +43,7 @@
 
 <div class="text-xs-center">
     <a class="btn btn-primary" href="{% url 'visualize' %}">Visualize Data!</a>
+    <hr>
 </div>
 
 </div>

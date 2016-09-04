@@ -5,7 +5,7 @@ from django.forms.widgets import CheckboxSelectMultiple
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
-from challenge.models import Project, Organization, Member, Tag, Role, Lab
+from challenge.models import Project, Organization, Member, Tag, Role, Team
 
 from captcha.fields import CaptchaField
 from crispy_forms.helper import FormHelper
@@ -70,26 +70,26 @@ class OrganizationForm(forms.ModelForm):
         return instance
 
 
-class LabForm(forms.ModelForm):
+class TeamForm(forms.ModelForm):
     class Meta:
-        model = Lab
+        model = Team
         fields = "__all__"
         exclude = ['slug', 'creator',]
         widgets = {'tags': CheckboxSelectMultiple()}
 
     def __init__(self, *args, **kwargs):
 
-        super(LabForm, self).__init__(*args, **kwargs)
+        super(TeamForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
-                        href="/lab/{{ lab.slug }}">Cancel</a>"""),
-                Submit('save', 'Create Lab'),))
+                        href="/team/{{ team.slug }}">Cancel</a>"""),
+                Submit('save', 'Create Team'),))
 
     def save(self, creator, commit=True):
-        instance = super(LabForm, self).save(commit=False)
+        instance = super(TeamForm, self).save(commit=False)
         instance.slug = slugify(instance.name)
         instance.creator = creator
         instance.save()

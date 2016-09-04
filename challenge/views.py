@@ -22,13 +22,13 @@ def index(request):
     organizations = Organization.objects.all()
     members = Member.objects.all()
     tags = Tag.objects.all()
-    labs = Lab.objects.all()
+    teams = Team.objects.all()
 
     context_dict['projects'] = projects
     context_dict['organizations'] = organizations
     context_dict['members'] = members
     context_dict['tags'] = tags
-    context_dict['labs'] = labs
+    context_dict['teams'] = teams
 
     return render(request, 'challenge/index-en.html', context_dict)
 
@@ -65,14 +65,14 @@ def all_organizations(request):
     return render(request, 'challenge/all_organizations.html', context_dict)
 
 
-def all_labs(request):
+def all_teams(request):
     context_dict = {}
 
-    labs = Lab.objects.all()
+    teams = Team.objects.all()
 
-    context_dict['labs'] = labs
+    context_dict['teams'] = teams
 
-    return render(request, 'challenge/all_labs.html', context_dict)
+    return render(request, 'challenge/all_teams.html', context_dict)
 
 
 def all_members(request):
@@ -103,7 +103,7 @@ def project(request, project_slug):
         project = Project.objects.get(slug=project_slug)
         context_dict['sponsoring_organizations'] = Organization.objects.filter(
             project=project)
-        context_dict['labs'] = Lab.objects.filter(
+        context_dict['teams'] = Team.objects.filter(
             project=project)
         context_dict['project'] = project
         context_dict['tags'] = Tag.objects.filter(
@@ -141,26 +141,26 @@ def organization(request, organization_slug):
     return render(request, 'challenge/organization.html', context_dict)
 
 
-def lab(request, lab_slug):
+def team(request, team_slug):
 
     context_dict = {}
 
     try:
-        lab = Lab.objects.get(slug=lab_slug)
+        team = Team.objects.get(slug=team_slug)
 
-        context_dict['lab'] = lab
+        context_dict['team'] = team
         context_dict['tags'] = Tag.objects.filter(
-            lab=lab)
+            team=team)
         context_dict['projects'] = Project.objects.filter(
-            labs=lab)
+            teams=team)
         context_dict['members'] = Member.objects.filter(
-            lab=lab)
-        context_dict['image'] = lab.image
+            team=team)
+        context_dict['image'] = team.image
 
-    except Lab.DoesNotExist:
+    except Team.DoesNotExist:
         pass
 
-    return render(request, 'challenge/lab.html', context_dict)
+    return render(request, 'challenge/team.html', context_dict)
 
 
 def member(request, member_slug):
@@ -196,7 +196,7 @@ def tag(request, tag_slug):
             tags=tag)
         context_dict['projects'] = Project.objects.filter(
             tags=tag)
-        context_dict['labs'] = Lab.objects.filter(
+        context_dict['teams'] = Team.objects.filter(
             tags=tag)
 
     except Member.DoesNotExist:
@@ -289,29 +289,29 @@ def add_organization(request):
 
 
 @login_required
-def add_lab(request):
+def add_team(request):
 
     user = request.user
 
     if request.method == 'POST':
-        lab_form = LabForm(request.POST, request.FILES)
+        team_form = TeamForm(request.POST, request.FILES)
 
-        if lab_form.is_valid():
-            slug = slugify(lab_form.cleaned_data['name'])
+        if team_form.is_valid():
+            slug = slugify(team_form.cleaned_data['name'])
 
-            lab_form.save(creator=user, commit=True)
+            team_form.save(creator=user, commit=True)
 
-            return HttpResponseRedirect("/lab/{}".format(slug))
+            return HttpResponseRedirect("/team/{}".format(slug))
 
         else:
-            print (lab_form.errors)
+            print (team_form.errors)
 
     else:
 
-        lab_form = LabForm()
+        team_form = TeamForm()
 
-    return render(request, 'challenge/add_lab.html',
-        {'lab_form': lab_form})
+    return render(request, 'challenge/add_team.html',
+        {'team_form': team_form})
 
 
 @login_required
@@ -438,7 +438,7 @@ class OrganizationDelete(DeleteView):
 class MemberUpdate(UpdateView):
     model = Member
     fields = "__all__"
-    exclude = ['slLab',]
+    exclude = ['slTeam',]
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
@@ -455,24 +455,24 @@ class MemberDelete(DeleteView):
     model = Member
 
 
-class LabUpdate(UpdateView):
-    model = Lab
+class TeamUpdate(UpdateView):
+    model = Team
     fields = "__all__"
     exclude = ['slug', 'creator',]
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
 
-        return super(LabUpdate, self).form_valid(form)
+        return super(TeamUpdate, self).form_valid(form)
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(LabUpdate,
+        return super(TeamUpdate,
             self).dispatch(*args, **kwargs)
 
 
-class LabDelete(DeleteView):
-    model = Lab
+class TeamDelete(DeleteView):
+    model = Team
 
 
 class TagUpdate(UpdateView):

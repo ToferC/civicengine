@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Lab',
+            name='Team',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=128)),
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
                 ('geo_y', models.FloatField(blank=True, null=True)),
                 ('salary', models.IntegerField(blank=True, null=True)),
                 ('slug', models.SlugField(max_length=255, unique=True)),
-                ('lab', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='challenge.Lab')),
+                ('team', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='challenge.Team')),
             ],
         ),
         migrations.CreateModel(
@@ -82,7 +82,7 @@ class Migration(migrations.Migration):
                 ('geo_y', models.FloatField()),
                 ('slug', models.SlugField(max_length=255, unique=True)),
                 ('creator', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('labs', models.ManyToManyField(to='challenge.Lab')),
+                ('teams', models.ManyToManyField(to='challenge.Team')),
                 ('sponsoring_organizations', models.ManyToManyField(to='challenge.Organization')),
             ],
         ),
@@ -177,7 +177,7 @@ class Migration(migrations.Migration):
             field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
-            model_name='lab',
+            model_name='team',
             name='tags',
             field=models.ManyToManyField(to='challenge.Tag'),
         ),

@@ -36,10 +36,10 @@
             {% endfor %}
         </ul>
     <hr>
-    <h4>Labs:</h4> 
+    <h4>Teams:</h4> 
         <ul>
-            {% for lab in labs %}
-                <li><a href="{% url 'lab' lab_slug=lab.slug %}">{{ lab.name }}</a></li>
+            {% for team in teams %}
+                <li><a href="{% url 'team' team_slug=team.slug %}">{{ team.name }}</a></li>
             {% endfor %}
         </ul>
     <hr>
