@@ -34,7 +34,7 @@ class ProjectForm(forms.ModelForm):
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/project/{{ project.slug }}">Cancel</a>"""),
-                Submit('save', 'Create Project'),))
+                Submit('save', 'Save Project'),))
 
     def save(self, creator, commit=True):
         instance = super(ProjectForm, self).save(commit=False)
@@ -60,7 +60,7 @@ class OrganizationForm(forms.ModelForm):
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/organization/{{ organization.slug }}">Cancel</a>"""),
-                Submit('save', 'Create Organization'),))
+                Submit('save', 'Save Organization'),))
 
     def save(self, creator, commit=True):
         instance = super(OrganizationForm, self).save(commit=False)
@@ -86,7 +86,7 @@ class TeamForm(forms.ModelForm):
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/team/{{ team.slug }}">Cancel</a>"""),
-                Submit('save', 'Create Team'),))
+                Submit('save', 'Save Team'),))
 
     def save(self, creator, commit=True):
         instance = super(TeamForm, self).save(commit=False)
@@ -137,7 +137,7 @@ class TagForm(forms.ModelForm):
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/tag/{{ tag.slug }}">Cancel</a>"""),
-                Submit('save', 'Create Tag'),))
+                Submit('save', 'Save Tag'),))
 
     def save(self, creator, commit=True):
         instance = super(TagForm, self).save(commit=False)
@@ -151,7 +151,7 @@ class RoleForm(forms.ModelForm):
     class Meta:
         model = Role
         fields = "__all__"
-        exclude = ['person',]
+        exclude = ['person', 'project', 'team']
         widgets = {'start_date': SelectDateWidget(),
         'end_date': SelectDateWidget(),}
 
@@ -164,11 +164,12 @@ class RoleForm(forms.ModelForm):
             FormActions(
                 HTML("""<br><a role="button" class="btn btn-default"
                         href="/project/{{ project.slug }}">Cancel</a>"""),
-                Submit('save', 'Join Project'),))
+                Submit('save', 'Save Role'),))
 
-    def save(self, person=None, commit=True):
+    def save(self, person=None, teams=None, commit=True):
         instance = super(RoleForm, self).save(commit=False)
         instance.person=person
+        instance.team=teams
         instance.save()
         return instance
 

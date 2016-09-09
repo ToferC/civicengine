@@ -7,7 +7,7 @@
 
 <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
 
-<div class="breadcrumbs"><a href="/">Map > </a><a href="{% url 'all_projects' %}"> Projects ></a> {{project.name}}</div>
+<div class="breadcrumbs"><a href="/">Home > </a><a href="{% url 'all_projects' %}"> Projects ></a> {{project.name}}</div>
 <hr>
 
 <h2>{{ project.name }}</h2>
@@ -38,18 +38,18 @@
     <hr>
     <h4>Teams:</h4> 
         <ul>
-            {% for team in teams %}
+            {% for team in teams.all %}
                 <li><a href="{% url 'team' team_slug=team.slug %}">{{ team.name }}</a></li>
             {% endfor %}
         </ul>
     <hr>
     <h4>Team:</h4> 
         <ul>
-            {% for role in team %}
+            {% for role in roles %}
                 <li><a href="{% url 'member' member_slug=role.person.slug %}">{{ role.role }} - {{ role.person.name }}</a>
 
                 {% if role.person.user == user %}
-                <a class="btn btn-info" href="{% url 'role-update' pk=role.pk %}">Edit</a>
+                <a class="btn btn-info" href="{% url 'role_form' pk=role.pk %}">Edit</a>
                 {% endif %}
 
                 </li>
@@ -64,7 +64,7 @@
         </ul>
 
 {% if project.creator == user %}
-<a class="btn btn-info" href="{% url 'project-update' pk=project.pk %}">Edit</a>
+<a class="btn btn-info" href="{% url 'project_form' pk=project.pk %}">Edit</a>
 {% endif %}
 
 </div>

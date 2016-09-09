@@ -1,6 +1,5 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from challenge.views import ProjectUpdate, MemberUpdate, TagUpdate, OrganizationUpdate, TeamUpdate, RoleUpdate
 from challenge.views import ProjectDelete, MemberDelete, TagDelete, OrganizationDelete, RoleDelete, TeamDelete 
 from . import views
 
@@ -26,12 +25,12 @@ urlpatterns = [
     url(r'^all_tags/$', views.all_tags, name='all_tags'),
 
     # Formviews for editing
-    url(r'^project_form/(?P<pk>[0-9]+)/$', ProjectUpdate.as_view(), name='project-update'),
-    url(r'^member_form/(?P<pk>[0-9]+)/$', MemberUpdate.as_view(), name='member-update'),
-    url(r'^organization_form/(?P<pk>[0-9]+)/$', OrganizationUpdate.as_view(), name='organization-update'),
-    url(r'^team_form/(?P<pk>[0-9]+)/$', TeamUpdate.as_view(), name='team-update'),
-    url(r'^tag_form/(?P<pk>[0-9]+)/$', TagUpdate.as_view(), name='tag-update'),
-    url(r'^role_form/(?P<pk>[0-9]+)/$', RoleUpdate.as_view(), name='role-update'),
+    url(r'^project_form/(?P<pk>\d+)/$', views.project_form, name='project_form'),
+    url(r'^member_form/(?P<pk>\d+)/$', views.member_form, name='member_form'),
+    url(r'^organization_form/(?P<pk>\d+)/$', views.organization_form, name='organization_form'),
+    url(r'^team_form/(?P<pk>\d+)/$', views.team_form, name='team_form'),
+    url(r'^tag_form/(?P<pk>\d+)/$', views.tag_form, name='tag_form'),
+    url(r'^role_form/(?P<pk>\d+)/$', views.role_form, name='role_form'),
 
     # Deleteviews
     url(r'^project_delete/(?P<pk>[0-9]+)/$', ProjectDelete.as_view(),
@@ -52,7 +51,7 @@ urlpatterns = [
     url(r'^add_organization/$', views.add_organization, name='add_organization'),
     url(r'^add_team/$', views.add_team, name='add_team'),
     url(r'^add_tag/$', views.add_tag, name='add_tag'),
-    url(r'^add_role/$', views.add_role, name='add_role'),
+    url(r'^add_role/(?P<team_pk>\d+)/$', views.add_role, name='add_role'),
 
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.user_login, name='login'),

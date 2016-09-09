@@ -103,15 +103,11 @@ def project(request, project_slug):
         project = Project.objects.get(slug=project_slug)
         context_dict['sponsoring_organizations'] = Organization.objects.filter(
             project=project)
-        context_dict['teams'] = Team.objects.filter(
-            project=project)
+        context_dict['teams'] = project.teams
+
+        context_dict['roles'] = Role.objects.filter(team__project=project)
+
         context_dict['project'] = project
-        context_dict['tags'] = Tag.objects.filter(
-            project=project)
-
-        team = Role.objects.filter(project=project)
-
-        context_dict['team'] = team
 
     except Project.DoesNotExist:
         context_dict['project'] = {"name": "Bernardo"}
@@ -153,7 +149,7 @@ def team(request, team_slug):
             team=team)
         context_dict['projects'] = Project.objects.filter(
             teams=team)
-        context_dict['members'] = Member.objects.filter(
+        context_dict['roles'] = Role.objects.filter(
             team=team)
         context_dict['image'] = team.image
 
@@ -173,7 +169,7 @@ def member(request, member_slug):
         context_dict['member'] = member
         context_dict['tags'] = Tag.objects.filter(
             member=member)
-        context_dict['projects'] = Role.objects.filter(
+        context_dict['roles'] = Role.objects.filter(
             person=member)
 
     except Member.DoesNotExist:
@@ -367,9 +363,10 @@ def add_tag(request):
 
 
 @login_required
-def add_role(request):
+def add_role(request, team_pk):
 
     user = request.user
+    team = Team.objects.get(pk=team_pk)
     member = Member.objects.get(user=user)
 
     if request.method == 'POST':
@@ -377,10 +374,9 @@ def add_role(request):
 
         if role_form.is_valid():
 
-            role_form.save(person=member, commit=True)
+            role_form.save(person=member, teams=team, commit=True)
 
-            return HttpResponseRedirect("/project/{}".format(slugify(
-                role_form.cleaned_data['project'])))
+            return HttpResponseRedirect("/team/{}".format(team.slug))
 
         else:
             print (role_form.errors)
@@ -390,123 +386,101 @@ def add_role(request):
         role_form = RoleForm()
 
     return render(request, 'challenge/add_role.html',
-        {'role_form': role_form})
+        {'role_form': role_form, 'member': member, 'team': team})
 
 
 # Update & Delete Views
 
-class ProjectUpdate(UpdateView):
-    model = Project
-    fields = "__all__"
-    exclude = ['slug', 'creator',]
+@login_required
+def project_form(request, pk):
+    project = Project.objects.get(pk=pk)
 
-    def form_valid(self, form):
-        form.instance.creator = self.request.user
+    form = ProjectForm(request.POST or None, request.FILES or None, instance=project)
+    if form.is_valid():
+        form.save(creator=project.creator)
+        return HttpResponseRedirect('/project/{}'.format(project.slug))
+    
+    return render(request, 'challenge/project_form.html', {'form': form, 'object': project})
 
-        return super(ProjectUpdate, self).form_valid(form)
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(ProjectUpdate,
-            self).dispatch(*args, **kwargs)
+@login_required
+def organization_form(request, pk):
+    organization = Organization.objects.get(pk=pk)
+
+    form = OrganizationForm(request.POST or None, request.FILES or None, instance=organization)
+    if form.is_valid():
+        form.save(creator=organization.creator)
+        return HttpResponseRedirect('/organization/{}'.format(organization.slug))
+    
+    return render(request, 'challenge/organization_form.html', {'form': form, 'object': organization})
+
+
+@login_required
+def member_form(request, pk):
+    member = Member.objects.get(pk=pk)
+
+    form = MemberForm(request.POST or None, request.FILES or None, instance=member)
+    if form.is_valid():
+        form.save(user=member.user)
+        return HttpResponseRedirect('/member/{}'.format(member.slug))
+    
+    return render(request, 'challenge/member_form.html', {'form': form, 'object': member})
+
+
+@login_required
+def tag_form(request, pk):
+    tag = Tag.objects.get(pk=pk)
+
+    form = TagForm(request.POST or None, request.FILES or None, instance=tag)
+    if form.is_valid():
+        form.save(creator=tag.creator)
+        return HttpResponseRedirect('/tag/{}'.format(tag.slug))
+    
+    return render(request, 'challenge/tag_form.html', {'form': form, 'object': tag})
+
+
+@login_required
+def team_form(request, pk):
+    team = Team.objects.get(pk=pk)
+
+    form = TeamForm(request.POST or None, request.FILES or None, instance=team)
+    if form.is_valid():
+        form.save(creator=team.creator)
+        return HttpResponseRedirect('/team/{}'.format(team.slug))
+    
+    return render(request, 'challenge/team_form.html', {'form': form, 'object': team})
+
+
+@login_required
+def role_form(request, pk):
+    role = Role.objects.get(pk=pk)
+
+    form = RoleForm(request.POST or None, request.FILES or None, instance=role)
+    if form.is_valid():
+        form.save(person=role.person)
+        return HttpResponseRedirect('/role/{}'.format(role.slug))
+    
+    return render(request, 'challenge/role_form.html', {'form': form, 'object': role})
 
 
 class ProjectDelete(DeleteView):
     model = Project
 
 
-class OrganizationUpdate(UpdateView):
-    model = Organization
-    fields = "__all__"
-    exclude = ['slug', 'creator',]
-
-    def form_valid(self, form):
-        form.instance.creator = self.request.user
-
-        return super(OrganizationUpdate, self).form_valid(form)
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(OrganizationUpdate,
-            self).dispatch(*args, **kwargs)
-
-
 class OrganizationDelete(DeleteView):
     model = Organization
-
-
-class MemberUpdate(UpdateView):
-    model = Member
-    fields = "__all__"
-    exclude = ['slTeam',]
-
-    def form_valid(self, form):
-        form.instance.creator = self.request.user
-
-        return super(MemberUpdate, self).form_valid(form)
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(MemberUpdate,
-            self).dispatch(*args, **kwargs)
 
 
 class MemberDelete(DeleteView):
     model = Member
 
 
-class TeamUpdate(UpdateView):
-    model = Team
-    fields = "__all__"
-    exclude = ['slug', 'creator',]
-
-    def form_valid(self, form):
-        form.instance.creator = self.request.user
-
-        return super(TeamUpdate, self).form_valid(form)
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(TeamUpdate,
-            self).dispatch(*args, **kwargs)
-
-
 class TeamDelete(DeleteView):
     model = Team
 
 
-class TagUpdate(UpdateView):
-    model = Tag
-    fields = "__all__"
-    exclude = ['slug', 'creator',]
-
-    def form_valid(self, form):
-        form.instance.creator = self.request.user
-
-        return super(TagUpdate, self).form_valid(form)
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(TagUpdate,
-            self).dispatch(*args, **kwargs)
-
-
 class TagDelete(DeleteView):
     model = Tag
-
-
-class RoleUpdate(UpdateView):
-    model = Role
-    fields = "__all__"
-
-    def form_valid(self, form):
-
-        return super(RoleUpdate, self).form_valid(form)
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(RoleUpdate,
-            self).dispatch(*args, **kwargs)
 
 
 class RoleDelete(DeleteView):

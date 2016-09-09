@@ -7,13 +7,12 @@
 
 <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
 
-<div class="breadcrumbs"><a href="/">Map > </a> Projects</div>
+<div class="breadcrumbs"><a href="/">Home > </a> Projects</div>
 
 {% if user.is_authenticated %}
 <div class="text-xs-center">
     <div class="btn-group"> 
     <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
-    <a class="btn btn-primary" href="{% url 'add_role' %}">Join a Project!</a>
     </div>
 </div>
 <hr>

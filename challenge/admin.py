@@ -30,11 +30,11 @@ class TagAdmin(admin.ModelAdmin):
 
 class MemberAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name',)
+    list_display = ('name', 'organization')
 
 
 class RoleAdmin(admin.ModelAdmin):
-    list_display = ('person', 'project', 'role')
+    list_display = ('person', 'team', 'role')
 
 
 class ResourceAdmin(admin.ModelAdmin):
