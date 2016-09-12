@@ -166,10 +166,10 @@ class RoleForm(forms.ModelForm):
                         href="/project/{{ project.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Role'),))
 
-    def save(self, person=None, teams=None, commit=True):
+    def save(self, person=None, team=None, commit=True):
         instance = super(RoleForm, self).save(commit=False)
         instance.person=person
-        instance.team=teams
+        instance.team=team
         instance.save()
         return instance
 

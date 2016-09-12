@@ -457,8 +457,8 @@ def role_form(request, pk):
 
     form = RoleForm(request.POST or None, request.FILES or None, instance=role)
     if form.is_valid():
-        form.save(person=role.person)
-        return HttpResponseRedirect('/role/{}'.format(role.slug))
+        form.save(person=role.person, team=role.team)
+        return HttpResponseRedirect('/team/{}'.format(role.team.slug))
     
     return render(request, 'challenge/role_form.html', {'form': form, 'object': role})
 

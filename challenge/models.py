@@ -8,8 +8,26 @@ import random
 # Create your models here.
 
 class Project(models.Model):
+
+    PL = "Planning"
+    DE = "Recruiting"
+    AC = "Active"
+    IN = "Inactive"
+    CM = "Completed"
+    AB = "Aborted"
+
+    STATUS = (
+        (PL, "Planning"),
+        (DE, "Recruiting"),
+        (AC, "Active"),
+        (IN, "Inactive"),
+        (CM, "Completed"),
+        (AB, "Aborted"),
+        )
+
     name = models.CharField(max_length=128)
     creator = models.ForeignKey(User)
+    status = models.CharField(max_length=64, choices=STATUS, default="Planning")
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     short_text = models.TextField()
@@ -23,6 +41,24 @@ class Project(models.Model):
     geo_x = models.FloatField(null=True, blank=True)
     geo_y = models.FloatField(null=True, blank=True)
     slug = models.SlugField(unique=True, max_length=255)
+
+    def set_project_to_planning(self):
+        self.status = "Planning"
+
+    def set_project_to_recruit(self):
+        self.status = "Recruiting"
+
+    def set_project_to_active(self):
+        self.status = "Active"
+
+    def set_project_to_inactive(self):
+        self.status = "Inactive"
+
+    def set_project_to_completed(self):
+        self.status = "Completed"
+
+    def set_project_to_aborted(self):
+        self.status = "Aborted"
 
     def __str__(self):
         return self.name
@@ -59,8 +95,18 @@ class Work(models.Model):
 
 
 class Member(models.Model):
+
+    AC = "Active"
+    IN = "Inactive"
+
+    STATUS = (
+        (AC, "Active"),
+        (IN, "Inactive"),
+        )
+    
     name = models.CharField(max_length=128)
     user = models.OneToOneField(User)
+    status = models.CharField(max_length=64, choices=STATUS, default="Active")
     organization = models.ForeignKey("Organization", null=True, blank=True) # Turn this into a radial menu
     teams = models.ManyToManyField("Team", null=True, blank=True)
     email = models.EmailField(max_length=128, blank=True, null=True) # validate email
@@ -73,6 +119,12 @@ class Member(models.Model):
     salary = models.IntegerField(blank=True, null=True)
     tags = models.ManyToManyField('Tag', null=True, blank=True)
     slug = models.SlugField(unique=True, max_length=255)
+
+    def set_member_to_active(self):
+        self.status = "Active"
+
+    def set_member_to_inactive(self):
+        self.status = "Inactive"
 
     def __str__(self):
         return self.name
@@ -106,15 +158,42 @@ class Role(models.Model):
         (ST, "Project Strategy"),
         )
 
+    AA = "Application"
+    AC = "Active"
+    IN = "Inactive"
+    RE = "Retired"
+    RM = "Removed"
+
+    STATUS = (
+        (AA, "Applied"),
+        (AC, "Active"),
+        (IN, "Inactive"),
+        (RE, "Retired"),
+        (RM, "Removed"),
+        )
+
     person = models.ForeignKey(Member, on_delete=models.CASCADE)
     team = models.ForeignKey('Team', on_delete=models.CASCADE)
     role = models.CharField(max_length=64, choices=ROLES)
+    status = models.CharField(max_length=64, choices=STATUS, default="Applied")
     hrs_per_week = models.FloatField(null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return "{} - {} - {}".format(self.person, self.role, self.team)
+
+    def activate_role(self):
+        self.status = "Active"
+
+    def retire_role(self):
+        self.status = "Retired"
+
+    def remove_role(self):
+        self.status = "Removed"
+
+    def set_role_inactive(self):
+        self.status = "Inactive"
 
 
 class Resource(models.Model):

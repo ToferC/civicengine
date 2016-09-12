@@ -60,7 +60,11 @@
     {% if roles %}
         <ul>
             {% for role in roles %}
-                <li><a href="{% url 'team' team_slug=role.team.slug %}">{{role}}</a>{{role.team.project}}</li>
+                <li><a href="{% url 'team' team_slug=role.team.slug %}">{{role}}</a>{{role.team.project}} - Status: {{role.status}}
+
+                {% if role.person.user == user %}
+                <a class="btn btn-info" href="{% url 'role_form' pk=role.pk %}">Edit Role</a>
+                {% endif %}</li>
             {% endfor %}
         </ul>
      {% else %}
