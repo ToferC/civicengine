@@ -5,7 +5,7 @@ from django.forms.widgets import CheckboxSelectMultiple
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
-from challenge.models import Project, Organization, Member, Tag, Role, Team
+from challenge.models import Project, Organization, Member, Tag, Role, Team, Committment
 
 from captcha.fields import CaptchaField
 from crispy_forms.helper import FormHelper
@@ -32,7 +32,7 @@ class ProjectForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
-                HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
+                HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/project/{{ project.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Project'),))
 
@@ -58,7 +58,7 @@ class OrganizationForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
-                HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
+                HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/organization/{{ organization.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Organization'),))
 
@@ -84,7 +84,7 @@ class TeamForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
-                HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
+                HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/team/{{ team.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Team'),))
 
@@ -110,7 +110,7 @@ class MemberForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
-                HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
+                HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/member/{{ member.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Profile'),))
 
@@ -135,7 +135,7 @@ class TagForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
-                HTML("""<br><a role="button" class="btn btn-default" enctype="multipart/form-data"
+                HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
                         href="/tag/{{ tag.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Tag'),))
 
@@ -162,7 +162,7 @@ class RoleForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
-                HTML("""<br><a role="button" class="btn btn-default"
+                HTML("""<br><a committment="button" class="btn btn-default"
                         href="/project/{{ project.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Role'),))
 
@@ -170,6 +170,37 @@ class RoleForm(forms.ModelForm):
         instance = super(RoleForm, self).save(commit=False)
         instance.person=person
         instance.team=team
+        instance.save()
+        return instance
+
+
+class CommittmentForm(forms.ModelForm):
+    class Meta:
+        model = Committment
+        fields = "__all__"
+        exclude = ['project']
+        widgets = {'start_date': SelectDateWidget(),
+        'end_date': SelectDateWidget(),}
+
+    def __init__(self, *args, **kwargs):
+
+        try:
+            self.user = kwargs.pop('user')
+        except KeyError:
+            self.user = None
+
+        super(CommittmentForm, self).__init__(*args, **kwargs)
+        self.fields['team'].queryset = Team.objects.filter(creator=self.user)
+        self.helper = FormHelper(self)
+        self.helper.layout.append(
+            FormActions(
+                HTML("""<br><a committment="button" class="btn btn-default"
+                        href="/project/{{ project.slug }}">Cancel</a> """),
+                Submit('save', 'Commit Team'),))
+
+    def save(self, project=None, commit=True):
+        instance = super(CommittmentForm, self).save(commit=False)
+        instance.project=project
         instance.save()
         return instance
 
@@ -189,7 +220,7 @@ class UserForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
-                HTML("""<br><a role="button" class="btn btn-default"
+                HTML("""<br><a committment="button" class="btn btn-default"
                         href="/">Cancel</a>"""),
                 Submit('save', 'Submit'),))
 

@@ -52,6 +52,7 @@ urlpatterns = [
     url(r'^add_team/$', views.add_team, name='add_team'),
     url(r'^add_tag/$', views.add_tag, name='add_tag'),
     url(r'^add_role/(?P<team_pk>\d+)/$', views.add_role, name='add_role'),
+    url(r'^add_committment/(?P<project_pk>\d+)/$', views.add_committment, name='add_committment'),
 
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.user_login, name='login'),

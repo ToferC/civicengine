@@ -1,0 +1,18 @@
+{% extends "challenge/base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+
+<main role="main" property="mainContentOfPage" class="container">
+<h1 id="wb-cont" property="name">Commit a team to {{ project.name }}</h1>
+
+<section>
+
+
+    {% crispy committment_form %}
+
+
+</section>
+{% endblock %}

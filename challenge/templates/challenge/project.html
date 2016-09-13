@@ -67,6 +67,10 @@
 <a class="btn btn-info" href="{% url 'project_form' pk=project.pk %}">Edit</a>
 {% endif %}
 
+{% if user_teams %}
+<a class="btn btn-primary" href="{% url 'add_committment' project_pk=project.pk %}">Commit Team to Project</a>
+{% endif %}
+
 </div>
 </div>
 

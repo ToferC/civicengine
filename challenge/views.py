@@ -101,14 +101,17 @@ def project(request, project_slug):
     context_dict = {}
 
     try:
+        user = request.user
         project = Project.objects.get(slug=project_slug)
         context_dict['sponsoring_organizations'] = Organization.objects.filter(
             project=project)
-        context_dict['teams'] = project.teams
+        context_dict['teams'] = Team.objects.filter(committment__project=project)
 
-        context_dict['roles'] = Role.objects.filter(team__project=project)
+        context_dict['roles'] = Role.objects.filter(team__committment__project=project)
 
         context_dict['project'] = project
+
+        context_dict['user_teams'] = Team.objects.filter(creator=user)
 
     except Project.DoesNotExist:
         context_dict['project'] = {"name": "Bernardo"}
@@ -149,7 +152,7 @@ def team(request, team_slug):
         context_dict['tags'] = Tag.objects.filter(
             team=team)
         context_dict['projects'] = Project.objects.filter(
-            teams=team)
+            committment__team=team)
         context_dict['roles'] = Role.objects.filter(
             team=team)
         context_dict['image'] = team.image
@@ -388,6 +391,33 @@ def add_role(request, team_pk):
 
     return render(request, 'challenge/add_role.html',
         {'role_form': role_form, 'member': member, 'team': team})
+
+
+@login_required
+def add_committment(request, project_pk):
+
+    project = Project.objects.get(pk=project_pk)
+    user = request.user
+    teams = Team.objects.filter(creator=user)
+
+    if request.method == 'POST':
+        committment_form = CommittmentForm(request.POST, request.FILES, user=user)
+
+        if committment_form.is_valid():
+            team = committment_form.cleaned_data['team']
+            committment_form.save(project=project, commit=True)
+
+            return HttpResponseRedirect("/team/{}".format(team.slug))
+
+        else:
+            print (committment_form.errors)
+
+    else:
+
+        committment_form = CommittmentForm(user=user)
+
+    return render(request, 'challenge/add_committment.html',
+        {'committment_form': committment_form, 'project': project})
 
 
 # Update & Delete Views
