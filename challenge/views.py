@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test, per
 from django.utils.decorators import method_decorator
 from django.contrib.auth import logout, login, authenticate
 from django.contrib import messages
+from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import UpdateView, DeleteView
 from challenge.models import *
 from challenge.forms import *
@@ -485,6 +486,7 @@ class TagDelete(DeleteView):
 
 class RoleDelete(DeleteView):
     model = Role
+    success_url = reverse_lazy('all_members')
 
 
 # Admin Views

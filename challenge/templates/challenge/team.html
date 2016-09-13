@@ -50,7 +50,7 @@
             {% for role in roles %}
                 <li><a href="{% url 'member' member_slug=role.person.slug %}">{{ role.person.name }} - {{ role.role }}</a> - Status: {{ role.status }} 
 
-                {% if team.creator == user or role.person.user == user %}
+                {% if team.creator == user %}
                 <a class="btn btn-info" href="{% url 'role_form' pk=role.pk %}">Edit Role</a></li>
             {% endif %}
 
