@@ -38,7 +38,7 @@
     <hr>
     <h4>Teams:</h4> 
         <ul>
-            {% for team in teams.all %}
+            {% for team in teams %}
                 <li><a href="{% url 'team' team_slug=team.slug %}">{{ team.name }}</a></li>
             {% endfor %}
         </ul>
@@ -49,7 +49,7 @@
                 <li><a href="{% url 'member' member_slug=role.person.slug %}">{{ role.role }} - {{ role.person.name }}</a>
 
                 {% if role.person.user == user %}
-                <a class="btn btn-info" href="{% url 'role_form' pk=role.pk %}">Edit</a>
+                <a class="btn btn-warning" href="{% url 'role_form' pk=role.pk %}">Edit</a>
                 {% endif %}
 
                 </li>
@@ -64,7 +64,7 @@
         </ul>
 
 {% if project.creator == user %}
-<a class="btn btn-info" href="{% url 'project_form' pk=project.pk %}">Edit</a>
+<a class="btn btn-warning" href="{% url 'project_form' pk=project.pk %}">Edit Project</a>
 {% endif %}
 
 {% if user_teams %}

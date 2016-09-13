@@ -67,7 +67,7 @@
 <hr>
 
 {% if tag.creator == user %}
-<a class="btn btn-info" href="{% url 'tag_form' pk=tag.pk %}">Edit</a>
+<a class="btn btn-warning" href="{% url 'tag_form' pk=tag.pk %}">Edit Tag</a>
 {% endif %}
 
 </div>

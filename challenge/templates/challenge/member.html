@@ -63,7 +63,7 @@
                 <li><a href="{% url 'team' team_slug=role.team.slug %}">{{role}}</a>{{role.team.project}} - Status: {{role.status}}
 
                 {% if role.person.user == user %}
-                <a class="btn btn-info" href="{% url 'role-delete' pk=role.pk %}"> Remove Role</a>
+                <a class="btn btn-danger" href="{% url 'role-delete' pk=role.pk %}">  Remove Role</a>
                 {% endif %}</li>
             {% endfor %}
         </ul>
@@ -85,7 +85,7 @@
         <hr>
 
 {% if member.user == user %}
-<a class="btn btn-info" href="{% url 'member_form' pk=member.pk %}">Edit</a>
+<a class="btn btn-warning" href="{% url 'member_form' pk=member.pk %}">Edit Member</a>
 {% endif %}
 
 </div>

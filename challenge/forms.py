@@ -151,7 +151,7 @@ class RoleForm(forms.ModelForm):
     class Meta:
         model = Role
         fields = "__all__"
-        exclude = ['person', 'project', 'team']
+        exclude = ['team']
         widgets = {'start_date': SelectDateWidget(),
         'end_date': SelectDateWidget(),}
 
@@ -166,13 +166,40 @@ class RoleForm(forms.ModelForm):
                         href="/project/{{ project.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Role'),))
 
-    def save(self, person=None, team=None, commit=True):
+    def save(self, team=None, commit=True):
         instance = super(RoleForm, self).save(commit=False)
-        instance.person=person
         instance.team=team
         instance.save()
         return instance
 
+
+class RoleApplyForm(forms.ModelForm):
+    class Meta:
+        model = Role
+        fields = "__all__"
+        exclude = ['person', 'team', 'role', 'start_date',
+        'end_date']
+        widgets = {'start_date': SelectDateWidget(),
+        'end_date': SelectDateWidget(),}
+
+    def __init__(self, *args, **kwargs):
+
+        super(RoleForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.layout.append(
+            FormActions(
+                HTML("""<br><a committment="button" class="btn btn-default"
+                        href="/project/{{ project.slug }}">Cancel</a>"""),
+                Submit('save', 'Save Role'),))
+
+    def save(self, team=None, person=None, role=None, commit=True):
+        instance = super(RoleApplyForm, self).save(commit=False)
+        instance.team=team
+        instance.person=person
+        instance.role=role
+        instance.save()
+        return instance
 
 class CommittmentForm(forms.ModelForm):
     class Meta:

@@ -19,11 +19,11 @@ def index(request):
 
     context_dict = {}
 
-    projects = Project.objects.all()
-    organizations = Organization.objects.all()
-    members = Member.objects.all()
-    tags = Tag.objects.all()
-    teams = Team.objects.all()
+    projects = Project.objects.all().distinct()
+    organizations = Organization.objects.all().distinct()
+    members = Member.objects.all().distinct()
+    tags = Tag.objects.all().distinct()
+    teams = Team.objects.all().distinct()
 
     context_dict['projects'] = projects
     context_dict['organizations'] = organizations
@@ -105,16 +105,17 @@ def project(request, project_slug):
         project = Project.objects.get(slug=project_slug)
         context_dict['sponsoring_organizations'] = Organization.objects.filter(
             project=project)
-        context_dict['teams'] = Team.objects.filter(committment__project=project)
+        context_dict['teams'] = Team.objects.filter(committment__project=project).distinct()
 
-        context_dict['roles'] = Role.objects.filter(team__committment__project=project)
+        context_dict['roles'] = Role.objects.filter(team__committment__project=project).exclude(
+            person=None).distinct()
 
         context_dict['project'] = project
 
         context_dict['user_teams'] = Team.objects.filter(creator=user)
 
     except Project.DoesNotExist:
-        context_dict['project'] = {"name": "Bernardo"}
+        pass
 
     return render(request, 'challenge/project.html', context_dict)
 
@@ -152,9 +153,11 @@ def team(request, team_slug):
         context_dict['tags'] = Tag.objects.filter(
             team=team)
         context_dict['projects'] = Project.objects.filter(
-            committment__team=team)
-        context_dict['roles'] = Role.objects.filter(
-            team=team)
+            committment__team=team).distinct()
+        context_dict['vacant_roles'] = Role.objects.filter(
+            team=team, person=None).distinct()
+        context_dict['filled_roles'] = Role.objects.filter(
+            team=team).exclude(person=None).distinct()
         context_dict['image'] = team.image
 
     except Team.DoesNotExist:
@@ -371,14 +374,13 @@ def add_role(request, team_pk):
 
     user = request.user
     team = Team.objects.get(pk=team_pk)
-    member = Member.objects.get(user=user)
 
     if request.method == 'POST':
         role_form = RoleForm(request.POST, request.FILES)
 
         if role_form.is_valid():
 
-            role_form.save(person=member, team=team, commit=True)
+            role_form.save(team=team, commit=True)
 
             return HttpResponseRedirect("/team/{}".format(team.slug))
 
@@ -391,6 +393,35 @@ def add_role(request, team_pk):
 
     return render(request, 'challenge/add_role.html',
         {'role_form': role_form, 'member': member, 'team': team})
+
+
+@login_required
+def apply_to_role(request, role_pk, member_pk):
+
+    user = request.user
+    role = Role.objects.get(pk=role_pk)
+    team = role.team
+    member = Member.objects.get(pk=member_pk)
+
+    if request.method == 'POST':
+        role_form = RoleApplyForm(request.POST, request.FILES, instance=role)
+
+        if role_form.is_valid():
+
+            role_form.save(team=team, person=member, role="Applied", commit=True)
+
+            return HttpResponseRedirect("/team/{}".format(team.slug))
+
+        else:
+            print (role_form.errors)
+
+    else:
+
+        role_form = RoleApplyForm(role=role)
+
+    return render(request, 'challenge/add_role.html',
+        {'role_form': role_form, 'member': member, 'team': team,
+        'role':role})
 
 
 @login_required

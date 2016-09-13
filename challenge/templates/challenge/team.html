@@ -32,7 +32,7 @@
      {% else %}
         <p>No tags.</p>
      {% endif %}
-
+<hr>
      <h4>Projects:</h4>
     {% if projects %}
         <ul>
@@ -43,35 +43,52 @@
      {% else %}
         <p>No projects.</p>
      {% endif %}
-
+<hr>
      <h4>Members:</h4>
-    {% if roles %}
+    {% if filled_roles %}
+        <h5>Filled:</h5>
         <ul>
-            {% for role in roles %}
-                <li><a href="{% url 'member' member_slug=role.person.slug %}">{{ role.person.name }} - {{ role.role }}</a> - Status: {{ role.status }} 
+            {% for role in filled_roles %}
+                <li><a href="{% url 'member' member_slug=role.person.slug %}">{{ role.person.name }} - {{ role.role }}</a> - Status: {{ role.status }}
 
                 {% if team.creator == user %}
-                <a class="btn btn-info" href="{% url 'role_form' pk=role.pk %}">Edit Role</a></li>
-            {% endif %}
-
+                <a class="btn btn-warning" href="{% url 'role_form' pk=role.pk %}">Edit Role</a></li>
+                {% endif %}
             {% endfor %}
-
         </ul>
      {% else %}
-        <p>No team members.</p>
+        <p>No filled positions.</p>
      {% endif %}
 
+     {% if vacant_roles %}
+        <h5>Vacant:</h5>
+        <ul>
+            {% for role in vacant_roles %}
+                <li>{{ role.role }} - {{ role.team }} - Status: {{ role.status }}  
+
+                {% if user.is_authenticated %}
+                    <a class="btn btn-primary" href="{% url 'apply_to_role' role_pk=role.pk member_pk=user.member.pk %}">Apply for Position</a>
+                {% endif %}
+
+                {% if team.creator == user %}
+                <a class="btn btn-warning" href="{% url 'role_form' pk=role.pk %}">Edit Role</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+     {% else %}
+        <p>No vacant positions.</p>
+     {% endif %}
+<hr>
+{% if team.creator == user %}
+<a class="btn btn-warning" href="{% url 'team_form' pk=team.pk %}">Edit Team</a> 
+
+<a class="btn btn-primary" href="{% url 'add_role' team_pk=team.pk %}">Add Positions</a> 
+{% endif %}
 {% if user.is_authenticated %}
-<a class="btn btn-info" href="{% url 'add_role' team_pk=team.pk %}">Join Team</a>
 {% else %}
 <<p>Log in and create your profile to join a team.</p>
 {% endif %}
-
-
-{% if team.creator == user %}
-<a class="btn btn-info" href="{% url 'team_form' pk=team.pk %}">Edit</a>
-{% endif %}
-
+<hr>
 </div>
 </div>
 

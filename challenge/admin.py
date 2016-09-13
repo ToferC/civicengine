@@ -34,7 +34,7 @@ class MemberAdmin(admin.ModelAdmin):
 
 
 class RoleAdmin(admin.ModelAdmin):
-    list_display = ('person', 'team', 'role')
+    list_display = ('team', 'role', 'person', 'status')
 
 
 class ResourceAdmin(admin.ModelAdmin):

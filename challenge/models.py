@@ -156,13 +156,15 @@ class Role(models.Model):
         (ST, "Project Strategy"),
         )
 
-    AA = "Application"
+    VA = "Vacant"
+    AA = "Applied"
     AC = "Active"
     IN = "Inactive"
     RE = "Retired"
     RM = "Removed"
 
     STATUS = (
+        (VA, "Vacant"),
         (AA, "Applied"),
         (AC, "Active"),
         (IN, "Inactive"),
@@ -170,13 +172,19 @@ class Role(models.Model):
         (RM, "Removed"),
         )
 
-    person = models.ForeignKey(Member, on_delete=models.CASCADE)
+    person = models.ForeignKey(Member, null=True, blank=True, on_delete=models.CASCADE)
     team = models.ForeignKey('Team', on_delete=models.CASCADE)
-    role = models.CharField(max_length=64, choices=ROLES)
+    role = models.CharField(max_length=64, choices=ROLES, default="Vacant")
     status = models.CharField(max_length=64, choices=STATUS, default="Applied")
     hrs_per_week = models.FloatField(null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
+
+    def set_role_to_vacant(self):
+        self.status = "Vacant"
+
+    def set_role_to_applied(self):
+        self.status = "Applied"
 
     def set_role_to_activate(self):
         self.status = "Active"
