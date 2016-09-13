@@ -31,7 +31,7 @@
         <li>Teams:
         {% if teams %}
             {% for team in teams %}
-                <a href="{% url 'team' team_slug=team.slug %}">{{ team.name }}</a>
+                <a href="{% url 'team' team_slug=team.slug %}">{{ team.name }}</a> 
             {% endfor %}
         {% else %}
         None
@@ -73,14 +73,14 @@
      <hr>
 
      <h4>Team Members:</h4>
-    {% if members %}
+    {% if members.all %}
         <ul>
-            {% for member in members %}
+            {% for member in members.all %}
                 <li><a href="{% url 'member' member_slug=member.slug %}">{{ member.name }}</a></li>
             {% endfor %}
         </ul>
      {% else %}
-        <p>No teammates.</p>
+        <li><p>No teammates.</p></li>
      {% endif %}
         <hr>
 

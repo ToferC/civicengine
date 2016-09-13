@@ -174,10 +174,20 @@ def member(request, member_slug):
         member = Member.objects.get(slug=member_slug)
 
         context_dict['member'] = member
+        teams = Team.objects.filter(
+            role__person=member)
+        context_dict['teams'] = teams
         context_dict['tags'] = Tag.objects.filter(
             member=member)
         context_dict['roles'] = Role.objects.filter(
             person=member)
+
+        teammate_list = []
+        for team in teams:
+            teammate_list.append(Member.objects.filter(
+            role__team=team))
+
+        context_dict['members'] = teammate_list
 
     except Member.DoesNotExist:
         pass
