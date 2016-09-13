@@ -10,17 +10,17 @@
 <div class="breadcrumbs"><a href="/">Home > </a><a href="{% url 'all_teams' %}"> Teams ></a> {{ team.name }}</div>
 <hr>
 
-<h2>{{ team.name }}</h2>
+<h2>{{ team.name }}</h2>{% if team.website %}
+    <a href="{{ team.website }}">[Link]</a>
+    {% endif %}
 
 <div>
     {% thumbnail image "400x300" crop="center" as im %}
         <img class="img-responsive" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
     {% endthumbnail %}
     <hr>
-    <h4>Info:</h4> {{team.info}}
+    {{team.info}}
     <hr>
-    <h4>Website:</h4> 
-    <a href="{{ team.website }}">{{team.website}}</a>
     
     <h4>Tags:</h4>
     {% if tags %}
@@ -44,7 +44,7 @@
         <p>No projects.</p>
      {% endif %}
 <hr>
-     <h4>Members:</h4>
+     <h4>Membership:</h4>
     {% if filled_roles %}
         <h5>Filled:</h5>
         <ul>
@@ -52,8 +52,13 @@
                 <li><a href="{% url 'member' member_slug=role.person.slug %}">{{ role.person.name }} - {{ role.role }}</a> - Status: {{ role.status }}
 
                 {% if team.creator == user %}
-                <a class="btn btn-warning" href="{% url 'role_form' pk=role.pk %}">Edit Role</a></li>
+                <a class="btn btn-warning" href="{% url 'role_form' pk=role.pk %}">Edit Role</a>
                 {% endif %}
+
+                {% if user == role.person.user %}
+                <a class="btn btn-danger" href="{% url 'quit_role' role_pk=role.pk member_pk=user.member.pk %}">Retire from Position</a>
+                {% endif %}</li>
+
             {% endfor %}
         </ul>
      {% else %}
@@ -71,8 +76,10 @@
                 {% endif %}
 
                 {% if team.creator == user %}
-                <a class="btn btn-warning" href="{% url 'role_form' pk=role.pk %}">Edit Role</a></li>
+                <a class="btn btn-warning" href="{% url 'role_form' pk=role.pk %}">Edit Role</a>   
+                <a class="btn btn-danger" href="{% url 'role-delete' pk=role.pk %}">  Remove Role</a></li>
                 {% endif %}
+
             {% endfor %}
         </ul>
      {% else %}

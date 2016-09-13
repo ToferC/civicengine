@@ -251,7 +251,7 @@ def add_project(request):
             slug = slugify(project_form.cleaned_data['name'])
 
             project_form.save(creator=user, commit=True)
-
+            project_form.save_m2m()
             return HttpResponseRedirect("/project/{}".format(slug))
 
         else:
@@ -277,6 +277,7 @@ def add_organization(request):
             slug = slugify(organization_form.cleaned_data['name'])
 
             organization_form.save(creator=user, commit=True)
+            organization_form.save_m2m()
 
             return HttpResponseRedirect("/organization/{}".format(slug))
 
@@ -303,6 +304,7 @@ def add_team(request):
             slug = slugify(team_form.cleaned_data['name'])
 
             team_form.save(creator=user, commit=True)
+            team_form.save_m2m()
 
             return HttpResponseRedirect("/team/{}".format(slug))
 
@@ -329,6 +331,7 @@ def add_member(request):
             slug = slugify(member_form.cleaned_data['name'])
 
             member_form.save(user=user, commit=True)
+            member_form.save_m2m()
 
             return HttpResponseRedirect("/member/{}".format(slug))
 
@@ -424,6 +427,32 @@ def apply_to_role(request, role_pk, member_pk):
 
 
 @login_required
+def quit_role(request, role_pk, member_pk):
+
+    user = request.user
+    role = Role.objects.get(pk=role_pk)
+    team = role.team
+    member = Member.objects.get(pk=member_pk)
+
+    if request.method == 'POST':
+        role_form = RoleApplyForm(request.POST, request.FILES, instance=role)
+
+        if role_form.is_valid():
+            role_form.save(team=team, person=None, status="Vacant", commit=True)
+
+            return HttpResponseRedirect("/team/{}".format(team.slug))
+
+        else:
+            print (role_form.errors)
+
+    else:
+        role_form = RoleApplyForm()
+
+    return render(request, 'challenge/quit_role.html',
+        {'role_form': role_form, 'member': member, 'team': team,
+        'role':role})
+
+@login_required
 def add_committment(request, project_pk):
 
     project = Project.objects.get(pk=project_pk)
@@ -458,6 +487,7 @@ def project_form(request, pk):
     form = ProjectForm(request.POST or None, request.FILES or None, instance=project)
     if form.is_valid():
         form.save(creator=project.creator)
+        form.save_m2m()
         return HttpResponseRedirect('/project/{}'.format(project.slug))
     
     return render(request, 'challenge/project_form.html', {'form': form, 'object': project})
@@ -470,6 +500,7 @@ def organization_form(request, pk):
     form = OrganizationForm(request.POST or None, request.FILES or None, instance=organization)
     if form.is_valid():
         form.save(creator=organization.creator)
+        form.save_m2m()
         return HttpResponseRedirect('/organization/{}'.format(organization.slug))
     
     return render(request, 'challenge/organization_form.html', {'form': form, 'object': organization})
@@ -482,6 +513,7 @@ def member_form(request, pk):
     form = MemberForm(request.POST or None, request.FILES or None, instance=member)
     if form.is_valid():
         form.save(user=member.user)
+        form.save_m2m()
         return HttpResponseRedirect('/member/{}'.format(member.slug))
     
     return render(request, 'challenge/member_form.html', {'form': form, 'object': member})
@@ -506,6 +538,7 @@ def team_form(request, pk):
     form = TeamForm(request.POST or None, request.FILES or None, instance=team)
     if form.is_valid():
         form.save(creator=team.creator)
+        form.save_m2m()
         return HttpResponseRedirect('/team/{}'.format(team.slug))
     
     return render(request, 'challenge/team_form.html', {'form': form, 'object': team})

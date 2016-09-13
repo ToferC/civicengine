@@ -58,10 +58,12 @@
     <hr>
     <h4>Tags:</h4>
         <ul>
-            {% for tag in tags %}
+            {% for tag in project.tags.all %}
                 <li><a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a></li>
             {% endfor %}
         </ul>
+
+<hr>
 
 {% if project.creator == user %}
 <a class="btn btn-warning" href="{% url 'project_form' pk=project.pk %}">Edit Project</a>

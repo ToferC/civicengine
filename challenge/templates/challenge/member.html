@@ -42,7 +42,7 @@
     <li>Profile:</h4> <a href="{{member.profile}}">{{ member.name }} on GCconnex</a></li>
     </ul>
     <hr>
-    <h4>Bio:</h4> {{member.bio}}
+    {{member.bio}}
     <hr>
     <h4>Tags:</h4>
     {% if tags %}
@@ -62,8 +62,8 @@
             {% for role in roles %}
                 <li><a href="{% url 'team' team_slug=role.team.slug %}">{{role}}</a>{{role.team.project}} - Status: {{role.status}}
 
-                <!--{% if role.person.user == user %}
-                <a class="btn btn-danger" href="{% url 'role-delete' pk=role.pk %}">  Remove Role</a>-->
+                {% if role.person.user == user %}
+                <a class="btn btn-danger" href="{% url 'quit_role' role_pk=role.pk member_pk=user.member.pk %}">Retire from Position</a>
                 {% endif %}</li>
             {% endfor %}
         </ul>

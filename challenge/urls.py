@@ -53,6 +53,8 @@ urlpatterns = [
     url(r'^add_tag/$', views.add_tag, name='add_tag'),
     url(r'^add_role/(?P<team_pk>\d+)/$', views.add_role, name='add_role'),
     url(r'^apply_to_role/(?P<role_pk>\d+)/(?P<member_pk>\d+)/$', views.apply_to_role, name='apply_to_role'),
+    url(r'^quit_role/(?P<role_pk>\d+)/(?P<member_pk>\d+)/$', views.quit_role, name='quit_role'),
+
     url(r'^add_committment/(?P<project_pk>\d+)/$', views.add_committment, name='add_committment'),
 
     url(r'^register/$', views.register, name='register'),

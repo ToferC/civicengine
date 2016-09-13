@@ -191,7 +191,7 @@ class RoleApplyForm(forms.ModelForm):
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default"
                         href="/project/{{ project.slug }}">Cancel</a>"""),
-                Submit('save', 'Apply to Position'),))
+                Submit('save', 'Update Position'),))
 
     def save(self, team=None, person=None, status=None, commit=True):
         instance = super(RoleApplyForm, self).save(commit=False)
