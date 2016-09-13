@@ -9,15 +9,6 @@
 
 <div class="breadcrumbs"><a href="/">Home > </a> Members</div><hr>
 
-{% if user.is_authenticated %}
-<div class="text-xs-center">
-    <div class="btn-group"> 
-    <a class="btn btn-primary" href="{% url 'add_member' %}">Add a Member!</a>
-    </div>
-</div>
-<hr>
-{% endif %}
-
 <div class="card-columns">
 
 {% for member in members %}
