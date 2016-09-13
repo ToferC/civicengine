@@ -378,7 +378,7 @@ def add_role(request, team_pk):
 
         if role_form.is_valid():
 
-            role_form.save(person=member, teams=team, commit=True)
+            role_form.save(person=member, team=team, commit=True)
 
             return HttpResponseRedirect("/team/{}".format(team.slug))
 
@@ -398,7 +398,6 @@ def add_committment(request, project_pk):
 
     project = Project.objects.get(pk=project_pk)
     user = request.user
-    teams = Team.objects.filter(creator=user)
 
     if request.method == 'POST':
         committment_form = CommittmentForm(request.POST, request.FILES, user=user)
