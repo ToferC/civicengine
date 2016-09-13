@@ -20,18 +20,7 @@
     {% endthumbnail %}
     <hr>
     {{team.info}}
-    <hr>
-    
-    <h4>Tags:</h4>
-    {% if tags %}
-        <ul>
-            {% for tag in tags %}
-                <li><a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a></li>
-            {% endfor %}
-        </ul>
-     {% else %}
-        <p>No tags.</p>
-     {% endif %}
+
 <hr>
      <h4>Projects:</h4>
     {% if projects %}
@@ -45,8 +34,8 @@
      {% endif %}
 <hr>
      <h4>Membership:</h4>
-    {% if filled_roles %}
         <h5>Filled:</h5>
+        {% if filled_roles %}
         <ul>
             {% for role in filled_roles %}
                 <li><a href="{% url 'member' member_slug=role.person.slug %}">{{ role.person.name }} - {{ role.role }}</a> - Status: {{ role.status }}
@@ -62,11 +51,11 @@
             {% endfor %}
         </ul>
      {% else %}
-        <p>No filled positions.</p>
+        <li><p>No filled positions.</p></li>
      {% endif %}
 
-     {% if vacant_roles %}
         <h5>Vacant:</h5>
+        {% if vacant_roles %}
         <ul>
             {% for role in vacant_roles %}
                 <li>{{ role.role }} - {{ role.team }} - Status: {{ role.status }}  
@@ -83,17 +72,32 @@
             {% endfor %}
         </ul>
      {% else %}
-        <p>No vacant positions.</p>
+        <li><p>No vacant positions.</p></li>
      {% endif %}
-<hr>
+
+     <hr>
+    
+    <h4>Tags:</h4>
+    {% if tags %}
+        <ul>
+            {% for tag in tags %}
+                <li><a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a></li>
+            {% endfor %}
+        </ul>
+     {% else %}
+        <p>No tags.</p>
+     {% endif %}
+    <hr>
+
 {% if team.creator == user %}
 <a class="btn btn-warning" href="{% url 'team_form' pk=team.pk %}">Edit Team</a> 
 
 <a class="btn btn-primary" href="{% url 'add_role' team_pk=team.pk %}">Add Positions</a> 
 {% endif %}
+
 {% if user.is_authenticated %}
 {% else %}
-<<p>Log in and create your profile to join a team.</p>
+<strong>Log in and create your profile to join a team!</strong>
 {% endif %}
 <hr>
 </div>
