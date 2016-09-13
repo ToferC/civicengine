@@ -177,27 +177,27 @@ class RoleApplyForm(forms.ModelForm):
     class Meta:
         model = Role
         fields = "__all__"
-        exclude = ['person', 'team', 'role', 'start_date',
-        'end_date']
+        exclude = ['person', 'team', 'status', 'role', 'start_date',
+        'end_date', 'hrs_per_week']
         widgets = {'start_date': SelectDateWidget(),
         'end_date': SelectDateWidget(),}
 
     def __init__(self, *args, **kwargs):
 
-        super(RoleForm, self).__init__(*args, **kwargs)
+        super(RoleApplyForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default"
                         href="/project/{{ project.slug }}">Cancel</a>"""),
-                Submit('save', 'Save Role'),))
+                Submit('save', 'Apply to Position'),))
 
-    def save(self, team=None, person=None, role=None, commit=True):
+    def save(self, team=None, person=None, status=None, commit=True):
         instance = super(RoleApplyForm, self).save(commit=False)
         instance.team=team
         instance.person=person
-        instance.role=role
+        instance.status=status
         instance.save()
         return instance
 

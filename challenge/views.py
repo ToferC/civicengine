@@ -408,7 +408,7 @@ def apply_to_role(request, role_pk, member_pk):
 
         if role_form.is_valid():
 
-            role_form.save(team=team, person=member, role="Applied", commit=True)
+            role_form.save(team=team, person=member, status="Applied", commit=True)
 
             return HttpResponseRedirect("/team/{}".format(team.slug))
 
@@ -416,10 +416,9 @@ def apply_to_role(request, role_pk, member_pk):
             print (role_form.errors)
 
     else:
+        role_form = RoleApplyForm()
 
-        role_form = RoleApplyForm(role=role)
-
-    return render(request, 'challenge/add_role.html',
+    return render(request, 'challenge/apply_to_role.html',
         {'role_form': role_form, 'member': member, 'team': team,
         'role':role})
 
@@ -518,7 +517,7 @@ def role_form(request, pk):
 
     form = RoleForm(request.POST or None, request.FILES or None, instance=role)
     if form.is_valid():
-        form.save(person=role.person, team=role.team)
+        form.save(team=role.team, commit=True)
         return HttpResponseRedirect('/team/{}'.format(role.team.slug))
     
     return render(request, 'challenge/role_form.html', {'form': form, 'object': role})
