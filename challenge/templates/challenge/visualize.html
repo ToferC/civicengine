@@ -5,6 +5,8 @@
 
 {% block main %}
 
+<div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
+
 <main role="main" property="mainContentOfPage" class="container">
 <h1 id="wb-cont" property="name">Innovation Map Visualization</h1>
 
@@ -38,9 +40,9 @@
 
 </style>
 <body>
-
-{% block footer %}
-{% endblock %}
+</body>
+</main>
+</div>
 
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
@@ -120,4 +122,7 @@ d3.select(self.frameElement).style("height", diameter + "px");
 
 </script>
 
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

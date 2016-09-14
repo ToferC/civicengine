@@ -7,23 +7,9 @@
 {% block main %}
 
 <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
-
-{% if user.is_authenticated %}
 <hr>
 <div class="text-xs-center">
-    <div class="btn-group" role="group" aria-teamel="Add Content">
-        <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
-        <a class="btn btn-primary" href="{% url 'add_organization' %}">Add an Organization!</a>
-        <a class="btn btn-primary" href="{% url 'add_team' %}">Add a Team!</a>
-        <a class="btn btn-primary" href="{% url 'add_tag' %}">Add a Tag!</a>
-    </div>
-</div>
-{% else %}
-{% endif %}
-<hr>
-<div class="img-responsive">
-    <div id="map" style="width: 100%; height: 450px">
-    </div>
+<p>The innovation map application is designed to connect citizens with projects worth doing - helping them understand the issues and opportunities at play and building the connections and partnerships needed to make things happen.  Be part of something bigger.</p>
 </div>
 <hr>
 <div class="text-xs-center">
@@ -38,13 +24,30 @@
         <a href="{% url 'all_members' %}" class="btn btn-primary">Members</a>
 
         <a href="{% url 'all_tags' %}" class="btn btn-primary">Tags</a>
+
+        <a class="btn btn-primary" href="{% url 'visualize' %}">Visualize Data!</a>
     </div>
 </div>
 
-<div class="text-xs-center">
-    <a class="btn btn-primary" href="{% url 'visualize' %}">Visualize Data!</a>
-    <hr>
+<hr>
+<div class="img-responsive">
+    <div id="map" style="width: 100%; height: 450px">
+    </div>
 </div>
+<hr>
+
+{% if user.is_authenticated %}
+<div class="text-xs-center">
+    <div class="btn-group" role="group" aria-teamel="Add Content">
+        <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
+        <a class="btn btn-primary" href="{% url 'add_organization' %}">Add an Organization!</a>
+        <a class="btn btn-primary" href="{% url 'add_team' %}">Add a Team!</a>
+        <a class="btn btn-primary" href="{% url 'add_tag' %}">Add a Tag!</a>
+    </div>
+</div>
+<hr>
+{% else %}
+{% endif %}
 
 </div>
 
