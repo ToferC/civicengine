@@ -10,31 +10,15 @@
 <div class="breadcrumbs"><a href="/">Home > </a><a href="{% url 'all_organizations' %}"> Organizations ></a> {{organization.name}}</div>
 <hr>
 
-<h2>{{ organization.name }} ({{ organization.acronym }})</h2>
+<h2>{{ organization.name }} {% if organization.website %}<a href="{{ organization.website }}"> [Link]</a>
+{% endif %}</h2>
 
     {% thumbnail image "300x300" crop="center" as im %}
         <img class="img-responsive" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
     {% endthumbnail %}
     <hr>
-    <h4>Info:</h4> {{organization.info}}
+    <p>{{organization.info}}</p>
     <hr>
-    <h4>Website:</h4>
-    <ul>
-        <li>
-            <a href="{{ organization.website }}">{{organization.website}}</a>
-        </li>
-    </ul>
-    
-    <h4>Tags:</h4>
-    {% if tags %}
-        <ul>
-            {% for tag in tags %}
-                <li><a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a></li>
-            {% endfor %}
-        </ul>
-     {% else %}
-        <p>No tags.</p>
-     {% endif %}
 
      <h4>Projects:</h4>
     {% if projects %}
@@ -57,7 +41,17 @@
      {% else %}
         <p>No team members.</p>
      {% endif %}
-
+<hr>
+<h4>Tags:</h4>
+    {% if tags %}
+        <ul>
+            {% for tag in tags %}
+                <li><a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a></li>
+            {% endfor %}
+        </ul>
+     {% else %}
+        <p>No tags.</p>
+     {% endif %}
 <hr>
 {% if organization.creator == user %}
 <a class="btn btn-info" href="{% url 'organization_form' pk=organization.pk %}">Edit</a>

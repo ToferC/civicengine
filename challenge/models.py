@@ -35,7 +35,7 @@ class Project(models.Model):
     sponsoring_organizations = models.ManyToManyField('Organization', blank=True)
     submitted_date = models.DateTimeField(default=timezone.now)
     published = models.BooleanField(default=True)
-    image = models.ImageField(upload_to='images/project_images/%Y/%m/%d', default='images/project_images/nothing.jpg')
+    image = models.ImageField(upload_to='images/project_images/%Y/%m/%d/%H_%M_%S', default='images/project_images/nothing.jpg')
     tags = models.ManyToManyField('Tag', blank=True)
     geo_x = models.FloatField(null=True, blank=True)
     geo_y = models.FloatField(null=True, blank=True)
@@ -230,7 +230,7 @@ class Tag(models.Model):
     name = models.CharField(max_length=128)
     creator = models.ForeignKey(User)
     description = models.TextField(null=True, blank=True)
-    image = models.ImageField(upload_to='images/tag_images/%Y/%m/%d',
+    image = models.ImageField(upload_to='images/tag_images/%Y/%m/%d/%H_%M_%S',
         null=True, blank=True, default='images/tag_images/nothing.jpg')
 
     slug = models.SlugField(unique=True, max_length=255)
@@ -251,7 +251,7 @@ class Organization(models.Model):
     acronym_fr = models.CharField(max_length=128, blank=True, null=True)
     info = models.TextField(blank=True, null=True)
     website = models.URLField(max_length=128, blank=True, null=True)
-    image = models.ImageField(upload_to='images/organization_images/%Y/%m/%d',
+    image = models.ImageField(upload_to='images/organization_images/%Y/%m/%d/%H_%M_%S',
         default='images/organization_images/nothing.jpg')
     tags = models.ManyToManyField("Tag", blank=True)
     slug = models.SlugField(unique=True, max_length=255)
@@ -272,7 +272,7 @@ class Team(models.Model):
     acronym_fr = models.CharField(max_length=128, blank=True, null=True)
     info = models.TextField(blank=True, null=True)
     website = models.URLField(max_length=128, blank=True, null=True)
-    image = models.ImageField(upload_to='images/team_images/%Y/%m/%d',
+    image = models.ImageField(upload_to='images/team_images/%Y/%m/%d/%H_%M_%S',
         default='images/team_images/nothing.jpg')
     tags = models.ManyToManyField("Tag", blank=True)
     geo_x = models.FloatField(blank=True, null=True)
