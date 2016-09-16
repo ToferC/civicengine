@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^role_form/(?P<pk>\d+)/$', views.role_form, name='role_form'),
     url(r'^issue_form/(?P<pk>\d+)/$', views.issue_form, name='issue_form'),
     url(r'^story_form/(?P<pk>\d+)/$', views.story_form, name='story_form'),
+    url(r'^response_form/(?P<pk>\d+)/$', views.response_form, name='response_form'),
 
     # Deleteviews
     url(r'^project_delete/(?P<pk>[0-9]+)/$', ProjectDelete.as_view(),
@@ -70,6 +71,8 @@ urlpatterns = [
     url(r'^add_committment/(?P<project_pk>\d+)/$', views.add_committment, name='add_committment'),
     url(r'^add_issue/$', views.add_issue, name='add_issue'),
     url(r'^add_story/(?P<issue_pk>\d+)/$', views.add_story, name='add_story'),
+    url(r'^add_response/(?P<issue_pk>\d+)/$', views.add_response, name='add_response'),
+
 
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.user_login, name='login'),

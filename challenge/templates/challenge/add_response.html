@@ -1,0 +1,18 @@
+{% extends "challenge/base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+
+<main role="main" property="mainContentOfPage" class="container">
+<h1 id="wb-cont" property="name">Link a project to Issue: {{ issue.name }}</h1>
+
+<section>
+
+
+    {% crispy form %}
+
+
+</section>
+{% endblock %}

@@ -18,6 +18,8 @@
                     <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
     {% endthumbnail %}
     <hr>
+    issue.summary
+    <hr>
     {{issue.description}}
     <hr>
     <ul>
@@ -26,7 +28,28 @@
         <li>Date Created: {{issue.date_created}}</li>
     </ul>
     <hr>
-    
+
+<h4>Projects:</h4>
+<div class="card-columns">
+
+{% for project in projects %}
+    <div class="card">
+        {% thumbnail project.image "300x300" crop="center" as im %}
+            <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
+        {% endthumbnail %}
+        <div class="card-block">
+            <h4 class="card-title">{{project.name}} </h4>
+            <p class="card-text">{{ project.short_text }}</p>
+            <a href="{% url 'project' project_slug=project.slug %}" class="btn btn-primary">See Project</a>
+            {% if project.creator == user %}
+                <a class="btn btn-danger" href="{% url 'project_form' pk=project.pk %}">Remove Project</a>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
+
+</div>
+<hr>
     <h4>Stories:</h4> 
        <div class="card-columns">
 
@@ -54,6 +77,11 @@
 
 {% if user.is_authenticated %}
 <a class="btn btn-primary" href="{% url 'add_story' issue_pk=issue.pk %}">Add a Story</a>
+<a class="btn btn-primary" href="{% url 'add_project' %}">Create Project</a>
+{% endif %}
+
+{% if user_projects %}
+<a class="btn btn-primary" href="{% url 'add_response' issue_pk=issue.pk %}">Link Project</a>
 {% endif %}
 
 </div>

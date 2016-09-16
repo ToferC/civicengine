@@ -321,6 +321,7 @@ class Issue(models.Model):
 
     name = models.CharField(max_length=64)
     creator = models.ForeignKey(User)
+    summary = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     status = models.CharField(choices=STATUS, default="Active",
         max_length=64)
@@ -381,4 +382,13 @@ class Vote(models.Model):
     negative = models.IntegerField(default=0)
     neutral = models.IntegerField(default=0)
 
+
+class Like(models.Model):
+    user = models.ForeignKey(User)
+    issue = models.ForeignKey(Issue, blank=True, null=True)
+    story = models.ForeignKey(Story, blank=True, null=True)
+    project = models.ForeignKey(Project, blank=True, null=True)
+    team = models.ForeignKey(Team, blank=True, null=True)
+    member = models.ForeignKey(Member, blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
 

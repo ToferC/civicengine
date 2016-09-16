@@ -272,6 +272,12 @@ def issue(request, issue_slug):
         context_dict['responses'] = Response.objects.filter(
             issue=issue).distinct()
 
+        context_dict['user_projects'] = Project.objects.filter(
+            creator=user)
+
+        context_dict['projects'] = Project.objects.filter(
+            response__issue=issue).distinct()
+
         context_dict['issue'] = issue
 
     except Issue.DoesNotExist:
@@ -494,6 +500,7 @@ def quit_role(request, role_pk, member_pk):
         {'role_form': role_form, 'member': member, 'team': team,
         'role':role})
 
+
 @login_required
 def add_committment(request, project_pk):
 
@@ -568,6 +575,33 @@ def add_story(request, issue_pk):
         form = StoryForm()
 
     return render(request, 'challenge/add_story.html',
+        {'form': form, 'issue': issue})
+
+
+@login_required
+def add_response(request, issue_pk):
+
+    issue = Issue.objects.get(pk=issue_pk)
+    user = request.user
+
+    if request.method == 'POST':
+        form = ResponseForm(request.POST, request.FILES, user=user, issue=issue)
+
+        if form.is_valid():
+            project = form.cleaned_data['project']
+            issue = issue
+            form.save(project=project, issue=issue, commit=True)
+
+            return HttpResponseRedirect("/issue/{}".format(issue.slug))
+
+        else:
+            print (form.errors)
+
+    else:
+
+        form = ResponseForm(user=user, issue=issue)
+
+    return render(request, 'challenge/add_response.html',
         {'form': form, 'issue': issue})
 
 
@@ -676,6 +710,19 @@ def story_form(request, pk):
     
     return render(request, 'challenge/story_form.html', {
         'form': form, 'object': story})
+
+
+@login_required
+def response_form(request, pk):
+    response = Response.objects.get(pk=pk)
+    issue = response.issue
+
+    form = ResponseForm(request.POST or None, request.FILES or None, instance=response)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect('/issue/{}'.format(issue.slug))
+    
+    return render(request, 'challenge/response_form.html', {'form': form, 'object': role})
 
 
 class ProjectDelete(DeleteView):

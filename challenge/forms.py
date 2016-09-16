@@ -288,6 +288,38 @@ class StoryForm(forms.ModelForm):
         return instance
 
 
+class ResponseForm(forms.ModelForm):
+    class Meta:
+        model = Response
+        fields = "__all__"
+        exclude = ['issue']
+        widgets = {'start_date': SelectDateWidget()}
+
+    def __init__(self, *args, **kwargs):
+
+        try:
+            self.user = kwargs.pop('user')
+            self.issue = kwargs.pop('issue')
+        except KeyError:
+            self.user = None
+
+        super(ResponseForm, self).__init__(*args, **kwargs)
+        self.fields['project'].queryset = Project.objects.filter(creator=self.user)
+        self.helper = FormHelper(self)
+        self.helper.layout.append(
+            FormActions(
+                HTML("""<br><a committment="button" class="btn btn-default"
+                        href="/issue/{{ issue.slug }}">Cancel</a> """),
+                Submit('save', 'Link Project'),))
+
+    def save(self, project=None, issue=None, commit=True):
+        instance = super(ResponseForm, self).save(commit=False)
+        instance.project=project
+        instance.issue=issue
+        instance.save()
+        return instance
+
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     captcha = CaptchaField()
