@@ -565,6 +565,7 @@ def add_story(request, issue_pk):
         if form.is_valid():
             form.save(creator=user, issue=issue, commit=True)
             form.save_m2m()
+
             return HttpResponseRedirect("/issue/{}".format(issue.slug))
 
         else:
@@ -700,7 +701,7 @@ def issue_form(request, pk):
 @login_required
 def story_form(request, pk):
     story = Story.objects.get(pk=pk)
-    issue = Issue.objects.get(stories=story)
+    issue = Issue.objects.get(story=story)
 
     form = StoryForm(request.POST or None, request.FILES or None, instance=story)
     if form.is_valid():
@@ -709,7 +710,7 @@ def story_form(request, pk):
         return HttpResponseRedirect('/issue/{}'.format(issue.slug))
     
     return render(request, 'challenge/story_form.html', {
-        'form': form, 'object': story})
+        'form': form, 'object': story, 'issue':issue})
 
 
 @login_required
@@ -757,12 +758,12 @@ class IssueDelete(DeleteView):
 
 class StoryDelete(DeleteView):
     model = Story
-    success_url = reverse_lazy('issue')
+    success_url = reverse_lazy('all_issues')
 
 
 class ResponseDelete(DeleteView):
     model = Response
-    success_url = reverse_lazy('issue')
+    success_url = reverse_lazy('all_issues')
 
 
 # Admin Views

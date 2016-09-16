@@ -66,6 +66,7 @@
             <a href="#" class="btn btn-primary">Follow</a>
             {% if story.creator == user %}
             <a class="btn btn-warning" href="{% url 'story_form' pk=issue.pk %}">Edit Story</a>
+            <a class="btn btn-danger" href="{% url 'story-delete' pk=story.pk %}">Delete Story</a>
             {% endif %}
         </div>
     </div>

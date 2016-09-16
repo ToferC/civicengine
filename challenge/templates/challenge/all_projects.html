@@ -30,6 +30,7 @@
             <h4 class="card-title">{{project.name}} </h4>
             <p class="card-text">{{ project.short_text }}</p>
             <a href="{% url 'project' project_slug=project.slug %}" class="btn btn-primary">See Project</a>
+            
         </div>
     </div>
 {% endfor %}

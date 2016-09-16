@@ -336,7 +336,6 @@ class Issue(models.Model):
     date_edited = models.DateField(auto_now=True)
     followers = models.ManyToManyField(User, blank=True, related_name="issue_followers")
     image = models.ImageField(upload_to='images/issue_images/%Y/%m/%d/%H_%M_%S', default='images/issue_images/nothing.jpg')
-    stories = models.ManyToManyField("Story", blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
     priority = models.IntegerField(default=1)
     rating = models.IntegerField(default=0)
@@ -357,6 +356,7 @@ class Issue(models.Model):
 class Story(models.Model):
     name = models.CharField(max_length=64)
     creator = models.ForeignKey(User)
+    issue = models.ForeignKey(Issue)
     impact_statement = models.TextField(max_length=1000)
     priority = models.IntegerField(default=1)
     rating = models.IntegerField(default=0)

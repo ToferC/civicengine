@@ -31,10 +31,11 @@
             <hr>
             <p class="card-text">{{ issue.description }}</p>
             <hr>
-            <p class="card-text">{{ issue.scope }} - {{ issue.status }} - {{ issue.followers.count }} followers - 
-            {% for project in issue.response_project.all %}
-            {{ project.count }} 
-            {% endfor %} XX projects</p>
+            <p class="card-text">{{ issue.scope }} - {{ issue.status }} - 
+            {% if issue.followers.count == 1 %} 1 Follower
+            {% else %}
+            {{ issue.followers.count }} Followers
+            {% endif %}</p>
             <a href="{% url 'issue' issue_slug=issue.slug %}" class="btn btn-primary">See Issue</a>
         </div>
     </div>

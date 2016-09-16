@@ -6,13 +6,13 @@
 <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
 
 <hr>
-<h2>Delete {{object.person.name}}'s role on {{object.team.name}}</h2>
+<h2>Delete Story {{object.name}} on {{object.story.name}}</h2>
 <hr>
 
 <form action="" method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <p>Are you sure you want to delete "{{ object.name }}"?</p>
     <a committment="button" class="btn btn-default" enctype="multipart/form-data"
-                        href="/team/{{ object.team.slug }}">Cancel</a>
+                        href="/issue/{{ object.issue.slug }}">Cancel</a>
     <input class="btn btn-danger" type="submit" value="Confirm" />
 </form>
 

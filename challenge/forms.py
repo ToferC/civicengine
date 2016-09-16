@@ -164,7 +164,7 @@ class RoleForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default"
-                        href="/project/{{ project.slug }}">Cancel</a>"""),
+                        href="/project/{{ object.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Role'),))
 
     def save(self, team=None, commit=True):
@@ -191,7 +191,7 @@ class RoleApplyForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default"
-                        href="/project/{{ project.slug }}">Cancel</a>"""),
+                        href="/project/{{ object.slug }}">Cancel</a>"""),
                 Submit('save', 'Update Position'),))
 
     def save(self, team=None, person=None, status=None, commit=True):
@@ -224,7 +224,7 @@ class CommittmentForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default"
-                        href="/project/{{ project.slug }}">Cancel</a> """),
+                        href="/project/{{ object.slug }}">Cancel</a> """),
                 Submit('save', 'Commit Team'),))
 
     def save(self, project=None, commit=True):
@@ -266,7 +266,7 @@ class StoryForm(forms.ModelForm):
     class Meta:
         model = Story
         fields = "__all__"
-        exclude = ['slug', 'creator', 'followers', ''
+        exclude = ['slug', 'creator', 'followers', 'issue',
             'date_created', 'date_edited', 'rating']
         widgets = {'tags': CheckboxSelectMultiple()}
 
@@ -310,7 +310,7 @@ class ResponseForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default"
-                        href="/issue/{{ issue.slug }}">Cancel</a> """),
+                        href="/issue/{{ object.slug }}">Cancel</a> """),
                 Submit('save', 'Link Project'),))
 
     def save(self, project=None, issue=None, commit=True):
