@@ -34,7 +34,7 @@ class ProjectForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
-                        href="/project/{{ project.slug }}">Cancel</a>"""),
+                        href="/project/{{ object.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Project'),))
 
     def save(self, creator, commit=True):
@@ -60,7 +60,7 @@ class OrganizationForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
-                        href="/organization/{{ organization.slug }}">Cancel</a>"""),
+                        href="/organization/{{ object.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Organization'),))
 
     def save(self, creator, commit=True):
@@ -86,7 +86,7 @@ class TeamForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
-                        href="/team/{{ team.slug }}">Cancel</a>"""),
+                        href="/team/{{ object.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Team'),))
 
     def save(self, creator, commit=True):
@@ -112,7 +112,7 @@ class MemberForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
-                        href="/member/{{ member.slug }}">Cancel</a>"""),
+                        href="/member/{{ object.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Profile'),))
 
     def save(self, user, commit=True):
@@ -137,7 +137,7 @@ class TagForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
-                        href="/tag/{{ tag.slug }}">Cancel</a>"""),
+                        href="/tag/{{ object.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Tag'),))
 
     def save(self, creator, commit=True):
@@ -202,6 +202,7 @@ class RoleApplyForm(forms.ModelForm):
         instance.save()
         return instance
 
+
 class CommittmentForm(forms.ModelForm):
     class Meta:
         model = Committment
@@ -250,7 +251,7 @@ class IssueForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
-                        href="/issue/{{ issue.slug }}">Cancel</a>"""),
+                        href="/issue/{{ object.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Issue'),))
 
     def save(self, creator, commit=True):

@@ -37,8 +37,9 @@ class Project(models.Model):
     published = models.BooleanField(default=True)
     image = models.ImageField(upload_to='images/project_images/%Y/%m/%d/%H_%M_%S', default='images/project_images/nothing.jpg')
     tags = models.ManyToManyField('Tag', blank=True)
-    geo_x = models.FloatField(null=True, blank=True)
-    geo_y = models.FloatField(null=True, blank=True)
+    geo_x = models.FloatField(blank=True, null=True, default=54.16045)
+    geo_y = models.FloatField(blank=True, null=True, default=-92.01873)
+    zoom = models.IntegerField(default=6, blank=True, null=True, help_text="Sets the default zoom")
     slug = models.SlugField(unique=True, max_length=255)
 
     def set_project_to_planning(self):
@@ -112,8 +113,9 @@ class Member(models.Model):
     profile = models.URLField(max_length=128, blank=True, null=True) # validate GCconnex profile
     image = models.ImageField(upload_to='images/user_images/%Y/%m/%d/%H_%M_%S', default='images/user_images/nothing.jpg')
     bio = models.TextField(blank=True, null=True)
-    geo_x = models.FloatField(blank=True, null=True)
-    geo_y = models.FloatField(blank=True, null=True)
+    geo_x = models.FloatField(blank=True, null=True, default=54.16045)
+    geo_y = models.FloatField(blank=True, null=True, default=-92.01873)
+    zoom = models.IntegerField(default=6, blank=True, null=True, help_text="Sets the default zoom")
     salary = models.IntegerField(blank=True, null=True)
     tags = models.ManyToManyField('Tag', blank=True)
     slug = models.SlugField(unique=True, max_length=255)
@@ -275,8 +277,9 @@ class Team(models.Model):
     image = models.ImageField(upload_to='images/team_images/%Y/%m/%d/%H_%M_%S',
         default='images/team_images/nothing.jpg')
     tags = models.ManyToManyField("Tag", blank=True)
-    geo_x = models.FloatField(blank=True, null=True)
-    geo_y = models.FloatField(blank=True, null=True)
+    geo_x = models.FloatField(blank=True, null=True, default=54.16045)
+    geo_y = models.FloatField(blank=True, null=True, default=-92.01873)
+    zoom = models.IntegerField(default=6, blank=True, null=True, help_text="Sets the default zoom")
     slug = models.SlugField(unique=True, max_length=255)
 
     def __str__(self):
@@ -338,8 +341,9 @@ class Issue(models.Model):
     priority = models.IntegerField(default=1)
     rating = models.IntegerField(default=0)
     published = models.BooleanField(default=True)
-    geo_x = models.FloatField(null=True, blank=True)
-    geo_y = models.FloatField(null=True, blank=True)
+    geo_x = models.FloatField(blank=True, null=True, default=54.16045)
+    geo_y = models.FloatField(blank=True, null=True, default=-92.01873)
+    zoom = models.IntegerField(default=6, blank=True, null=True, help_text="Sets the default zoom")
     slug = models.SlugField(unique=True, max_length=255)
 
     def __str__(self):
@@ -362,8 +366,9 @@ class Story(models.Model):
     published = models.BooleanField(default=True)
     image = models.ImageField(upload_to='images/story_images/%Y/%m/%d/%H_%M_%S', default='images/story_images/nothing.jpg')
     tags = models.ManyToManyField(Tag, blank=True)
-    geo_x = models.FloatField(null=True, blank=True)
-    geo_y = models.FloatField(null=True, blank=True)
+    geo_x = models.FloatField(blank=True, null=True, default=54.16045)
+    geo_y = models.FloatField(blank=True, null=True, default=-92.01873)
+    zoom = models.IntegerField(default=6, blank=True, null=True, help_text="Sets the default zoom")
 
     def __str__(self):
         return self.name
@@ -391,4 +396,3 @@ class Like(models.Model):
     team = models.ForeignKey(Team, blank=True, null=True)
     member = models.ForeignKey(Member, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
-

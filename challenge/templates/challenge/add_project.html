@@ -35,6 +35,7 @@
                 
                 document.getElementById("id_geo_x").value= e.latlng.lat;
                 document.getElementById("id_geo_y").value= e.latlng.lng;
+                document.getElementById("id_zoom").value= map.getZoom();
         }
 
         map.on('click', onMapClick);
