@@ -691,7 +691,7 @@ def issue_form(request, pk):
     if form.is_valid():
         form.save(creator=issue.creator)
         form.save_m2m()
-        return HttpResponseRedirect('/issue/{}'.format(project.slug))
+        return HttpResponseRedirect('/issue/{}'.format(issue.slug))
     
     return render(request, 'challenge/issue_form.html', {
         'form': form, 'object': issue})
@@ -700,11 +700,11 @@ def issue_form(request, pk):
 @login_required
 def story_form(request, pk):
     story = Story.objects.get(pk=pk)
-    issue = Issue.objects.get(story=story)
+    issue = Issue.objects.get(stories=story)
 
     form = StoryForm(request.POST or None, request.FILES or None, instance=story)
     if form.is_valid():
-        form.save(creator=story.creator)
+        form.save(creator=story.creator, issue=issue)
         form.save_m2m()
         return HttpResponseRedirect('/issue/{}'.format(issue.slug))
     

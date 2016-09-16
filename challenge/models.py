@@ -321,7 +321,7 @@ class Issue(models.Model):
 
     name = models.CharField(max_length=64)
     creator = models.ForeignKey(User)
-    summary = models.CharField(max_length=255)
+    summary = models.TextField(max_length=255)
     description = models.TextField(null=True, blank=True)
     status = models.CharField(choices=STATUS, default="Active",
         max_length=64)

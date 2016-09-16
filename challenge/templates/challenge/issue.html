@@ -18,7 +18,7 @@
                     <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
     {% endthumbnail %}
     <hr>
-    issue.summary
+    {{ issue.summary }}
     <hr>
     {{issue.description}}
     <hr>
@@ -62,8 +62,11 @@
             <h4 class="card-title">{{story.name}} </h4>
             <p class="card-text">{{ story.impact_statement }}</p>
             <hr>
-            <p class="card-text">{{ story.priority }} - {{ story.rating }} - {{ story.followers.count }}</p>
+            <p class="card-text">Priority: {{ story.priority }} - Likes: {{ story.rating }} - Followers: {{ story.followers.count }}</p>
             <a href="#" class="btn btn-primary">Follow</a>
+            {% if story.creator == user %}
+            <a class="btn btn-warning" href="{% url 'story_form' pk=issue.pk %}">Edit Story</a>
+            {% endif %}
         </div>
     </div>
 {% endfor %}
