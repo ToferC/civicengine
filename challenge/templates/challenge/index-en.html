@@ -9,12 +9,15 @@
 <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
 <hr>
 <div class="text-xs-center">
-<p>The innovation map application is designed to connect citizens with projects worth doing - helping them understand the issues and opportunities at play and building the connections and partnerships needed to make things happen.  Be part of something bigger.</p>
+<p>CivicEngine connects you with projects worth doing - clearly showing the issues and opportunities available and helping you buil the connections and partnerships you need to make things happen.</p>  
+<p>Be part of something bigger.</p>
 </div>
 <hr>
 <div class="text-xs-center">
     <h4>View Content</h4>
     <div class="btn-group" role="group" aria-teamel="See Content">
+        <a href="{% url 'all_issues' %}" class="btn btn-primary">Issues</a>
+
         <a href="{% url 'all_projects' %}" class="btn btn-primary">Projects</a>
 
         <a href="{% url 'all_organizations' %}" class="btn btn-primary">Organizations</a>
@@ -39,6 +42,7 @@
 {% if user.is_authenticated %}
 <div class="text-xs-center">
     <div class="btn-group" role="group" aria-teamel="Add Content">
+        <a class="btn btn-primary" href="{% url 'add_issue' %}">Add an Issue!</a>
         <a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
         <a class="btn btn-primary" href="{% url 'add_organization' %}">Add an Organization!</a>
         <a class="btn btn-primary" href="{% url 'add_team' %}">Add a Team!</a>

@@ -1,26 +1,61 @@
 class Issue(models.Model):
 
-	STATUS = ()
-	()
+	AC = "Active"
+	IN = "Inactive"
+	RE = "Resolved"
+	IM = "Improving"
+	WO = "Worsening"
+
+	STATUS = (
+		(AC, "Active"),
+		(IN, "Inactive"),
+		(RE, "Resolved"),
+		(IM, "Improving"),
+		(WO, "Worsening"),
+		)
+
+	CO = "Community"
+	MU = "Municipal"
+	RN = "Regional"
+	PO = "Provincial/State"
+	NA = "National"
+	IT = "International"
+
+	SCOPE = (
+		(CO, "Community"),
+		(MU, "Municipal"),
+		(RN, "Regional"),
+		(PO, "Provincial/State"),
+		(NA, "National"),
+		(IT, "International"),
+		)
 
 	name = models.CharField(max_length=64)
-	description = models.TextField(null=True, blank=True)
 	creator = models.ForeignKey('User')
-	status = models.ChoiceField(choices=STATUS)
-	ideal_state = models.TextField(null=True, blank=True)
+	description = models.TextField(null=True, blank=True)
+	status = models.ChoiceField(choices=STATUS, default="Active")
+	scope = models.ChoiceField(choices=SCOPE, default="Municipal")
 	current_state = models.TextField(null=True, blank=True)
-	stories = models.ManyToManyField("Story")
-	rating = models.IntegerField(default=0)
-	priority = models.IntegerField(default=1)
+	ideal_state = models.TextField(null=True, blank=True)
 	date_created = models.DateField(auto_now=True)
 	date_edited = models.DateField(auto_now=True)
 	followers = models.ManyToManyField("User", blank=True)
-	published = models.BooleanField(default=True)
     image = models.ImageField(upload_to='images/issue_images/%Y/%m/%d/%H_%M_%S', default='images/issue_images/nothing.jpg')
+	stories = models.ManyToManyField("Story")
     tags = models.ManyToManyField('Tag', blank=True)
+	priority = models.IntegerField(default=1)
+	rating = models.IntegerField(default=0)
+	published = models.BooleanField(default=True)
     geo_x = models.FloatField(null=True, blank=True)
     geo_y = models.FloatField(null=True, blank=True)
 	slug = models.SlugField(unique=True, max_length=255)
+
+	def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Issue, self).save(*args, **kwargs)
 
 
 class Story(models.Model):
@@ -38,10 +73,13 @@ class Story(models.Model):
     geo_y = models.FloatField(null=True, blank=True)
 	slug = models.SlugField(unique=True, max_length=255)
 
+	def __str__(self):
+        return self.name
+
 
 class Response(models.Model):
-    issue = models.ForeignKey("Issue")
     project = models.ForeignKey("Project")
+    issue = models.ForeignKey("Issue")
     objective = models.TextField(max_length=255)
     start_date = (models.DateField(auto_now=True))
 

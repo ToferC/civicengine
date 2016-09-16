@@ -1,0 +1,43 @@
+{% extends "challenge/base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+
+{% block main %}
+
+<div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
+
+<div class="breadcrumbs"><a href="/">Home > </a> Issues</div>
+
+{% if user.is_authenticated %}
+<div class="text-xs-center">
+    <div class="btn-group"> 
+    <a class="btn btn-primary" href="{% url 'add_issue' %}">Add an Issue!</a>
+    </div>
+</div>
+<hr>
+{% endif %}
+
+
+<div class="card-columns">
+
+{% for issue in issues %}
+    <div class="card">
+        {% thumbnail issue.image "300x300" crop="center" as im %}
+            <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
+        {% endthumbnail %}
+        <div class="card-block">
+            <h4 class="card-title">{{issue.name}} </h4>
+            <p class="card-text">{{ issue.description }}</p>
+            <hr>
+            <p class="card-text">{{ issue.scope }} - {{ issue.status }} - {{ issue.followers.count }}</p>
+            <a href="{% url 'issue' issue_slug=issue.slug %}" class="btn btn-primary">See Issue</a>
+        </div>
+    </div>
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endblock %}

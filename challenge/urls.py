@@ -1,12 +1,14 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from challenge.views import ProjectDelete, MemberDelete, TagDelete, OrganizationDelete, RoleDelete, TeamDelete 
+from challenge.views import ProjectDelete, MemberDelete, TagDelete, OrganizationDelete, RoleDelete, TeamDelete, IssueDelete, StoryDelete 
 from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^visualize', views.visualize, name='visualize'),
     url(r'^captcha/', include('captcha.urls')),
+    
+    # Model urls
     url(r'^project/(?P<project_slug>[\w\-]+)/$', views.project,
         name='project'),
     url(r'^organization/(?P<organization_slug>[\w\-]+)/$', views.organization,
@@ -17,12 +19,16 @@ urlpatterns = [
         name='member'),
     url(r'^tag/(?P<tag_slug>[\w\-]+)/$', views.tag,
         name='tag'),
+    url(r'^issue/(?P<issue_slug>[\w\-]+)/$', views.issue,
+        name='issue'),
 
+    # Aggregate urls
     url(r'^all_projects/$', views.all_projects, name='all_projects'),
     url(r'^all_organizations/$', views.all_organizations, name='all_organizations'),
     url(r'^all_teams/$', views.all_teams, name='all_teams'),
     url(r'^all_members/$', views.all_members, name='all_members'),
     url(r'^all_tags/$', views.all_tags, name='all_tags'),
+    url(r'^all_issues/$', views.all_issues, name='all_issues'),
 
     # Formviews for editing
     url(r'^project_form/(?P<pk>\d+)/$', views.project_form, name='project_form'),
@@ -31,6 +37,8 @@ urlpatterns = [
     url(r'^team_form/(?P<pk>\d+)/$', views.team_form, name='team_form'),
     url(r'^tag_form/(?P<pk>\d+)/$', views.tag_form, name='tag_form'),
     url(r'^role_form/(?P<pk>\d+)/$', views.role_form, name='role_form'),
+    url(r'^issue_form/(?P<pk>\d+)/$', views.issue_form, name='issue_form'),
+    url(r'^story_form/(?P<pk>\d+)/$', views.story_form, name='story_form'),
 
     # Deleteviews
     url(r'^project_delete/(?P<pk>[0-9]+)/$', ProjectDelete.as_view(),
@@ -45,7 +53,12 @@ urlpatterns = [
             name="tag-delete"),
     url(r'^role_delete/(?P<pk>[0-9]+)/$', RoleDelete.as_view(),
             name="role-delete"),
+    url(r'^issue_delete/(?P<pk>[0-9]+)/$', IssueDelete.as_view(),
+            name="issue-delete"),
+    url(r'^story_delete/(?P<pk>[0-9]+)/$', StoryDelete.as_view(),
+            name="story-delete"),
 
+    # Add or modify views
     url(r'^add_member/$', views.add_member, name='add_member'),
     url(r'^add_project/$', views.add_project, name='add_project'),
     url(r'^add_organization/$', views.add_organization, name='add_organization'),
@@ -54,8 +67,9 @@ urlpatterns = [
     url(r'^add_role/(?P<team_pk>\d+)/$', views.add_role, name='add_role'),
     url(r'^apply_to_role/(?P<role_pk>\d+)/(?P<member_pk>\d+)/$', views.apply_to_role, name='apply_to_role'),
     url(r'^quit_role/(?P<role_pk>\d+)/(?P<member_pk>\d+)/$', views.quit_role, name='quit_role'),
-
     url(r'^add_committment/(?P<project_pk>\d+)/$', views.add_committment, name='add_committment'),
+    url(r'^add_issue/$', views.add_issue, name='add_issue'),
+    url(r'^add_story/(?P<issue_pk>\d+)/$', views.add_story, name='add_story'),
 
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.user_login, name='login'),

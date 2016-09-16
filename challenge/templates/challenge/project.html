@@ -49,7 +49,7 @@
                 <li><a href="{% url 'member' member_slug=role.person.slug %}">{{ role.role }} - {{ role.person.name }}</a>
 
                 {% if role.person.user == user %}
-                <a class="btn btn-warning" href="{% url 'role_form' pk=role.pk %}">Edit</a>
+                <a class="btn btn-danger" href="{% url 'quit_role' role_pk=role.pk member_pk=user.member.pk %}">Retire from Position</a>
                 {% endif %}
 
                 </li>

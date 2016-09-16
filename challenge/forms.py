@@ -5,7 +5,8 @@ from django.forms.widgets import CheckboxSelectMultiple
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
-from challenge.models import Project, Organization, Member, Tag, Role, Team, Committment
+from challenge.models import Project, Organization, Member, Tag
+from challenge.models import Role, Team, Committment, Issue, Story, Vote, Response
 
 from captcha.fields import CaptchaField
 from crispy_forms.helper import FormHelper
@@ -228,6 +229,61 @@ class CommittmentForm(forms.ModelForm):
     def save(self, project=None, commit=True):
         instance = super(CommittmentForm, self).save(commit=False)
         instance.project=project
+        instance.save()
+        return instance
+
+
+class IssueForm(forms.ModelForm):
+    class Meta:
+        model = Issue
+        fields = "__all__"
+        exclude = ['slug', 'creator', 'followers',
+            'date_created', 'date_edited', 'stories',
+            'rating']
+        widgets = {'tags': CheckboxSelectMultiple()}
+
+    def __init__(self, *args, **kwargs):
+
+        super(IssueForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.layout.append(
+            FormActions(
+                HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
+                        href="/issue/{{ issue.slug }}">Cancel</a>"""),
+                Submit('save', 'Save Issue'),))
+
+    def save(self, creator, commit=True):
+        instance = super(IssueForm, self).save(commit=False)
+        instance.slug = slugify(instance.name)
+        instance.creator = creator
+        instance.save()
+        return instance
+
+
+class StoryForm(forms.ModelForm):
+    class Meta:
+        model = Story
+        fields = "__all__"
+        exclude = ['slug', 'creator', 'followers', ''
+            'date_created', 'date_edited', 'rating']
+        widgets = {'tags': CheckboxSelectMultiple()}
+
+    def __init__(self, *args, **kwargs):
+
+        super(StoryForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.layout.append(
+            FormActions(
+                HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
+                        href="/issue/{{ issue.slug }}">Cancel</a>"""),
+                Submit('save', 'Save Issue'),))
+
+    def save(self, creator, issue, commit=True):
+        instance = super(StoryForm, self).save(commit=False)
+        instance.creator = creator
+        instance.issue = issue
         instance.save()
         return instance
 

@@ -96,6 +96,18 @@ def all_tags(request):
     return render(request, 'challenge/all_tags.html', context_dict)
 
 
+def all_issues(request):
+    context_dict = {}
+
+    issues = Issue.objects.filter(published=True)
+
+    context_dict['issues'] = issues
+
+    return render(request, 'challenge/all_issues.html', context_dict)
+
+
+# Model views
+
 def project(request, project_slug):
 
     context_dict = {}
@@ -246,6 +258,26 @@ def work(request, work_slug):
         pass
 
     return render(request, 'challenge/work.html', context_dict)
+
+
+def issue(request, issue_slug):
+
+    context_dict = {}
+
+    try:
+        user = request.user
+        issue = Issue.objects.get(slug=issue_slug)
+        context_dict['stories'] = Story.objects.filter(
+            issue=issue)
+        context_dict['responses'] = Response.objects.filter(
+            issue=issue).distinct()
+
+        context_dict['issue'] = issue
+
+    except Issue.DoesNotExist:
+        pass
+
+    return render(request, 'challenge/issue.html', context_dict)
 
 
 # Add content views
@@ -488,6 +520,57 @@ def add_committment(request, project_pk):
         {'committment_form': committment_form, 'project': project})
 
 
+@login_required
+def add_issue(request):
+
+    user = request.user
+
+    if request.method == 'POST':
+        form = IssueForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            slug = slugify(form.cleaned_data['name'])
+
+            form.save(creator=user, commit=True)
+            form.save_m2m()
+            return HttpResponseRedirect("/issue/{}".format(slug))
+
+        else:
+            print (form.errors)
+
+    else:
+
+        form = IssueForm()
+
+    return render(request, 'challenge/add_issue.html',
+        {'form': form})
+
+
+@login_required
+def add_story(request, issue_pk):
+
+    user = request.user
+    issue = Issue.objects.get(pk=issue_pk)
+
+    if request.method == 'POST':
+        form = StoryForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save(creator=user, issue=issue, commit=True)
+            form.save_m2m()
+            return HttpResponseRedirect("/issue/{}".format(issue.slug))
+
+        else:
+            print (form.errors)
+
+    else:
+
+        form = StoryForm()
+
+    return render(request, 'challenge/add_story.html',
+        {'form': form, 'issue': issue})
+
+
 # Update & Delete Views
 
 @login_required
@@ -566,6 +649,35 @@ def role_form(request, pk):
     return render(request, 'challenge/role_form.html', {'form': form, 'object': role})
 
 
+@login_required
+def issue_form(request, pk):
+    issue = Issue.objects.get(pk=pk)
+
+    form = IssueForm(request.POST or None, request.FILES or None, instance=issue)
+    if form.is_valid():
+        form.save(creator=issue.creator)
+        form.save_m2m()
+        return HttpResponseRedirect('/issue/{}'.format(project.slug))
+    
+    return render(request, 'challenge/issue_form.html', {
+        'form': form, 'object': issue})
+
+
+@login_required
+def story_form(request, pk):
+    story = Story.objects.get(pk=pk)
+    issue = Issue.objects.get(story=story)
+
+    form = StoryForm(request.POST or None, request.FILES or None, instance=story)
+    if form.is_valid():
+        form.save(creator=story.creator)
+        form.save_m2m()
+        return HttpResponseRedirect('/issue/{}'.format(issue.slug))
+    
+    return render(request, 'challenge/story_form.html', {
+        'form': form, 'object': story})
+
+
 class ProjectDelete(DeleteView):
     model = Project
 
@@ -589,6 +701,16 @@ class TagDelete(DeleteView):
 class RoleDelete(DeleteView):
     model = Role
     success_url = reverse_lazy('all_members')
+
+
+class IssueDelete(DeleteView):
+    model = Issue
+    success_url = reverse_lazy('all_issues')
+
+
+class StoryDelete(DeleteView):
+    model = Story
+    success_url = reverse_lazy('issue')
 
 
 # Admin Views
