@@ -1,0 +1,32 @@
+{% extends "challenge/base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+
+<main role="main" property="mainContentOfPage" class="container">
+<h1 id="wb-cont" property="name">Remove Project: {{response.project.name}} from Issue: {{response.issue.name }}</h1>
+
+<section>
+<hr>
+<h4>Details</h4>
+<ul>
+	<li>Project: {{ response.project.name }}</li>
+	<li>Issue: {{response.issue.name}}</li>
+	<li>Start Date: {{ response.start_date }}</li>
+	<li>Objective: {{ response.objective }}</li>
+</ul>
+<hr>
+<p>Please confirm this action.</p>
+
+<form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete this project committment?</p>
+    <a committment="button" class="btn btn-default" enctype="multipart/form-data"
+                        href="/issue/{{ response.issue.slug }}">Cancel</a>
+    <input class="btn btn-danger" type="submit" value="Confirm" />
+</form>
+
+<hr>
+</section>
+{% endblock %}

@@ -275,8 +275,8 @@ def issue(request, issue_slug):
         context_dict['user_projects'] = Project.objects.filter(
             creator=user)
 
-        context_dict['projects'] = Project.objects.filter(
-            response__issue=issue).distinct()
+        context_dict['responses'] = Response.objects.filter(
+            issue=issue).distinct()
 
         context_dict['issue'] = issue
 
@@ -757,6 +757,11 @@ class IssueDelete(DeleteView):
 
 class StoryDelete(DeleteView):
     model = Story
+    success_url = reverse_lazy('issue')
+
+
+class ResponseDelete(DeleteView):
+    model = Response
     success_url = reverse_lazy('issue')
 
 

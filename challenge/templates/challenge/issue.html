@@ -32,17 +32,17 @@
 <h4>Projects:</h4>
 <div class="card-columns">
 
-{% for project in projects %}
+{% for response in responses %}
     <div class="card">
-        {% thumbnail project.image "300x300" crop="center" as im %}
+        {% thumbnail response.project.image "300x300" crop="center" as im %}
             <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
         {% endthumbnail %}
         <div class="card-block">
-            <h4 class="card-title">{{project.name}} </h4>
-            <p class="card-text">{{ project.short_text }}</p>
-            <a href="{% url 'project' project_slug=project.slug %}" class="btn btn-primary">See Project</a>
-            {% if project.creator == user %}
-                <a class="btn btn-danger" href="{% url 'project_form' pk=project.pk %}">Remove Project</a>
+            <h4 class="card-title">{{response.project.name}} </h4>
+            <p class="card-text">{{ response.project.short_text }}</p>
+            <a href="{% url 'project' project_slug=response.project.slug %}" class="btn btn-primary">See Project</a>
+            {% if response.project.creator == user %}
+                <a class="btn btn-danger" href="{% url 'response-delete' pk=response.pk %}">Remove Project</a>
             {% endif %}
         </div>
     </div>
