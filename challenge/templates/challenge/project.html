@@ -38,8 +38,11 @@
     <hr>
     <h4>Teams:</h4> 
         <ul>
-            {% for team in teams %}
-                <li><a href="{% url 'team' team_slug=team.slug %}">{{ team.name }}</a></li>
+            {% for committment in committments %}
+                <li><a href="{% url 'team' team_slug=committment.team.slug %}">{{ committment.team.name }}</a>  
+                {% if user == committment.team.creator %}
+                <a class="btn btn-danger" href="{% url 'committment-delete' pk=committment.pk  %}">Remove Team from Project</a>
+                {% endif %}</li>
             {% endfor %}
         </ul>
     <hr>

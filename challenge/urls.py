@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from challenge.views import ProjectDelete, MemberDelete, TagDelete, OrganizationDelete, RoleDelete, TeamDelete, IssueDelete, StoryDelete, ResponseDelete 
+from challenge.views import ProjectDelete, MemberDelete, TagDelete, OrganizationDelete, RoleDelete, TeamDelete, IssueDelete, StoryDelete, ResponseDelete, CommittmentDelete 
 from . import views
 
 urlpatterns = [
@@ -60,6 +60,8 @@ urlpatterns = [
             name="story-delete"),
     url(r'^response_delete/(?P<pk>[0-9]+)/$', ResponseDelete.as_view(),
             name="response-delete"),
+    url(r'^committment_delete/(?P<pk>[0-9]+)/$', CommittmentDelete.as_view(),
+            name="committment-delete"),
 
     # Add or modify views
     url(r'^add_member/$', views.add_member, name='add_member'),

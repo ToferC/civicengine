@@ -1,0 +1,22 @@
+{% extends 'challenge/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+
+<div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
+
+<hr>
+<h2>Remove {{object.project.name}} from {{object.team.name}}</h2>
+<hr>
+
+<form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete this committment?</p>
+    <a committment="button" class="btn btn-default" enctype="multipart/form-data"
+                        href="/team/{{ object.team.slug }}">Cancel</a>
+    <input class="btn btn-danger" type="submit" value="Confirm" />
+</form>
+
+
+</div>
+
+{% endblock %}

@@ -31,11 +31,14 @@
             <hr>
             <p class="card-text">{{ issue.description }}</p>
             <hr>
-            <p class="card-text">{{ issue.scope }} - {{ issue.status }} - 
+            <p class="card-text">{{ issue.scope }} Scope | {{ issue.status }} Issue</p>
+            <p> 
             {% if issue.followers.count == 1 %} 1 Follower
             {% else %}
             {{ issue.followers.count }} Followers
-            {% endif %}</p>
+            {% endif %} | {% if issue.story_set.count == 1 %} 1 Story
+            {% else %} {{  issue.story_set.count }} Stories{% endif %} | {% if issue.story_set.count == 1 %} 1 Like
+            {% else %} {{  issue.rating }} Likes{% endif %}</p>
             <a href="{% url 'issue' issue_slug=issue.slug %}" class="btn btn-primary">See Issue</a>
         </div>
     </div>

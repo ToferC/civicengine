@@ -117,6 +117,9 @@ def project(request, project_slug):
         project = Project.objects.get(slug=project_slug)
         context_dict['sponsoring_organizations'] = Organization.objects.filter(
             project=project)
+
+        context_dict['committments'] = Committment.objects.filter(project=project)
+        
         context_dict['teams'] = Team.objects.filter(committment__project=project).distinct()
 
         context_dict['roles'] = Role.objects.filter(team__committment__project=project).exclude(
@@ -749,6 +752,11 @@ class TagDelete(DeleteView):
 class RoleDelete(DeleteView):
     model = Role
     success_url = reverse_lazy('all_members')
+
+
+class CommittmentDelete(DeleteView):
+    model = Committment
+    success_url = reverse_lazy('all_teams')
 
 
 class IssueDelete(DeleteView):

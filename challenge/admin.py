@@ -1,7 +1,7 @@
 from django.contrib import admin
 from challenge.models import Resource, Role, Member
 from challenge.models import Organization, Project, Sprint, Work, Tag, Team
-from challenge.models import Issue, Story, Vote, Response
+from challenge.models import Issue, Story, Vote, Response, Committment
 
 
 class ProjectAdmin(admin.ModelAdmin):
@@ -52,6 +52,10 @@ class WorkAdmin(admin.ModelAdmin):
     list_display = ('name','task','duration')
 
 
+class CommittmentAdmin(admin.ModelAdmin):
+    list_display = ('team', 'project', 'start_date')
+
+
 class IssueAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     list_display = ('name', 'creator', 'status', 'scope',
@@ -80,6 +84,7 @@ admin.site.register(Work, WorkAdmin)
 admin.site.register(Resource, ResourceAdmin)
 admin.site.register(Role, RoleAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.register(Committment, CommittmentAdmin)
 admin.site.register(Issue, IssueAdmin)
 admin.site.register(Story, StoryAdmin)
 admin.site.register(Vote, VoteAdmin)
