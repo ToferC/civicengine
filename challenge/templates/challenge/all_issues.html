@@ -31,7 +31,7 @@
             <hr>
             <p class="card-text">{{ issue.description }}</p>
             <hr>
-            <p class="card-text">{{ issue.scope }} Scope | {{ issue.status }} Issue</p>
+            <p class="card-text">{{ issue.scope }} Scope | {{ issue.status }} Issue | {% if issue.response_set.count == 1 %}1 Project{% else %}{{ issue.response_set.count }} Projects{% endif %}</p>
             <p> 
             {% if issue.followers.count == 1 %} 1 Follower
             {% else %}

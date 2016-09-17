@@ -54,12 +54,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'django.contrib.sites',
     'challenge',
     'crispy_forms',
     'sorl.thumbnail',
     'storages',
     'leaflet',
     'captcha',
+    'actstream',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -132,6 +134,14 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
+
+# Activity Stream Settings
+
+ACTSTREAM_SETTINGS = {
+    'MANAGER': 'actstream.managers.ActionManager',
+    'FETCH_RELATIONS': True,
+    'USE_JSONFIELD': True,
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/

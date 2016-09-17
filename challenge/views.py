@@ -11,6 +11,8 @@ import json
 
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
+from actstream.actions import follow, unfollow
+from actstream.models import following, followers
 
 
 # Basic Views
@@ -272,14 +274,12 @@ def issue(request, issue_slug):
         issue = Issue.objects.get(slug=issue_slug)
         context_dict['stories'] = Story.objects.filter(
             issue=issue)
+
         context_dict['responses'] = Response.objects.filter(
             issue=issue).distinct()
 
         context_dict['user_projects'] = Project.objects.filter(
             creator=user)
-
-        context_dict['responses'] = Response.objects.filter(
-            issue=issue).distinct()
 
         context_dict['issue'] = issue
 

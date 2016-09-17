@@ -1,6 +1,7 @@
 {% extends "challenge/base.html" %}
 {% load staticfiles %}
 {% load thumbnail %}
+{% load activity_tags %}
 
 
 {% block main %}
@@ -64,7 +65,13 @@
             <p class="card-text">{{ story.impact_statement }}</p>
             <hr>
             <p class="card-text">Priority: {{ story.priority }} - Likes: {{ story.rating }} - Followers: {{ story.followers.count }}</p>
-            <a href="#" class="btn btn-primary">Follow</a>
+            <a class="btn btn-primary" href="{% follow_url story %}">
+            {% if request.user|is_following:story %}
+                Stop Following
+            {% else %}
+                Follow
+            {% endif %}
+</a>
             {% if story.creator == user %}
             <a class="btn btn-warning" href="{% url 'story_form' pk=issue.pk %}">Edit Story</a>
             <a class="btn btn-danger" href="{% url 'story-delete' pk=story.pk %}">Delete Story</a>

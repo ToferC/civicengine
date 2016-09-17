@@ -5,6 +5,8 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 import random 
 
+from actstream import registry
+
 # Create your models here.
 
 class Project(models.Model):
