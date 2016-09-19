@@ -129,7 +129,11 @@ def project(request, project_slug):
 
         context_dict['project'] = project
 
-        context_dict['user_teams'] = Team.objects.filter(creator=user)
+        # See if user has active teams that can be added to the project.
+        if user.is_authenticated():
+            context_dict['user_teams'] = Team.objects.filter(creator=user)
+        else:
+            context_dict['user_teams'] = None
 
     except Project.DoesNotExist:
         pass
@@ -278,8 +282,11 @@ def issue(request, issue_slug):
         context_dict['responses'] = Response.objects.filter(
             issue=issue).distinct()
 
-        context_dict['user_projects'] = Project.objects.filter(
-            creator=user)
+        if user.is_authenticated():
+            context_dict['user_projects'] = Project.objects.filter(
+                creator=user)
+        else:
+            context_dict['user_projects'] = None
 
         context_dict['issue'] = issue
 

@@ -1,6 +1,7 @@
 {% extends "challenge/base.html" %}
 {% load staticfiles %}
 {% load thumbnail %}
+{% load activity_tags %}
 
 
 {% block main %}
@@ -29,6 +30,12 @@
             <h4 class="card-title">{{tag.name}} </h4>
             <p class="card-text">{{ tag.description }}</p>
             <a href="{% url 'tag' tag_slug=tag.slug %}" class="btn btn-primary">See Tag</a>
+            <a class="btn btn-primary" href="{% follow_url tag %}">
+            {% if request.user|is_following:tag %}
+                Stop Following
+            {% else %}
+                Follow
+            {% endif %}</a>
         </div>   
     </div>
 {% endfor %}

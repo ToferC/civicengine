@@ -42,6 +42,14 @@
         <div class="card-block">
             <h4 class="card-title">{{response.project.name}} </h4>
             <p class="card-text">{{ response.project.short_text }}</p>
+            <hr>
+            <a class="btn btn-primary" href="{% follow_url response %}">
+            {% if request.user|is_following:response %}
+                Stop Following
+            {% else %}
+                Follow
+            {% endif %}
+            </a>
             <a href="{% url 'project' project_slug=response.project.slug %}" class="btn btn-primary">See Project</a>
             {% if response.project.creator == user %}
                 <a class="btn btn-danger" href="{% url 'response-delete' pk=response.pk %}">Remove Project</a>
@@ -71,7 +79,7 @@
             {% else %}
                 Follow
             {% endif %}
-</a>
+            </a>
             {% if story.creator == user %}
             <a class="btn btn-warning" href="{% url 'story_form' pk=issue.pk %}">Edit Story</a>
             <a class="btn btn-danger" href="{% url 'story-delete' pk=story.pk %}">Delete Story</a>
@@ -92,7 +100,7 @@
 <a class="btn btn-primary" href="{% url 'add_project' %}">Create Project</a>
 {% endif %}
 
-{% if user_projects %}
+{% if user_projects.count > 0 %}
 <a class="btn btn-primary" href="{% url 'add_response' issue_pk=issue.pk %}">Link Project</a>
 {% endif %}
 
