@@ -22,13 +22,14 @@
             <h4 class="card-title">{{member.name}} </h4>
             <p class="card-text">{{ member.bio }}</p>
             <a href="{% url 'member' member_slug=member.slug %}" class="btn btn-primary">See Member</a>
+            {% if user.is_authenticated %}
             <a class="btn btn-primary" href="{% follow_url member %}">
             {% if request.user|is_following:member %}
                 Stop Following
             {% else %}
                 Follow
+            {% endif %}</a>
             {% endif %}
-            </a>
         </div> 
     </div>
 {% endfor %}

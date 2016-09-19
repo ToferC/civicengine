@@ -41,12 +41,14 @@
             {% else %} {{  issue.story_set.count }} Stories{% endif %} | {% if issue.story_set.count == 1 %} 1 Like
             {% else %} {{  issue.rating }} Likes{% endif %}</p>
             <a href="{% url 'issue' issue_slug=issue.slug %}" class="btn btn-primary">See Issue</a>
+            {% if user.is_authenticated %}
             <a class="btn btn-primary" href="{% follow_url issue %}">
             {% if request.user|is_following:issue %}
                 Stop Following
             {% else %}
                 Follow
             {% endif %}</a>
+            {% endif %}
         </div>
     </div>
 {% endfor %}

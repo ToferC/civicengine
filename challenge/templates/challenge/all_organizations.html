@@ -30,12 +30,14 @@
             <h4 class="card-title">{{organization.name}} </h4>
             <p class="card-text">{{ organization.info }}</p>
             <a href="{% url 'organization' organization_slug=organization.slug %}" class="btn btn-primary">See Organization</a>
+            {% if user.is_authenticated %}
             <a class="btn btn-primary" href="{% follow_url organization %}">
             {% if request.user|is_following:organization %}
                 Stop Following
             {% else %}
                 Follow
             {% endif %}</a>
+            {% endif %}
         </div>
     </div>
 {% endfor %}
