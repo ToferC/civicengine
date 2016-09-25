@@ -825,6 +825,8 @@ def register(request):
 
 def user_login(request):
 
+    next_url = request.GET.get('next')
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -835,7 +837,7 @@ def user_login(request):
             if user.is_active:
 
                 login(request, user)
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect(next_url)
             else:
                 return HttpResponse("Your account is disabled.")
 
@@ -845,6 +847,7 @@ def user_login(request):
 
     else:
         return render(request, 'challenge/login.html', {})
+
 
 @login_required
 def user_logout(request):

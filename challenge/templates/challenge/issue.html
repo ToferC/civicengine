@@ -44,7 +44,7 @@
             <p class="card-text">{{ response.project.short_text }}</p>
             <hr>
             {% if user.is_authenticated %}
-            <a class="btn btn-primary" href="{% follow_url response.project %}">
+            <a class="btn btn-primary" href="{% follow_url response.project %}?next={{request.path}}">
             {% if request.user|is_following:response.project %}
                 Stop Following
             {% else %}
@@ -76,7 +76,7 @@
             <hr>
             <p class="card-text">Priority {{ story.priority }} | Likes {{ story.rating }} | Followers {{ story.followers.count }}</p>
             {% if user.is_authenticated %}
-            <a class="btn btn-primary" href="{% follow_url story %}">
+            <a class="btn btn-primary" href="{% follow_url story %}?next={{request.path}}">
             {% if request.user|is_following:story %}
                 Stop Following
             {% else %}

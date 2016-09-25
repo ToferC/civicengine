@@ -23,7 +23,7 @@
             <p class="card-text">{{ member.bio }}</p>
             <a href="{% url 'member' member_slug=member.slug %}" class="btn btn-primary">See Member</a>
             {% if user.is_authenticated %}
-            <a class="btn btn-primary" href="{% follow_url member %}">
+            <a class="btn btn-primary" href="{% follow_url member %}?next={{request.path}}">
             {% if request.user|is_following:member %}
                 Stop Following
             {% else %}

@@ -31,7 +31,7 @@
             <p class="card-text">{{ organization.info }}</p>
             <a href="{% url 'organization' organization_slug=organization.slug %}" class="btn btn-primary">See Organization</a>
             {% if user.is_authenticated %}
-            <a class="btn btn-primary" href="{% follow_url organization %}">
+            <a class="btn btn-primary" href="{% follow_url organization %}?next={{request.path}}">
             {% if request.user|is_following:organization %}
                 Stop Following
             {% else %}

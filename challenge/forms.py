@@ -164,7 +164,7 @@ class RoleForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default"
-                        href="/project/{{ object.slug }}">Cancel</a>"""),
+                        href="/team/{{ team.slug }}">Cancel</a>"""),
                 Submit('save', 'Save Role'),))
 
     def save(self, team=None, commit=True):
@@ -191,7 +191,7 @@ class RoleApplyForm(forms.ModelForm):
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default"
-                        href="/project/{{ object.slug }}">Cancel</a>"""),
+                        href="/team/{{ team.slug }}">Cancel</a>"""),
                 Submit('save', 'Update Position'),))
 
     def save(self, team=None, person=None, status=None, commit=True):
