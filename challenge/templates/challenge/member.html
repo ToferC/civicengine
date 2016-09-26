@@ -66,7 +66,8 @@
         <div class="container">
         {% for member in members.all %}
             {% thumbnail member.image "30x30" crop="center" as im %}
-                <img href="{% url 'member' member_slug=member.slug %}" title="{{ member.name }}" src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}">
+                <a href="{% url 'member' member_slug=member.slug %}" title="{{ member.name }}">
+                <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
             {% empty %}
             {% endthumbnail %}
         {% endfor %}

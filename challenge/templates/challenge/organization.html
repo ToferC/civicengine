@@ -32,23 +32,31 @@
      {% endif %}
 
      <h4>Members:</h4>
-    {% if members %}
-        <ul>
-            {% for member in members %}
-                <li><a href="{% url 'member' member_slug=member.slug %}">{{ member.name }}</a></li>
-            {% endfor %}
-        </ul>
+    {% if members.all %}
+        <div class="container">
+        {% for member in members.all %}
+            {% thumbnail member.image "30x30" crop="center" as im %}
+                <a href="{% url 'member' member_slug=member.slug %}" title="{{ member.name }}">
+                <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
+            {% empty %}
+            {% endthumbnail %}
+        {% endfor %}
+        </div>
      {% else %}
-        <p>No team members.</p>
+        <li><p>No teammates.</p></li>
      {% endif %}
 <hr>
 <h4>Tags:</h4>
     {% if tags %}
-        <ul>
+        <div class="container">
             {% for tag in tags %}
-                <li><a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a></li>
+                {% thumbnail tag.image "30x30" crop="center" as im %}
+                    <a href="{% url 'tag' tag_slug=tag.slug %}" title="{{ tag.name }}">
+                    <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
+                {% empty %}
+                {% endthumbnail %}
             {% endfor %}
-        </ul>
+        </div>
      {% else %}
         <p>No tags.</p>
      {% endif %}

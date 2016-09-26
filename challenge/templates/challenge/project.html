@@ -60,11 +60,19 @@
         </ul>
     <hr>
     <h4>Tags:</h4>
-        <ul>
+        {% if project.tags.all %}
+        <div class="container">
             {% for tag in project.tags.all %}
-                <li><a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a></li>
+                {% thumbnail tag.image "30x30" crop="center" as im %}
+                    <a href="{% url 'tag' tag_slug=tag.slug %}" title="{{ tag.name }}">
+                    <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
+                {% empty %}
+                {% endthumbnail %}
             {% endfor %}
-        </ul>
+        </div>
+     {% else %}
+        <p>No tags.</p>
+     {% endif %}
 
 <hr>
 
