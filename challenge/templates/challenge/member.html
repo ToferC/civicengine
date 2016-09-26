@@ -39,22 +39,11 @@
 
     <li>Email: <a href="mailto:{{member.email}}">{{ member.email }}</a></li>
     <li>Phone:</h4> {{member.phone}}</li>
-    <li>Profile:</h4> <a href="{{member.profile}}">{{ member.name }} on GCconnex</a></li>
+    <li>Profile:</h4> <a href="{{member.profile}}">{{ member.name }}</a></li>
     </ul>
     <hr>
     {{member.bio}}
     <hr>
-    <h4>Tags:</h4>
-    {% if tags %}
-        <ul>
-            {% for tag in tags %}
-                <li><a href="{% url 'tag' tag_slug=tag.slug %}">{{ tag.name }}</a></li>
-            {% endfor %}
-        </ul>
-     {% else %}
-        <p>No tags.</p>
-     {% endif %}
-     <hr>
 
      <h4>Projects:</h4>
     {% if roles %}
@@ -74,15 +63,34 @@
 
      <h4>Team Members:</h4>
     {% if members.all %}
-        <ul>
-            {% for member in members.all %}
-                <li><a href="{% url 'member' member_slug=member.slug %}">{{ member.name }}</a></li>
-            {% endfor %}
-        </ul>
+        <div class="container">
+        {% for member in members.all %}
+            {% thumbnail member.image "30x30" crop="center" as im %}
+                <img href="{% url 'member' member_slug=member.slug %}" title="{{ member.name }}" src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}">
+            {% empty %}
+            {% endthumbnail %}
+        {% endfor %}
+        </div>
      {% else %}
         <li><p>No teammates.</p></li>
      {% endif %}
         <hr>
+
+    <h4>Tags:</h4>
+
+    {% if tags %}
+        <div class="container">
+            {% for tag in tags %}
+                {% thumbnail tag.image "30x30" crop="center" as im %}
+                    <img src="{{ im.url }}" class="img-rounded" href="{% url 'tag' tag_slug=tag.slug %}" title="{{ tag.name }}" width="{{ im.width }}" height="{{ im.height }}">
+                {% empty %}
+                {% endthumbnail %}
+            {% endfor %}
+        </div>
+     {% else %}
+        <p>No tags.</p>
+     {% endif %}
+     <hr>
 
 {% if member.user == user %}
 <a class="btn btn-warning" href="{% url 'member_form' pk=member.pk %}">Edit Member</a>

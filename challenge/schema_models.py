@@ -20,8 +20,8 @@ class Project(models.Model):
     published = models.BooleanField(default=True)
     image = models.ImageField(upload_to='images/project_images/%Y/%m/%d')
     tags = models.ManyToManyField('Tag')
-    geo_x = models.FloatField()
-    geo_y = models.FloatField()
+    latitude = models.FloatField()
+    longitude = models.FloatField()
     slug = models.SlugField(unique=True, max_length=255)
 
     def __str__(self):
@@ -77,8 +77,8 @@ class Member(models.Model):
     profile = models.URLField(max_length=128, blank=True, null=True) # validate GCconnex profile
     image = models.ImageField(upload_to='images/user_images/%Y/%m/%d/%H_%M_%S')
     bio = models.TextField(blank=True, null=True)
-    geo_x = models.FloatField(blank=True, null=True)
-    geo_y = models.FloatField(blank=True, null=True)
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
     salary = models.IntegerField(blank=True, null=True)
     tags = models.ManyToManyField('Tag')
     slug = models.SlugField(unique=True, max_length=255)
@@ -189,8 +189,8 @@ class Team(models.Model):
     website = models.URLField(max_length=128, blank=True, null=True)
     image = models.ImageField(upload_to='images/team_images/%Y/%m/%d')
     tags = models.ManyToManyField("Tag")
-    geo_x = models.FloatField(blank=True, null=True)
-    geo_y = models.FloatField(blank=True, null=True)
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
     slug = models.SlugField(unique=True, max_length=255)
 
     def __str__(self):

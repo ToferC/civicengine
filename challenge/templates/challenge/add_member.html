@@ -33,8 +33,8 @@
                 .setContent("Coordinates set to " + e.latlng.toString() + " Zoom: " + map.getZoom())
                 .openOn(map);
                 
-                document.getElementById("id_geo_x").value= e.latlng.lat;
-                document.getElementById("id_geo_y").value= e.latlng.lng;
+                document.getElementById("id_latitude").value= e.latlng.lat;
+                document.getElementById("id_longitude").value= e.latlng.lng;
                 document.getElementById("id_zoom").value= map.getZoom();
         }
 
