@@ -81,7 +81,7 @@
     {% if tags %}
         <div class="container">
             {% for tag in tags %}
-                {% thumbnail tag.image "30x30" crop="center" as im %}
+                {% thumbnail tag.image "40x40" crop="center" as im %}
                     <a href="{% url 'tag' tag_slug=tag.slug %}" title="{{ tag.name }}">
                     <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
                 {% empty %}

@@ -13,12 +13,14 @@
 <h2>{{ member.name }}</h2>
 
 <div>
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
     {% thumbnail member.image "300x300" crop="center" as im %}
                     <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
                     {% empty %}
     {% endthumbnail %}
-    <hr>
+    </div>
 
+    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
     <h4>Details:</h4>
     <ul>
         <li>Organization: 
@@ -41,6 +43,8 @@
     <li>Phone:</h4> {{member.phone}}</li>
     <li>Profile:</h4> <a href="{{member.profile}}">{{ member.name }}</a></li>
     </ul>
+    </div>
+    <div>
     <hr>
     {{member.bio}}
     <hr>
@@ -65,7 +69,7 @@
     {% if members.all %}
         <div class="container">
         {% for member in members.all %}
-            {% thumbnail member.image "30x30" crop="center" as im %}
+            {% thumbnail member.image "40x40" crop="center" as im %}
                 <a href="{% url 'member' member_slug=member.slug %}" title="{{ member.name }}">
                 <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
             {% empty %}
@@ -82,7 +86,7 @@
     {% if tags %}
         <div class="container">
             {% for tag in tags %}
-                {% thumbnail tag.image "30x30" crop="center" as im %}
+                {% thumbnail tag.image "40x40" crop="center" as im %}
                     <a href="{% url 'tag' tag_slug=tag.slug %}" title="{{ tag.name }}">
                     <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
                 {% empty %}
@@ -98,7 +102,6 @@
 <a class="btn btn-warning" href="{% url 'member_form' pk=member.pk %}">Edit Member</a>
 {% endif %}
 
-</div>
 </div>
 
 {% endblock %}

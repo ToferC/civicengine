@@ -21,47 +21,63 @@
     <p>{{tag.description}}</p>
     <hr>
     <h4>Organizations:</h4>
-    {% if organizations %}
-        <ul>
-            {% for organization in organizations %}
-                <li><a href="{% url 'organization' organization_slug=organization.slug %}">{{ organization.name }}</a></li>
-            {% endfor %}
-        </ul>
+    {% if organizations.all %}
+        <div class="container">
+        {% for organization in organizations.all %}
+            {% thumbnail organization.image "40x40" crop="center" as im %}
+                <a href="{% url 'organization' organization_slug=organization.slug %}" title="{{ organization.name }}">
+                <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
+            {% empty %}
+            {% endthumbnail %}
+        {% endfor %}
+        </div>
      {% else %}
-        <p>No organizations.</p>
+        <li><p>No organizations.</p></li>
      {% endif %}
 
      <h4>Teams:</h4>
-     {% if teams %}
-        <ul>
-            {% for team in teams %}
-                <li><a href="{% url 'team' team_slug=team.slug %}">{{ team.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-    <p>No teams.</p>
-    {% endif %}
+     {% if teams.all %}
+        <div class="container">
+        {% for team in teams.all %}
+            {% thumbnail member.image "40x40" crop="center" as im %}
+                <a href="{% url 'team' team_slug=team.slug %}" title="{{ team.name }}">
+                <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
+            {% empty %}
+            {% endthumbnail %}
+        {% endfor %}
+        </div>
+     {% else %}
+        <li><p>No teams.</p></li>
+     {% endif %}
 
      <h4>Projects:</h4>
-    {% if projects %}
-        <ul>
-            {% for project in projects %}
-                <li><a href="{% url 'project' project_slug=project.slug %}">{{ project.name }}</a></li>
-            {% endfor %}
-        </ul>
+    {% if projects.all %}
+        <div class="container">
+        {% for project in projects.all %}
+            {% thumbnail project.image "40x40" crop="center" as im %}
+                <a href="{% url 'project' project_slug=project.slug %}" title="{{ project.name }}">
+                <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
+            {% empty %}
+            {% endthumbnail %}
+        {% endfor %}
+        </div>
      {% else %}
-        <p>No projects.</p>
+        <li><p>No projects.</p></li>
      {% endif %}
 
      <h4>Members:</h4>
-    {% if members %}
-        <ul>
-            {% for member in members %}
-                <li><a href="{% url 'member' member_slug=member.slug %}">{{ member.name }}</a></li>
-            {% endfor %}
-        </ul>
+    {% if members.all %}
+        <div class="container">
+        {% for member in members.all %}
+            {% thumbnail member.image "40x40" crop="center" as im %}
+                <a href="{% url 'member' member_slug=member.slug %}" title="{{ member.name }}">
+                <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
+            {% empty %}
+            {% endthumbnail %}
+        {% endfor %}
+        </div>
      {% else %}
-        <p>No team members.</p>
+        <li><p>No teammates.</p></li>
      {% endif %}
 
 <hr>
