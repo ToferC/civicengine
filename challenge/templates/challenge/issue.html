@@ -43,6 +43,8 @@
             <h4 class="card-title">{{response.project.name}} </h4>
             <p class="card-text">{{ response.project.short_text }}</p>
             <hr>
+
+            <a href="{% url 'project' project_slug=response.project.slug %}" class="btn btn-primary">See Project</a>
             {% if user.is_authenticated %}
             <a class="btn btn-primary" href="{% follow_url response.project %}?next={{request.path}}">
             {% if request.user|is_following:response.project %}
@@ -52,7 +54,6 @@
             {% endif %}
             </a>
             {% endif %}
-            <a href="{% url 'project' project_slug=response.project.slug %}" class="btn btn-primary">See Project</a>
             {% if response.project.creator == user %}
                 <a class="btn btn-danger" href="{% url 'response-delete' pk=response.pk %}">Remove Project</a>
             {% endif %}

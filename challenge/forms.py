@@ -10,7 +10,7 @@ from challenge.models import Role, Team, Committment, Issue, Story, Vote, Respon
 
 from captcha.fields import CaptchaField
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
+from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field, Fieldset
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions, InlineField
 
 import datetime
@@ -109,6 +109,37 @@ class MemberForm(forms.ModelForm):
         super(MemberForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Fieldset(
+                "Info for {{object.name}}",
+                'name',
+                'organization',
+                'status',
+                'email',
+                'phone',
+                'profile',
+                'image',
+                'bio',
+                'latitude',
+                'longitude',
+                'zoom',
+                AppendedText('salary', '$', active=True),
+
+                HTML(
+                '''<hr>
+                <h4>Choose your Tags</><br><br>
+                <div>
+                {% for checkbox in form.tags %}
+                    {% if checkbox.is_checked %}
+                        <label class="btn btn-primary" for="{{ checkbox.id_for_label }}">
+                    {% else %}
+                        <label class="btn btn-warning" for="{{ checkbox.id_for_label }}">
+                    {% endif %}
+                        {{ checkbox.choice_label }}
+                        {{ checkbox.tag }}
+                    </label>
+                {% endfor %}
+                </div>''')))
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
