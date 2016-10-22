@@ -15,6 +15,22 @@ from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions, Inl
 
 import datetime
 
+tag_buttons_html = '''<hr>
+                <h4>Choose your Tags</><br><br>
+                <div>
+                {% for checkbox in form.tags %}
+                    {% if checkbox.is_checked %}
+                        <label class="btn btn-primary" for="{{ checkbox.id_for_label }}" onclick="checkbox.class='btn btn-warning'" >
+                    {% else %}
+                        <label class="btn btn-warning" for="{{ checkbox.id_for_label }}" onclick="checkbox.class='btn btn-primary'">
+                    {% endif %}
+                        {{ checkbox.choice_label }}
+                        {{ checkbox.tag }}
+                    </label>
+                {% endfor %}
+                </div>
+                '''
+
 
 class ProjectForm(forms.ModelForm):
     class Meta:
@@ -31,6 +47,23 @@ class ProjectForm(forms.ModelForm):
         super(ProjectForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Fieldset(
+                "Project {{object.name}}",
+                'name',
+                'status',
+                'start_date',
+                'end_date',
+                'short_text',
+                'detail_text',
+                #'sponsoring_organizations', - will create different mechanism
+                'published',
+                'image',
+                'latitude',
+                'longitude',
+                'zoom',
+                HTML(tag_buttons_html
+                )))
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
@@ -57,6 +90,16 @@ class OrganizationForm(forms.ModelForm):
         super(OrganizationForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Fieldset(
+                "Organization {{object.name}} {{object.acronym}}",
+                'name',
+                'acronym',
+                'info',
+                'website',
+                'image',
+                HTML(tag_buttons_html
+                )))
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
@@ -83,6 +126,19 @@ class TeamForm(forms.ModelForm):
         super(TeamForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Fieldset(
+                "Team {{object.name}}",
+                'name',
+                'acronym',
+                'info',
+                'website',
+                'image',
+                'latitude',
+                'longitude',
+                'zoom',
+                HTML(tag_buttons_html
+                )))
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
@@ -111,7 +167,7 @@ class MemberForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
-                "Info for {{object.name}}",
+                "Member {{object.name}}",
                 'name',
                 'organization',
                 'status',
@@ -125,21 +181,8 @@ class MemberForm(forms.ModelForm):
                 'zoom',
                 AppendedText('salary', '$', active=True),
 
-                HTML(
-                '''<hr>
-                <h4>Choose your Tags</><br><br>
-                <div>
-                {% for checkbox in form.tags %}
-                    {% if checkbox.is_checked %}
-                        <label class="btn btn-primary" for="{{ checkbox.id_for_label }}">
-                    {% else %}
-                        <label class="btn btn-warning" for="{{ checkbox.id_for_label }}">
-                    {% endif %}
-                        {{ checkbox.choice_label }}
-                        {{ checkbox.tag }}
-                    </label>
-                {% endfor %}
-                </div>''')))
+                HTML(tag_buttons_html
+                )))
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
@@ -279,6 +322,23 @@ class IssueForm(forms.ModelForm):
         super(IssueForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Fieldset(
+                "Issue {{object.name}}",
+                'name',
+                'description',
+                'status',
+                'scope',
+                'current_state',
+                'ideal_state',
+                'priority',
+                'published',
+                'image',
+                'latitude',
+                'longitude',
+                'zoom',
+                HTML(tag_buttons_html
+                )))
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
@@ -306,6 +366,19 @@ class StoryForm(forms.ModelForm):
         super(StoryForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Fieldset(
+                "Story {{object.name}}",
+                'name',
+                'impact_statement',
+                'priority',
+                'published',
+                'image',
+                'latitude',
+                'longitude',
+                'zoom',
+                HTML(tag_buttons_html
+                )))
         self.helper.layout.append(
             FormActions(
                 HTML("""<br><a committment="button" class="btn btn-default" enctype="multipart/form-data"
