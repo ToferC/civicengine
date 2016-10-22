@@ -29,6 +29,21 @@
         <div class="card-block">
             <h4 class="card-title">{{team.name}} </h4>
             <p class="card-text">{{ team.info }}</p>
+            <hr>
+            {% if team.tags %}
+                <div class="container">
+                    {% for tag in team.tags.all %}
+                        {% thumbnail tag.image "40x40" crop="center" as im %}
+                            <a href="{% url 'tag' tag_slug=tag.slug %}" title="{{ tag.name }}">
+                            <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
+                        {% empty %}
+                        {% endthumbnail %}
+                    {% endfor %}
+                </div>
+             {% else %}
+                <p>No tags.</p>
+             {% endif %}
+            <hr>
             <a href="{% url 'team' team_slug=team.slug %}" class="btn btn-primary">See Team</a>
             {% if user.is_authenticated %}
             <a class="btn btn-primary" href="{% follow_url team %}?next={{request.path}}">

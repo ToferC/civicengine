@@ -13,7 +13,7 @@
 
 <h2>{{ issue.name }}</h2>
 
-<div>
+<div class="container">
     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
     {% thumbnail issue.image "300x300" crop="center" as im %}
                     <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
@@ -21,25 +21,32 @@
     </div>
 
     <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
-    <hr>
-    {{ issue.summary }}
-    <hr>
-    <h4>Details:</h4>
-    <ul>
-        <li>Scope: {{issue.scope}}</li>
-        <li>Status: {{issue.status}}</li>
-        <li>Date Created: {{issue.date_created}}</li>
-        <li>Priority: {{issue.priority}}</li>
-    </ul>
+        <hr>
+        {{ issue.summary }}
+        <hr>
+        <h4>Details:</h4>
+        <ul>
+            <li>Scope: {{issue.scope}}</li>
+            <li>Status: {{issue.status}}</li>
+            <li>Date Created: {{issue.date_created}}</li>
+            <li>Priority: {{issue.priority}}</li>
+        </ul>
     </div>
 </div>
 
 <div call="col-xl-12 col-lg-12 col-md-12 col-sm-12">
     <hr>
+    <h4>Description</h4>
     {{issue.description}}
+    <hr>
+    <h4>Current State</h4>
+    {{issue.current_state}}
+    <hr>
+    <h4>Ideal State</h4>
+    {{issue.ideal_state}}
 </div>
 
-<div class="container">
+<div>
 <hr>
 <h4>Projects:</h4>
 <div class="card-columns">
