@@ -33,10 +33,12 @@
     </ul>
     </div>
 </div>
-<div>
+
+<div call="col-xl-12 col-lg-12 col-md-12 col-sm-12">
     <hr>
     {{issue.description}}
     <hr>
+</div>
 
 <h4>Projects:</h4>
 <div class="card-columns">
@@ -86,50 +88,50 @@
     <h4>Stories:</h4> 
        <div class="card-columns">
 
-{% for story in stories %}
-    <div class="card">
-        {% thumbnail story.image "300x300" crop="center" as im %}
-            <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
-        {% endthumbnail %}
-        <div class="card-block">
-            <h4 class="card-title">{{story.name}} </h4>
-            <p class="card-text">{{ story.impact_statement }}</p>
-            <hr>
-            <p class="card-text">Priority {{ story.priority }} | Likes {{ story.rating }} | Followers {{ story.followers.count }}</p>
-            <hr>
-            {% if story.tags %}
-                <div class="container">
-                    {% for tag in story.tags.all %}
-                        {% thumbnail tag.image "40x40" crop="center" as im %}
-                            <a href="{% url 'tag' tag_slug=tag.slug %}" title="{{ tag.name }}">
-                            <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
-                        {% empty %}
-                        {% endthumbnail %}
-                    {% endfor %}
+            {% for story in stories %}
+            <div class="card">
+                {% thumbnail story.image "300x300" crop="center" as im %}
+                    <img class="card-image-top" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
+                {% endthumbnail %}
+                <div class="card-block">
+                    <h4 class="card-title">{{story.name}} </h4>
+                    <p class="card-text">{{ story.impact_statement }}</p>
+                    <hr>
+                    <p class="card-text">Priority {{ story.priority }} | Likes {{ story.rating }} | Followers {{ story.followers.count }}</p>
+                    <hr>
+                    {% if story.tags %}
+                        <div class="container">
+                            {% for tag in story.tags.all %}
+                                {% thumbnail tag.image "40x40" crop="center" as im %}
+                                    <a href="{% url 'tag' tag_slug=tag.slug %}" title="{{ tag.name }}">
+                                    <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
+                                {% empty %}
+                                {% endthumbnail %}
+                            {% endfor %}
+                        </div>
+                     {% else %}
+                        <p>No tags.</p>
+                     {% endif %}
+                    <hr>
+                    {% if user.is_authenticated %}
+                    <a class="btn btn-primary" href="{% follow_url story %}?next={{request.path}}">
+                    {% if request.user|is_following:story %}
+                        Stop Following
+                    {% else %}
+                        Follow
+                    {% endif %}
+                    </a>
+                    {% endif %}
+                    {% if story.creator == user %}
+                    <a class="btn btn-warning" href="{% url 'story_form' pk=issue.pk %}">Edit Story</a>
+                    <a class="btn btn-danger" href="{% url 'story-delete' pk=story.pk %}">Delete Story</a>
+                    {% endif %}
                 </div>
-             {% else %}
-                <p>No tags.</p>
-             {% endif %}
-            <hr>
-            {% if user.is_authenticated %}
-            <a class="btn btn-primary" href="{% follow_url story %}?next={{request.path}}">
-            {% if request.user|is_following:story %}
-                Stop Following
-            {% else %}
-                Follow
-            {% endif %}
-            </a>
-            {% endif %}
-            {% if story.creator == user %}
-            <a class="btn btn-warning" href="{% url 'story_form' pk=issue.pk %}">Edit Story</a>
-            <a class="btn btn-danger" href="{% url 'story-delete' pk=story.pk %}">Delete Story</a>
-            {% endif %}
-        </div>
-    </div>
-{% endfor %}
+            </div>
+        {% endfor %}
 
-</div>
-    <hr>
+        </div>
+        <hr>
 
 {% if issue.creator == user %}
 <a class="btn btn-warning" href="{% url 'issue_form' pk=issue.pk %}">Edit Issue</a>
