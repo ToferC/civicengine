@@ -326,6 +326,7 @@ class IssueForm(forms.ModelForm):
             Fieldset(
                 "Issue {{object.name}}",
                 'name',
+                'summary',
                 'description',
                 'status',
                 'scope',
