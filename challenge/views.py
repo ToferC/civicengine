@@ -129,6 +129,8 @@ def project(request, project_slug):
 
         context_dict['project'] = project
 
+        context_dict['tags'] = Tag.objects.filter(project=project).distinct()
+
         # See if user has active teams that can be added to the project.
         if user.is_authenticated():
             context_dict['user_teams'] = Team.objects.filter(creator=user)
