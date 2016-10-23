@@ -103,9 +103,9 @@
      {% else %}
         <li><p>No vacant positions.</p></li>
      {% endif %}
+<hr>
 </div>
 
-     <hr>
 
 {% if team.creator == user %}
 <a class="btn btn-warning" href="{% url 'team_form' pk=team.pk %}">Edit Team</a> 

@@ -41,7 +41,7 @@
 
     <li>Email: <a href="mailto:{{member.email}}">{{ member.email }}</a></li>
     <li>Phone:</h4> {{member.phone}}</li>
-    <li>LinkedIn Profile:</h4> <a href="{{member.profile}}">{{ member.name }}</a></li>
+    <li>LinkedIn Profile:</h4> Under Construction</li>
     <li>GitHub Profile:</h4> Under Construction</li>
     </ul>
 
@@ -71,7 +71,7 @@
     {{member.bio}}
     <hr>
 
-     <h4>Projects:</h4>
+    <h4>Projects:</h4>
     {% if roles %}
         <ul>
             {% for role in roles %}
@@ -103,6 +103,7 @@
             <li><p>No teammates.</p></li>
         </ul>
      {% endif %}
+     <hr>
 
 {% if member.user == user %}
 <a class="btn btn-warning" href="{% url 'member_form' pk=member.pk %}">Edit Member</a>
