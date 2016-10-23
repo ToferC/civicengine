@@ -10,10 +10,8 @@
 <div class="breadcrumbs"><a href="/">Home > </a><a href="{% url 'all_teams' %}"> Teams ></a> {{ team.name }}</div>
 <hr>
 
-<h2>{{ team.name }}</h2>{% if team.website %}
-    <a href="{{ team.website }}">[Link]</a>
+<h2>{{ team.name }}</h2>{% if team.website %}[<a href="{{ team.website }}">Link</a>]
     {% endif %}
-<hr>
 
 <div class="container">
     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
@@ -23,7 +21,7 @@
     </div>
 
     <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
-        
+        <hr>
         <h4>Projects:</h4>
         {% if projects %}
             <div class="container">
@@ -59,12 +57,11 @@
     </div>
 </div>
 
-<div call="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
     <hr>
     <h4>Description</h4>
     {{team.info}}
-</div>
-<hr>
+    <hr>
      <h4>Membership:</h4>
         <h5>Filled:</h5>
         {% if filled_roles %}
@@ -106,6 +103,7 @@
      {% else %}
         <li><p>No vacant positions.</p></li>
      {% endif %}
+</div>
 
      <hr>
 
@@ -120,7 +118,6 @@
 <strong>Log in and create your profile to join a team!</strong>
 {% endif %}
 <hr>
-</div>
 </div>
 
 {% endblock %}
