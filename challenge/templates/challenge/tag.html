@@ -11,15 +11,22 @@
 <hr>
 
 <h2>{{ tag.name }}</h2>
+<hr>
 
-<div>
-    {% thumbnail tag.image "300x300" crop="center" as im %}
+<div class="container">
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">    {% thumbnail tag.image "300x300" crop="center" as im %}
         <img class="img-responsive" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
     {% endthumbnail %}
-    <hr>
-    <h4>Description:</h4> 
-    <p>{{tag.description}}</p>
-    <hr>
+    </div>
+
+    <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
+        <h4>Description:</h4> 
+        <p>{{tag.description}}</p>
+    </div>
+
+<div call="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+<hr>
+
     <h4>Organizations:</h4>
     {% if organizations.all %}
         <div class="container">
@@ -34,7 +41,22 @@
      {% else %}
         <li><p>No organizations.</p></li>
      {% endif %}
-
+     <hr>
+     <h4>Projects:</h4>
+    {% if projects.all %}
+        <div class="container">
+        {% for project in projects.all %}
+            {% thumbnail project.image "40x40" crop="center" as im %}
+                <a href="{% url 'project' project_slug=project.slug %}" title="{{ project.name }}">
+                <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
+            {% empty %}
+            {% endthumbnail %}
+        {% endfor %}
+        </div>
+     {% else %}
+        <li><p>No projects.</p></li>
+     {% endif %}
+     <hr>
      <h4>Teams:</h4>
      {% if teams.all %}
         <div class="container">
@@ -51,22 +73,7 @@
         <li><p>No teams.</p></li>
     </ul>
      {% endif %}
-
-     <h4>Projects:</h4>
-    {% if projects.all %}
-        <div class="container">
-        {% for project in projects.all %}
-            {% thumbnail project.image "40x40" crop="center" as im %}
-                <a href="{% url 'project' project_slug=project.slug %}" title="{{ project.name }}">
-                <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
-            {% empty %}
-            {% endthumbnail %}
-        {% endfor %}
-        </div>
-     {% else %}
-        <li><p>No projects.</p></li>
-     {% endif %}
-
+     <hr>
      <h4>Members:</h4>
     {% if members.all %}
         <div class="container">
@@ -81,6 +88,7 @@
      {% else %}
         <li><p>No teammates.</p></li>
      {% endif %}
+</div>
 
 <hr>
 

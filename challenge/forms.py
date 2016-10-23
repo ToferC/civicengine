@@ -36,7 +36,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = "__all__"
-        exclude = ['slug', 'creator',]
+        exclude = ['slug', 'creator', 'submitted_date']
         widgets = {'start_date': SelectDateWidget(),
         'end_date': SelectDateWidget(),
         'sponsoring_organizations': CheckboxSelectMultiple(),
@@ -56,7 +56,7 @@ class ProjectForm(forms.ModelForm):
                 'end_date',
                 'short_text',
                 'detail_text',
-                #'sponsoring_organizations', - will create different mechanism
+                'sponsoring_organizations',
                 'published',
                 'image',
                 'latitude',

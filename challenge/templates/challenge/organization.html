@@ -7,29 +7,38 @@
 
 <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
 
-<div class="breadcrumbs"><a href="/">Home > </a><a href="{% url 'all_organizations' %}"> Organizations ></a> {{organization.name}}</div>
+<div class="breadcrumbs"><a href="/">Home > </a><a href="{% url 'all_organizations' %}"> Organizations ></a> {{organization.name}}
 <hr>
+</div>
 
-<h2>{{ organization.name }} {% if organization.website %}<a href="{{ organization.website }}"> [Link]</a>
+
+<h2>{{ organization.name }} {% if organization.website %}[<a href="{{ organization.website }}"> Link</a>]
 {% endif %}</h2>
 
+<div class="container">
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
     {% thumbnail image "300x300" crop="center" as im %}
         <img class="img-responsive" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
     {% endthumbnail %}
-    <hr>
-    <p>{{organization.info}}</p>
-    <hr>
+    </div>
+
+    <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
 
      <h4>Projects:</h4>
     {% if projects %}
-        <ul>
+        <div class="container">
             {% for project in projects %}
-                <li><a href="{% url 'project' project_slug=project.slug %}">{{ project.name }}</a></li>
+                {% thumbnail project.image "40x40" crop="center" as im %}
+                    <a href="{% url 'project' project_slug=project.slug %}" title="{{ project.name }}">
+                    <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
+                {% empty %}
+                {% endthumbnail %}
             {% endfor %}
-        </ul>
-     {% else %}
-        <p>No projects.</p>
+        </div>
+        {% else %}
+        <li><p>No projects.</p></li>
      {% endif %}
+     <hr>
 
      <h4>Members:</h4>
     {% if members.all %}
@@ -45,21 +54,29 @@
      {% else %}
         <li><p>No teammates.</p></li>
      {% endif %}
-<hr>
-<h4>Tags:</h4>
-    {% if tags %}
-        <div class="container">
-            {% for tag in tags %}
-                {% thumbnail tag.image "40x40" crop="center" as im %}
-                    <a href="{% url 'tag' tag_slug=tag.slug %}" title="{{ tag.name }}">
-                    <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
-                {% empty %}
-                {% endthumbnail %}
-            {% endfor %}
-        </div>
-     {% else %}
-        <p>No tags.</p>
-     {% endif %}
+    <hr>
+    <h4>Tags:</h4>
+        {% if tags %}
+            <div class="container">
+                {% for tag in tags %}
+                    {% thumbnail tag.image "40x40" crop="center" as im %}
+                        <a href="{% url 'tag' tag_slug=tag.slug %}" title="{{ tag.name }}">
+                        <img src="{{ im.url }}" class="img-rounded" width="{{ im.width }}" height="{{ im.height }}"></a>
+                    {% empty %}
+                    {% endthumbnail %}
+                {% endfor %}
+            </div>
+         {% else %}
+            <p>No tags.</p>
+         {% endif %}
+    </div>
+
+<div call="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <hr>
+    <h4>Description</h4>
+    {{organization.info}}
+</div>
+
 <hr>
 {% if organization.creator == user %}
 <a class="btn btn-info" href="{% url 'organization_form' pk=organization.pk %}">Edit</a>
