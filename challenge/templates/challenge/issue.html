@@ -6,7 +6,7 @@
 
 {% block main %}
 
-<div class="col-xl-10 col-lg-10 col-md-10 col-sm-12">
+<div class="col-xl-8 col-lg-10 col-md-10 col-sm-12">
 
 <div class="breadcrumbs"><a href="/">Home > </a><a href="{% url 'all_issues' %}"> Issues ></a> {{issue.name}}</div>
 <hr>
@@ -26,6 +26,7 @@
         <hr>
         <h4>Details:</h4>
         <ul>
+            <li>Type: {{issue.issue_type}}</li>
             <li>Scope: {{issue.scope}}</li>
             <li>Status: {{issue.status}}</li>
             <li>Date Created: {{issue.date_created}}</li>

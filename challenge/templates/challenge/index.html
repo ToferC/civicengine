@@ -1,0 +1,60 @@
+{% extends "challenge/base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load leaflet_tags %}
+
+
+{% block main %}
+
+<div class="col-xl-8 col-lg-10 col-md-10 col-sm-12">
+<main>
+{% if user.is_authenticated %}
+<a class="btn btn-primary" href="{% url 'add_project' %}">Add a Project!</a>
+<a class="btn btn-primary" href="{% url 'add_member' %}">Register as a Member!</a>
+<a class="btn btn-primary" href="{% url 'add_organization' %}">Add an Organization!</a>
+<a class="btn btn-primary" href="{% url 'add_team' %}">Add a Team!</a>
+<a class="btn btn-primary" href="{% url 'add_tag' %}">Add a Tag!</a>
+{% else %}
+{% endif %}
+
+<div class="img-responsive">
+    <div id="map" style="width: 90%; height: 500px">
+</div>
+
+<a href="{% url 'all_projects' %}" class="btn btn-primary">See All Projects</a>
+
+<a href="{% url 'all_organizations' %}" class="btn btn-primary">See All Organizations</a>
+
+<a href="{% url 'all_teams' %}" class="btn btn-primary">See All Teams</a>
+
+<a href="{% url 'all_members' %}" class="btn btn-primary">See All Members</a>
+
+<a href="{% url 'all_tags' %}" class="btn btn-primary">See All Tags</a>
+<a class="btn btn-primary" href="{% url 'visualize' %}">Visualize Data!</a>
+<h2 id="en">Content</h2>
+
+</div>
+</main>
+{% endblock %}
+
+<script type="text/javascript">
+        var map = L.map('map').setView([54.16045, -92.01873], 4);
+
+        L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 18,
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            id: 'examples.map-i875mjb7'
+        }).addTo(map);
+
+        {% for project in projects %}
+        L.marker([{{ project.latitude|floatformat:6 }}, {{ project.longitude|floatformat:6 }}], 4).addTo(map)
+        .bindPopup( "{{project.name}}" ).openPopup();
+        {% endfor %}
+
+        var popup = L.popup();
+
+        </script>
+</body>
+</html>
