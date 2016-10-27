@@ -5,7 +5,7 @@
 
 {% block main %}
 
-<div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
+<div class="col-xl-8 col-lg-10 col-md-10 col-sm-12">
 
 <div class="breadcrumbs"><a href="/">Home > </a><a href="{% url 'all_organizations' %}"> Organizations ></a> {{organization.name}}
 <hr>
@@ -16,13 +16,13 @@
 {% endif %}</h2>
 
 <div class="container">
-    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     {% thumbnail image "300x300" crop="center" as im %}
         <img class="img-responsive" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">{% empty %} 
     {% endthumbnail %}
     </div>
 
-    <div class="col-xl-8 col-lg-8 col-md-6 col-sm-12">
+    <div class="col-xl-8 col-lg-6 col-md-6 col-sm-12">
 
      <h4>Projects:</h4>
     {% if projects %}
