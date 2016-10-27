@@ -138,28 +138,6 @@ class Member(models.Model):
 
 class Role(models.Model):
 
-    PM = "Project Manager"
-    DS = "Designer"
-    DV = "Developer"
-    AN = "Analyst"
-    CM = "Communications"
-    PL = "Project Lead"
-    CH = "Champion"
-    SP = "Project Support"
-    ST = "Project Strategy"
-
-    ROLES = (
-        (PM, "Project Manager"),
-        (DS, "Designer"),
-        (DV, "Developer"),
-        (AN, "Analyst"),
-        (CM, "Communications"),
-        (PL, "Project Lead"),
-        (CH, "Champion"),
-        (SP, "Project Support"),
-        (ST, "Project Strategy"),
-        )
-
     VA = "Vacant"
     AA = "Applied"
     AC = "Active"
@@ -178,8 +156,8 @@ class Role(models.Model):
 
     person = models.ForeignKey(Member, null=True, blank=True, on_delete=models.CASCADE)
     team = models.ForeignKey('Team', on_delete=models.CASCADE)
-    role = models.CharField(max_length=64, choices=ROLES, default="Vacant")
-    status = models.CharField(max_length=64, choices=STATUS, default="Applied")
+    role = models.CharField(max_length=64, default="Occupation")
+    status = models.CharField(max_length=64, choices=STATUS, default="Vacant")
     hrs_per_week = models.FloatField(null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
@@ -324,8 +302,17 @@ class Issue(models.Model):
         (IT, "International"),
         )
 
+    OP = "Opportunity"
+    CH = "Challenge"
+
+    ISSUE_TYPE = (
+        (OP, "Opportunity"),
+        (CH, "Challenge"),
+        )
+
     name = models.CharField(max_length=64)
     creator = models.ForeignKey(User)
+    issue_type = models.CharField(choices=ISSUE_TYPE, max_length=32, default="Challenge")
     summary = models.TextField(max_length=255)
     description = models.TextField(null=True, blank=True)
     status = models.CharField(choices=STATUS, default="Active",

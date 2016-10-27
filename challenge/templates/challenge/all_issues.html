@@ -32,13 +32,15 @@
             <hr>
             <p class="card-text">{{ issue.summary }}</p>
             <hr>
-            <p class="card-text">{{ issue.scope }} Scope | {{ issue.status }} Issue | {% if issue.response_set.count == 1 %}1 Project{% else %}{{ issue.response_set.count }} Projects{% endif %}</p>
+            <p class="card-text">{{ issue.issue_type }} | {{ issue.scope }} Scope | {{ issue.status }}</p>
+            <p> {% if issue.response_set.count == 1 %}1 Project{% else %}{{ issue.response_set.count }} Projects{% endif %} | {% if issue.story_set.count == 1 %} 1 Story
+            {% else %} {{  issue.story_set.count }} Stories{% endif %}
+            </p>
             <p> 
             {% if issue.followers.count == 1 %} 1 Follower
             {% else %}
             {{ issue.followers.count }} Followers
-            {% endif %} | {% if issue.story_set.count == 1 %} 1 Story
-            {% else %} {{  issue.story_set.count }} Stories{% endif %} | {% if issue.story_set.count == 1 %} 1 Like
+            {% endif %} | {% if issue.story_set.count == 1 %} 1 Like
             {% else %} {{  issue.rating }} Likes{% endif %}</p>
             <hr>
             {% if issue.tags %}

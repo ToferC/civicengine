@@ -87,7 +87,7 @@
         {% if vacant_roles %}
         <ul>
             {% for role in vacant_roles %}
-                <li>{{ role.role }} - {{ role.team }} - Status: {{ role.status }}  
+                <li>{{ role.role }} - Status: {{ role.status }}  
 
                 {% if user.is_authenticated %}
                     <a class="btn btn-primary" href="{% url 'apply_to_role' role_pk=role.pk member_pk=user.member.pk %}">Apply for Position</a>
