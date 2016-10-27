@@ -37,9 +37,9 @@
             {% else %} {{  issue.story_set.count }} Stories{% endif %}
             </p>
             <p> 
-            {% if issue.followers.count == 1 %} 1 Follower
+            {% if issue.get_number_followers == 1 %} 1 Follower
             {% else %}
-            {{ issue.followers.count }} Followers
+            {{ issue.get_number_followers }} Followers
             {% endif %} | {% if issue.story_set.count == 1 %} 1 Like
             {% else %} {{  issue.rating }} Likes{% endif %}</p>
             <hr>

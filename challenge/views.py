@@ -292,6 +292,8 @@ def issue(request, issue_slug):
 
         context_dict['issue'] = issue
 
+        context_dict['followers'] = len(followers(issue))
+
     except Issue.DoesNotExist:
         pass
 

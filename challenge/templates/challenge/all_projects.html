@@ -45,6 +45,13 @@
                 <p>No tags.</p>
              {% endif %}
             <hr>
+            <p> 
+            {% if project.get_number_followers == 1 %} 1 Follower
+            {% else %}
+            {{ project.get_number_followers }} Followers
+            {% endif %} | {% if project.rating == 1 %} 1 Like
+            {% else %} {{  project.rating }} X Likes{% endif %}</p>
+            <hr>
             <a href="{% url 'project' project_slug=project.slug %}" class="btn btn-primary">See Project</a>
             {% if user.is_authenticated %}
             <a class="btn btn-primary" href="{% follow_url project %}?next={{request.path}}">

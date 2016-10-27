@@ -29,6 +29,14 @@
         <div class="card-block">
             <h4 class="card-title">{{tag.name}} </h4>
             <p class="card-text">{{ tag.description }}</p>
+            <hr>
+            <p> 
+            {% if tag.get_number_followers == 1 %} 1 Follower
+            {% else %}
+            {{ tag.get_number_followers }} Followers
+            {% endif %} | {% if tag.rating == 1 %} 1 Like
+            {% else %} {{  tag.rating }} X Likes{% endif %}</p>
+            <hr>
             <a href="{% url 'tag' tag_slug=tag.slug %}" class="btn btn-primary">See Tag</a>
             {% if user.is_authenticated %}
             <a class="btn btn-primary" href="{% follow_url tag %}?next={{request.path}}">

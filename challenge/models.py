@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 import random 
 
 from actstream import registry
+from actstream.models import following, followers
 
 # Create your models here.
 
@@ -43,6 +44,12 @@ class Project(models.Model):
     longitude = models.FloatField(blank=True, null=True, default=-92.01873)
     zoom = models.IntegerField(default=6, blank=True, null=True, help_text="Sets the default zoom")
     slug = models.SlugField(unique=True, max_length=255)
+
+    def get_number_followers(self):
+        return len(followers(self))
+
+    def get_followers(self):
+        return followers(self)
 
     def set_project_to_planning(self):
         self.status = "Planning"
@@ -122,6 +129,12 @@ class Member(models.Model):
     tags = models.ManyToManyField('Tag', blank=True)
     slug = models.SlugField(unique=True, max_length=255)
 
+    def get_number_followers(self):
+        return len(followers(self))
+
+    def get_followers(self):
+        return followers(self)
+
     def set_member_to_active(self):
         self.status = "Active"
 
@@ -200,6 +213,12 @@ class Resource(models.Model):
     tags = models.ManyToManyField('Tag', blank=True)
     slug = models.SlugField(unique=True, max_length=255)
 
+    def get_number_followers(self):
+        return len(followers(self))
+
+    def get_followers(self):
+        return followers(self)
+
     def __str__(self):
         return self.name
 
@@ -216,6 +235,12 @@ class Tag(models.Model):
         null=True, blank=True, default='images/tag_images/nothing.jpg')
 
     slug = models.SlugField(unique=True, max_length=255)
+
+    def get_number_followers(self):
+        return len(followers(self))
+
+    def get_followers(self):
+        return followers(self)
 
     def __str__(self):
         return self.name
@@ -237,6 +262,12 @@ class Organization(models.Model):
         default='images/organization_images/nothing.jpg')
     tags = models.ManyToManyField("Tag", blank=True)
     slug = models.SlugField(unique=True, max_length=255)
+
+    def get_number_followers(self):
+        return len(followers(self))
+
+    def get_followers(self):
+        return followers(self)
 
     def __str__(self):
         return self.name
@@ -261,6 +292,12 @@ class Team(models.Model):
     longitude = models.FloatField(blank=True, null=True, default=-92.01873)
     zoom = models.IntegerField(default=6, blank=True, null=True, help_text="Sets the default zoom")
     slug = models.SlugField(unique=True, max_length=255)
+
+    def get_number_followers(self):
+        return len(followers(self))
+
+    def get_followers(self):
+        return followers(self)
 
     def __str__(self):
         return self.name
@@ -334,6 +371,12 @@ class Issue(models.Model):
     zoom = models.IntegerField(default=6, blank=True, null=True, help_text="Sets the default zoom")
     slug = models.SlugField(unique=True, max_length=255)
 
+    def get_number_followers(self):
+        return len(followers(self))
+
+    def get_followers(self):
+        return followers(self)
+
     def __str__(self):
         return self.name
 
@@ -358,6 +401,12 @@ class Story(models.Model):
     latitude = models.FloatField(blank=True, null=True, default=54.16045)
     longitude = models.FloatField(blank=True, null=True, default=-92.01873)
     zoom = models.IntegerField(default=6, blank=True, null=True, help_text="Sets the default zoom")
+
+    def get_number_followers(self):
+        return len(followers(self))
+
+    def get_followers(self):
+        return followers(self)
 
     def __str__(self):
         return self.name

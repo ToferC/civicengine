@@ -44,6 +44,13 @@
                 <p>No tags.</p>
              {% endif %}
             <hr>
+            <p> 
+            {% if team.get_number_followers == 1 %} 1 Follower
+            {% else %}
+            {{ team.get_number_followers }} Followers
+            {% endif %} | {% if team.rating == 1 %} 1 Like
+            {% else %} {{  team.rating }} X Likes{% endif %}</p>
+            <hr>
             <a href="{% url 'team' team_slug=team.slug %}" class="btn btn-primary">See Team</a>
             {% if user.is_authenticated %}
             <a class="btn btn-primary" href="{% follow_url team %}?next={{request.path}}">
