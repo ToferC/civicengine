@@ -26,6 +26,7 @@
         <hr>
         <h4>Details:</h4>
         <ul>
+            <li>Type: {{issue.issue_type}}</li>
             <li>Scope: {{issue.scope}}</li>
             <li>Status: {{issue.status}}</li>
             <li>Date Created: {{issue.date_created}}</li>
@@ -152,6 +153,8 @@
 {% if user_projects.count > 0 %}
 <a class="btn btn-primary" href="{% url 'add_response' issue_pk=issue.pk %}">Link Project</a>
 {% endif %}
+
+<hr>
 
 </div>
 </div>
