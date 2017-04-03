@@ -325,6 +325,7 @@ class IssueForm(forms.ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 "Issue {{object.name}}",
+                'issue_type',
                 'name',
                 'summary',
                 'description',
